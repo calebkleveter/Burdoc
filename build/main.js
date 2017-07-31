@@ -65,9 +65,16 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const home = __webpack_require__(1);
 
 
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "50809bfe57d08b694a341daeebdda37c.html";
 
 /***/ })
 /******/ ]);

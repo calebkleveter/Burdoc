@@ -9,5 +9,34 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'main.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(html)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(vue)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'components/[name].[ext]'
+        }
+      },
+      {
+        test: /\.(css)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'css/[name].[ext]'
+        }
+      },
+      {
+        test: /\.(png|svg|jpe?g)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]'
+        }
+      }
+    ]
   }
 }
