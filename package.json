@@ -4,5 +4,9 @@
   "description": "A Markdown editor in the cloud",
   "main": "main.js",
   "author": "Caleb Kleveter",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^3.4.1"
+  }
 }
