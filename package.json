@@ -5,6 +5,9 @@
   "main": "build/main.js",
   "author": "Caleb Kleveter",
   "license": "MIT",
+  "scripts": {
+    "build": "node_modules/.bin/webpack && node ./build/main.js"
+  },
   "dependencies": {},
   "devDependencies": {
     "webpack": "^3.4.1",
