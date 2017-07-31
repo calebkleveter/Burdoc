@@ -1,0 +1,1 @@
+const Vue = require('vue');
