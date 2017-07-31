@@ -2,11 +2,12 @@
   "name": "burdoc",
   "version": "1.0.0",
   "description": "A Markdown editor in the cloud",
-  "main": "main.js",
+  "main": "build/main.js",
   "author": "Caleb Kleveter",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "webpack": "^3.4.1"
+    "webpack": "^3.4.1",
+    "webpack-node-externals": "^1.6.0"
   }
 }
