@@ -10,7 +10,7 @@ module.exports = {
   setRequestAndResponse: function(request, response) {
     this.request = request;
     this.response = response
-  }
+  },
 
   /**
    * Creates a route for a GET request.
