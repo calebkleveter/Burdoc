@@ -23,3 +23,6 @@ http.IncomingMessage.prototype.post = function(url, handler) {
     handler();
   }
 }
+
+module.exports.get = get;
+module.exports.post = post;
