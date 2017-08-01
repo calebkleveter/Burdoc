@@ -6,8 +6,16 @@
   "author": "Caleb Kleveter",
   "license": "MIT",
   "scripts": {
-    "build": "node main.js"
+    "build": "node_modules/.bin/webpack && node dist/main.js"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "webpack-node-externals": "^1.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "webpack": "^3.4.1"
+  }
 }
