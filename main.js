@@ -1,7 +1,8 @@
 const http = require('http');
+const router = require('./router');
 
 http.createServer(function(request, response){
-  response.end('Hello World');
+  router.registerRoutes(request, response);
 }).listen(8080);
 
 console.log("Running server on port 8080");
