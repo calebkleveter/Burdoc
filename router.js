@@ -2,13 +2,10 @@ const route = require('./routeBuilder');
 
 module.exports = {
   /**
-   * Sets the router's request and response to use in creating routes.
+   * Registers the router's routes with a request and response.
    *
    * @param {http.IncomingMessage} request: The request object for creating routes.
    * @param {http.ServerResponse} response: The response object for creating routes.
    */
-  setRequestAndResponse: function(request, response) {
-    this.request = request;
-    this.response = response;
-  }
+  registerRoutes: function(request, response) {}
 }
