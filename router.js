@@ -11,12 +11,19 @@ module.exports = {
   registerRoutes: function(request, response) {
     route.setRequestAndResponse(request, response);
     this.home();
+    this.about();
     response.end();
   },
 
   home: function() {
     route.get('/', function(){
       return view.get('home');
+    });
+  },
+
+  about: function() {
+    route.get('/about', function(){
+      return view.get('about');
     });
   }
 }
