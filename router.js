@@ -13,6 +13,7 @@ module.exports = {
     this.home();
     this.about();
     this.login();
+    this.signup();
     response.end();
   },
 
@@ -31,6 +32,12 @@ module.exports = {
   login: function() {
     route.get('/login', function(){
       return view.get('login');
+    });
+  },
+
+  signup: function() {
+    route.get('/signup', function(){
+      return view.get('signup');
     });
   }
 }
