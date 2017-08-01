@@ -2,12 +2,14 @@ const http = require('http');
 
 module.exports = {
   /**
-   * Sets the request object that will be used to detect the HTTP method and URL.
+   * Sets the request and response objects that will be used to create and return the proper data to the client.
    *
-   * @param {http.IncomingMessage} request:
+   * @param {http.IncomingMessage} request: The request from the Node http server.
+   * @param {http.ServerResponse} response: The reponse from the Node http server.
    */
-  setRequest: function(request) {
+  setRequestAndResponse: function(request, response) {
     this.request = request;
+    this.response = response
   }
 
   /**
@@ -18,7 +20,8 @@ module.exports = {
    */
   get: function(url, handler) {
     if (this.request.method == 'GET' && this.request.url == url) {
-      handler();
+      var data = handler();
+      this.response.end(data);
     }
   },
 
@@ -30,7 +33,8 @@ module.exports = {
    */
   post: function(url, handler) {
     if (this.request.method == 'POST' && this.request.url == url) {
-      handler();
+      var data = handler();
+      this.response.end(data);
     }
   }
 }
