@@ -1,4 +1,5 @@
 const route = require('./routeBuilder');
+const view = require('./view');
 
 module.exports = {
   /**
