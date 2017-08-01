@@ -11,3 +11,15 @@ http.IncomingMessage.prototype.get = function(url, handler) {
     handler();
   }
 }
+
+/**
+ * Creates a route for a POST request.
+ *
+ * @param {string} url: The URL the route is called on.
+ * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+ */
+http.IncomingMessage.prototype.post = function(url, handler) {
+  if (this.method == 'POST' && this.url == url) {
+    handler();
+  }
+}
