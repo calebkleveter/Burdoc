@@ -8,5 +8,7 @@ module.exports = {
    * @param {http.IncomingMessage} request: The request object for creating routes.
    * @param {http.ServerResponse} response: The response object for creating routes.
    */
-  registerRoutes: function(request, response) {}
+  registerRoutes: function(request, response) {
+    route.setRequest(request);
+  }
 }
