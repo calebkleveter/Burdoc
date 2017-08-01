@@ -12,6 +12,7 @@ module.exports = {
     route.setRequestAndResponse(request, response);
     this.home();
     this.about();
+    this.login();
     response.end();
   },
 
@@ -24,6 +25,12 @@ module.exports = {
   about: function() {
     route.get('/about', function(){
       return view.get('about');
+    });
+  },
+
+  login: function() {
+    route.get('/login', function(){
+      return view.get('login');
     });
   }
 }
