@@ -6,7 +6,7 @@
   "author": "Caleb Kleveter",
   "license": "MIT",
   "scripts": {
-    "build": "node /main.js"
+    "build": "node main.js"
   },
   "dependencies": {},
   "devDependencies": {}
