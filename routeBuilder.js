@@ -1,6 +1,6 @@
 const http = require('http');
 
-var route = {
+module.exports = {
   /**
    * Sets the request object that will be used to detect the HTTP method and URL.
    *
@@ -34,5 +34,3 @@ var route = {
     }
   }
 }
-
-module.exports.route = route;
