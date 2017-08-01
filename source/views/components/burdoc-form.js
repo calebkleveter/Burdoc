@@ -1,4 +1,6 @@
-<template lang="html">
+Vue.component('burdoc-form', {
+  props: ['action', 'method', 'submitText'],
+  template: `
   <div class="form">
     <form :action="action" :method="method">
       <div class="form-group">
@@ -12,10 +14,5 @@
       <button type="submit" class="btn btn-default" id="signup-btn">{{ submitText }}</button>
     </form>
   </div>
-</template>
-
-<script>
-export default {
-  props: ['action', 'method', 'submitText']
-}
-</script>
+  `
+});
