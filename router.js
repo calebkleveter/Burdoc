@@ -11,6 +11,7 @@ module.exports = {
   registerRoutes: function(request, response) {
     route.setRequestAndResponse(request, response);
     this.home();
+    response.end();
   },
 
   home: function() {
