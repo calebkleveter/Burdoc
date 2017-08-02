@@ -6,7 +6,7 @@ Vue.component('burdoc-header', {
       <div class="container-fluid" id="navigation">
         <div class="navbar-header col-sm-12 col-md-12 col-lg-12">
           <div class="logo-link col-xs-12 col-sm-12 col-md-2 col-lg-2">
-            <a class="" href="index.html">
+            <a class="" href="/">
               <div class="logo">
                 <img src="images/burdoc.svg" alt="Alt">
                 <h1>B<span class="small-title">URDOC</span></h1>
