@@ -9,6 +9,8 @@
     "build": "node_modules/.bin/webpack && node dist/main.js"
   },
   "dependencies": {
+    "pg": "^7.0.2",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.4.2",
     "webpack-node-externals": "^1.6.0"
   },
