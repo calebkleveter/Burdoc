@@ -13,7 +13,10 @@ module.exports = {
     'main.js': './source/main.js',
     'routeBuilder.js': './source/routeBuilder.js',
     'router.js': './source/router.js',
-    'view.js': './source/view.js'
+    'view.js': './source/view.js',
+    'database.js': './source/database.js',
+    'authenticate.js': './source/authenticate.js',
+    'models/user.js': './source/models/user.js'
   },
   output: {
     path: `${__dirname}/dist`,
