@@ -28,10 +28,10 @@ Vue.component('burdoc-header', {
     // if (loggedIn) {
       return {
         links: [
-          {url: '/', name: 'Home'},
-          {url: '/about', name: 'About'},
+          {url: '/signup', name: 'Sign Up'},
           {url: '/login', name: 'Login'},
-          {url: '/signup', name: 'Sign Up'}
+          {url: '/about', name: 'About'},
+          {url: '/', name: 'Home'}
         ]
       }
     // } else {
