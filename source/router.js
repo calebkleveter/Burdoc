@@ -1,4 +1,5 @@
 const route = require('./routeBuilder');
+const assetRouter = require('asset-router');
 const view = require('./view');
 const fs = require('fs');
 
@@ -11,6 +12,7 @@ module.exports = {
    */
   registerRoutes: function(request, response) {
     route.setRequestAndResponse(request, response);
+    assetRouter.registerRoutes(request, response);
     this.home();
     this.about();
     this.login();
