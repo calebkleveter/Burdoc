@@ -16,6 +16,7 @@ module.exports = {
     this.home();
     this.about();
     this.login();
+    this.signup();
     response.end();
   },
 
