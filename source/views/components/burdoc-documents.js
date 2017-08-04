@@ -1,12 +1,14 @@
 Vue.component('burdoc-documents', {
   template: `
-  <div id="documents" v-for="document in documents">
-    <div class="document col-xs-12 col-sm-6 col-md-4 col-lg-3">
-      <div class="identifier">
-        <p>{{ document.titleCharacter }}</p>
-      </div>
-      <div class="title">
-        <p>{{ document.title }}</p>
+  <div id="documents">
+    <div id="docs-loop" v-for="document in documents">
+      <div class="document col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="identifier">
+          <p>{{ document.titleCharacter }}</p>
+        </div>
+        <div class="title">
+          <p>{{ document.title }}</p>
+        </div>
       </div>
     </div>
   </div>
