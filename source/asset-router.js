@@ -31,6 +31,7 @@ module.exports = {
       js += fs.readFileSync(`${__dirname}/views/js/vue.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-header.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-form.js`);
+      js += fs.readFileSync(`${__dirname}/views/components/burdoc-documents.js`);
       js += fs.readFileSync(`${__dirname}/views/js/index.js`);
       return js;
     });
