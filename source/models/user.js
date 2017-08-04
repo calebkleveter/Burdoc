@@ -16,6 +16,18 @@ const model = database.sequelize.define('user', {
   }
 });
 
+function fetch(name) {
+  return model.findOne({
+    where: {
+      name: name,
+      $or: [
+        {email: name}
+      ]
+    }
+  });
+}
+
 module.exports = {
-  model: model
+  model: model,
+  fetch: fetch
 }
