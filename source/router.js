@@ -18,6 +18,7 @@ module.exports = {
     this.about();
     this.login();
     this.signup();
+    this.dashboard();
     response.end();
   },
 
@@ -42,6 +43,12 @@ module.exports = {
   signup: function() {
     route.get('/signup', function(){
       return view.get('signup');
+    });
+  },
+
+  dashboard: function() {
+    route.get('/dashboard', function(){
+      return view.get('dashboard');
     });
   }
 }
