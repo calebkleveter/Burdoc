@@ -43,8 +43,26 @@ function create(username, email, password) {
         });
 }
 
+function authenticate(name, password) {
+  fetch(name).then(function(user){
+    argon2.varify(user.password, password)
+          .then(function(didMatch){
+            return new Promise(function(resolve, reject){
+              if (didMatch) { resolve(user) }
+              else { reject(new Error("Password did not match with the email/username.")) }
+            });
+          })
+          .catch(function(error){
+            return new Promise(function(resolve, reject){ reject(error) });
+          });
+  }).catch(function(error){
+    return new Promise(function(resolve, reject){ reject(error) });
+  });
+}
+
 module.exports = {
   model: model,
   fetch: fetch,
-  create: create
+  create: create,
+  authenticate: authenticate
 }
