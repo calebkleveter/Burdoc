@@ -3,6 +3,7 @@ Vue.component('burdoc-form', {
   template: `
   <div class="form">
     <form :action="action" :method="method">
+      <slot></slot>
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" class="form-control" id="email" placeholder="Email">
