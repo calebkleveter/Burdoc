@@ -70,10 +70,18 @@ function authenticate(name, password) {
   });
 }
 
+function addDocumentLinkToUser(link, name) {
+  model.update(
+    {documents: database.sequelize.fn('array_append', database.sequelize.col('documents'), link)},
+    {where: { name: name, $or: [{email: name}]}}
+  );
+}
+
 module.exports = {
   model: model,
+  sync: sync,
   fetch: fetch,
   create: create,
   authenticate: authenticate,
-  sync: sync
+  addDocumentLinkToUser: addDocumentLinkToUser
 }
