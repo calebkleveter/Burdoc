@@ -1,5 +1,5 @@
 const route = require('./routeBuilder');
-const assetRouter = require('asset-router');
+const assetRouter = require('./asset-router');
 const view = require('./view');
 const fs = require('fs');
 
