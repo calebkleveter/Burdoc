@@ -2,6 +2,7 @@ const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
 const fs = require('fs');
+const user = require('./models/user');
 
 module.exports = {
   /**
