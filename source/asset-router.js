@@ -14,7 +14,6 @@ module.exports = {
     this.js();
     this.calebImage()
     this.burdocImage()
-    response.end();
   },
 
   css: function() {
