@@ -15,3 +15,7 @@ const model = database.sequelize.define('user', {
     type: Sequelize.ARRAY(Sequelize.STRING)
   }
 });
+
+module.exports = {
+  model: model
+}
