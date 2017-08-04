@@ -1,4 +1,4 @@
-const routeBuilder = require('./routeBuilder');
+const route = require('./routeBuilder');
 const fs = require('fs');
 
 module.exports = {
