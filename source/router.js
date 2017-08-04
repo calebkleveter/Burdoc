@@ -14,11 +14,6 @@ module.exports = {
     this.home();
     this.about();
     this.login();
-    this.signup();
-    this.css();
-    this.js();
-    this.calebImage()
-    this.burdocImage()
     response.end();
   },
 
@@ -43,38 +38,6 @@ module.exports = {
   signup: function() {
     route.get('/signup', function(){
       return view.get('signup');
-    });
-  },
-
-  css: function() {
-    route.getCSS('/css/main.css', function(){
-      var css = fs.readFileSync(`${__dirname}/views/css/bootstrap.min.css`);
-      css += fs.readFileSync(`${__dirname}/views/css/main.css`);
-      return css;
-    });
-  },
-
-  js: function() {
-    route.getJavaScript('/js/index.js', function(){
-      var js = fs.readFileSync(`${__dirname}/views/js/jquery-3.2.1.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/bootstrap.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/vue.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-header.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-form.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/index.js`);
-      return js;
-    });
-  },
-
-  calebImage: function() {
-    route.getImage('/images/caleb.jpg', 'jpeg', function(){
-      return fs.readFileSync(`${__dirname}/views/images/caleb.JPG`);
-    });
-  },
-
-  burdocImage: function() {
-    route.getImage('/images/burdoc.svg', 'svg+xml', function(){
-      return fs.readFileSync(`${__dirname}/views/images/burdoc.svg`);
     });
   }
 }
