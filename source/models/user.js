@@ -17,6 +17,16 @@ const model = database.sequelize.define('user', {
   }
 });
 
+function sync() {
+  model.sync({force: false})
+       .then(function(){
+         console.log("Synced user table");
+       })
+       .catch(function(error){
+         console.error("Failed to sync user table: ", error);
+       });
+}
+
 function fetch(name) {
   return model.findOne({
     where: {
@@ -64,5 +74,6 @@ module.exports = {
   model: model,
   fetch: fetch,
   create: create,
-  authenticate: authenticate
+  authenticate: authenticate,
+  sync: sync
 }
