@@ -16,6 +16,9 @@ module.exports = {
     this.burdocImage();
   },
 
+  /**
+   * Writes the project's CSS to /css/main.css
+   */
   css: function() {
     route.getCSS('/css/main.css', function(){
       var css = fs.readFileSync(`${__dirname}/views/css/bootstrap.min.css`);
@@ -24,6 +27,9 @@ module.exports = {
     });
   },
 
+  /**
+   * Writes the project's front-end JavaScript to /js/index.js
+   */
   js: function() {
     route.getJavaScript('/js/index.js', function(){
       var js = fs.readFileSync(`${__dirname}/views/js/jquery-3.2.1.min.js`);
@@ -37,12 +43,18 @@ module.exports = {
     });
   },
 
+  /**
+   * Writes the caleb.JPG image to /images/caleb.jpg
+   */
   calebImage: function() {
     route.getImage('/images/caleb.jpg', 'jpeg', function(){
       return fs.readFileSync(`${__dirname}/views/images/caleb.JPG`);
     });
   },
 
+  /**
+   * Writes the burdoc.svg image to /images/burdoc.svg
+   */
   burdocImage: function() {
     route.getImage('/images/burdoc.svg', 'svg+xml', function(){
       return fs.readFileSync(`${__dirname}/views/images/burdoc.svg`);
