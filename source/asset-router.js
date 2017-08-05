@@ -12,8 +12,8 @@ module.exports = {
     route.setRequestAndResponse(request, response);
     this.css();
     this.js();
-    this.calebImage()
-    this.burdocImage()
+    this.calebImage();
+    this.burdocImage();
   },
 
   css: function() {
