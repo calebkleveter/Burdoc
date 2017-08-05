@@ -23,14 +23,14 @@ const model = database.sequelize.define('user', {
 /**
  * Syncs the user model with the tabel in the PostgreSQL database.
  */
-function sync() {
+function sync () {
   model.sync({force: false})
-       .then(function(){
-         console.log("Synced user table");
-       })
-       .catch(function(error){
-         console.error("Failed to sync user table: ", error);
-       });
+    .then(function () {
+      console.log('Synced user table');
+    })
+    .catch(function (error) {
+      console.error('Failed to sync user table: ', error);
+    });
 }
 
 /**
@@ -39,7 +39,7 @@ function sync() {
  * @param {string} name: The username or email of the user you want to fetch.
  * @return A promise that, if resolved, containes the user object fetched from the PostgreSQL database.
  */
-function fetch(name) {
+function fetch (name) {
   return model.findOne({
     where: {
       name: name,
@@ -58,19 +58,19 @@ function fetch(name) {
  * @param {string} password: The password of the user to be created. This string is hashed using the argon2 hashing algorithm.
  * @throws Any errors when hashing the password.
  */
-function create(username, email, password) {
+function create (username, email, password) {
   argon2.hash(password)
-        .then(function(hash){
-          model.create({
-            name: name,
-            email: email,
-            password: hash,
-            documents: []
-          });
-        })
-        .catch(function(error){
-          throw error
-        });
+    .then(function (hash) {
+      model.create({
+        name: username,
+        email: email,
+        password: hash,
+        documents: []
+      });
+    })
+    .catch(function (error) {
+      throw error;
+    });
 }
 
 /**
@@ -80,20 +80,23 @@ function create(username, email, password) {
  * @param {string} password: A password to check against the name to see if it is the correct password.
  * @return A promise with that resolves with the user if the name and password match, or rejects with either an error in varifying/fetching the user or with 'password did not match'.
  */
-function authenticate(name, password) {
-  fetch(name).then(function(user){
+function authenticate (name, password) {
+  fetch(name).then(function (user) {
     argon2.varify(user.password, password)
-          .then(function(didMatch){
-            return new Promise(function(resolve, reject){
-              if (didMatch) { resolve(user) }
-              else { reject(new Error("Password did not match with the email/username.")) }
-            });
-          })
-          .catch(function(error){
-            return new Promise(function(resolve, reject){ reject(error) });
-          });
-  }).catch(function(error){
-    return new Promise(function(resolve, reject){ reject(error) });
+      .then(function (didMatch) {
+        return new Promise(function (resolve, reject) {
+          if (didMatch) {
+            resolve(user);
+          } else {
+            reject(new Error('Password did not match with the email/username.'));
+          }
+        });
+      })
+      .catch(function (error) {
+        return new Promise(function (resolve, reject) { reject(error); });
+      });
+  }).catch(function (error) {
+    return new Promise(function (resolve, reject) { reject(error); });
   });
 }
 
@@ -103,10 +106,13 @@ function authenticate(name, password) {
  * @param {string} link: The link to the document.
  * @param {string} name: The email or username of the user to add the link to.
  */
-function addDocumentLinkToUser(link, name) {
+function addDocumentLinkToUser (link, name) {
   model.update(
     {documents: database.sequelize.fn('array_append', database.sequelize.col('documents'), link)},
-    {where: { name: name, $or: [{email: name}]}}
+    {where: {
+      name: name,
+      $or: [{email: name}]}
+    }
   );
 }
 
@@ -117,4 +123,4 @@ module.exports = {
   create: create,
   authenticate: authenticate,
   addDocumentLinkToUser: addDocumentLinkToUser
-}
+};

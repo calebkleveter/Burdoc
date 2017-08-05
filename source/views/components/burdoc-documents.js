@@ -13,19 +13,19 @@ Vue.component('burdoc-documents', {
     </div>
   </div>
   `,
-  data: function(){
+  data: function () {
     return {
       documents: [
-        {titleCharacter: 'T', title: "Test Doc"},
-        {titleCharacter: 'B', title: "Burdoc"},
-        {titleCharacter: 'O', title: "On War and Peace"},
-        {titleCharacter: 'U', title: "User Authentication in Vapor"},
-        {titleCharacter: 'R', title: "The Revenge of the Swift"},
-        {titleCharacter: '1', title: "101 Ways to Eat Eggplant"},
-        {titleCharacter: 'C', title: "Click Me"},
-        {titleCharacter: 'M', title: "The Middle Man"},
-        {titleCharacter: 'S', title: "Schindler\'s List"},
+        {titleCharacter: 'T', title: 'Test Doc'},
+        {titleCharacter: 'B', title: 'Burdoc'},
+        {titleCharacter: 'O', title: 'On War and Peace'},
+        {titleCharacter: 'U', title: 'User Authentication in Vapor'},
+        {titleCharacter: 'R', title: 'The Revenge of the Swift'},
+        {titleCharacter: '1', title: '101 Ways to Eat Eggplant'},
+        {titleCharacter: 'C', title: 'Click Me'},
+        {titleCharacter: 'M', title: 'The Middle Man'},
+        {titleCharacter: 'S', title: 'Schindler\'s List'}
       ]
-    }
+    };
   }
 });

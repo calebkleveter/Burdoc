@@ -10,9 +10,9 @@ database.connect();
 user.sync();
 
 // Create and start the server on port 8080.
-http.createServer(function(request, response){
+http.createServer(function (request, response) {
   router.registerRoutes(request, response);
 }).listen(8080);
 
 // Output that the server has started.
-console.log("Running server on port 8080");
+console.log('Running server on port 8080');

@@ -24,24 +24,14 @@ Vue.component('burdoc-header', {
     </nav>
   </header>
   `,
-  data: function() {
-    // if (loggedIn) {
-      return {
-        links: [
-          {url: '/signup', name: 'Sign Up'},
-          {url: '/login', name: 'Login'},
-          {url: '/about', name: 'About'},
-          {url: '/', name: 'Home'}
-        ]
-      }
-    // } else {
-      // return {
-      //   links: [
-      //     {url: '/', name: 'Home'},
-      //     {url: '/about', name: 'About'},
-      //     {url: '/dashboard', name: 'Dashboard'}
-      //   ]
-      //  }
-    // }
+  data: function () {
+    return {
+      links: [
+        {url: '/signup', name: 'Sign Up'},
+        {url: '/login', name: 'Login'},
+        {url: '/about', name: 'About'},
+        {url: '/', name: 'Home'}
+      ]
+    };
   }
 });

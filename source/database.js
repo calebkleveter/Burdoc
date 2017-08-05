@@ -11,17 +11,17 @@ const sequelize = new Sequelize('burdoc', 'calebkleveter', '', {
 /**
  * Connects the `sequelize` constent to the database by checking the authentication.
  */
-function connect() {
+function connect () {
   sequelize.authenticate()
-           .then(function(){
-             console.log("Connected to db")
-           })
-           .catch(function(error){
-             console.error("Error connecting to db: ", error)
-           });
+    .then(function () {
+      console.log('Connected to db');
+    })
+    .catch(function (error) {
+      console.error('Error connecting to db: ', error);
+    });
 }
 
 module.exports = {
   connect: connect,
   sequelize: sequelize
-}
+};

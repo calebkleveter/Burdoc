@@ -8,7 +8,7 @@ module.exports = {
    * @param {http.IncomingMessage} request: The request object for creating routes.
    * @param {http.ServerResponse} response: The response object for creating routes.
    */
-  registerRoutes: function(request, response) {
+  registerRoutes: function (request, response) {
     route.setRequestAndResponse(request, response);
     this.css();
     this.js();
@@ -19,8 +19,8 @@ module.exports = {
   /**
    * Writes the project's CSS to /css/main.css
    */
-  css: function() {
-    route.getCSS('/css/main.css', function(){
+  css: function () {
+    route.getCSS('/css/main.css', function () {
       var css = fs.readFileSync(`${__dirname}/views/css/bootstrap.min.css`);
       css += fs.readFileSync(`${__dirname}/views/css/main.css`);
       return css;
@@ -30,8 +30,8 @@ module.exports = {
   /**
    * Writes the project's front-end JavaScript to /js/index.js
    */
-  js: function() {
-    route.getJavaScript('/js/index.js', function(){
+  js: function () {
+    route.getJavaScript('/js/index.js', function () {
       var js = fs.readFileSync(`${__dirname}/views/js/jquery-3.2.1.min.js`);
       js += fs.readFileSync(`${__dirname}/views/js/bootstrap.min.js`);
       js += fs.readFileSync(`${__dirname}/views/js/vue.js`);
@@ -46,8 +46,8 @@ module.exports = {
   /**
    * Writes the caleb.JPG image to /images/caleb.jpg
    */
-  calebImage: function() {
-    route.getImage('/images/caleb.jpg', 'jpeg', function(){
+  calebImage: function () {
+    route.getImage('/images/caleb.jpg', 'jpeg', function () {
       return fs.readFileSync(`${__dirname}/views/images/caleb.JPG`);
     });
   },
@@ -55,9 +55,9 @@ module.exports = {
   /**
    * Writes the burdoc.svg image to /images/burdoc.svg
    */
-  burdocImage: function() {
-    route.getImage('/images/burdoc.svg', 'svg+xml', function(){
+  burdocImage: function () {
+    route.getImage('/images/burdoc.svg', 'svg+xml', function () {
       return fs.readFileSync(`${__dirname}/views/images/burdoc.svg`);
     });
   }
-}
+};
