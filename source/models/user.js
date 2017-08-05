@@ -2,6 +2,9 @@ const Sequelize = require('sequelize');
 const database = require('../database');
 const argon2 = require('argon2');
 
+/**
+ * The user model for sequelize.
+ */
 const model = database.sequelize.define('user', {
   name: {
     type: Sequelize.STRING
@@ -17,6 +20,9 @@ const model = database.sequelize.define('user', {
   }
 });
 
+/**
+ * Syncs the user model with the tabel in the PostgreSQL database.
+ */
 function sync() {
   model.sync({force: false})
        .then(function(){
@@ -27,6 +33,12 @@ function sync() {
        });
 }
 
+/**
+ * Gets a user from the database based on the parameter passed in.
+ *
+ * @param {string} name: The username or email of the user you want to fetch.
+ * @return A promise that, if resolved, containes the user object fetched from the PostgreSQL database.
+ */
 function fetch(name) {
   return model.findOne({
     where: {
@@ -38,6 +50,14 @@ function fetch(name) {
   });
 }
 
+/**
+ * Creates a new row in the user table in the PostgreSQL database.
+ *
+ * @param {string} username: The username of the user to be created.
+ * @param {string} email: The email of the user to be created.
+ * @param {string} password: The password of the user to be created. This string is hashed using the argon2 hashing algorithm.
+ * @throws Any errors when hashing the password.
+ */
 function create(username, email, password) {
   argon2.hash(password)
         .then(function(hash){
@@ -53,6 +73,13 @@ function create(username, email, password) {
         });
 }
 
+/**
+ * Checks an email or username against a password to see if they match.
+ *
+ * @param {string} name: The username or email of a user.
+ * @param {string} password: A password to check against the name to see if it is the correct password.
+ * @return A promise with that resolves with the user if the name and password match, or rejects with either an error in varifying/fetching the user or with 'password did not match'.
+ */
 function authenticate(name, password) {
   fetch(name).then(function(user){
     argon2.varify(user.password, password)
@@ -70,6 +97,12 @@ function authenticate(name, password) {
   });
 }
 
+/**
+ * Adds a link to a document held in the ElasticSearch database to a users documents array.
+ *
+ * @param {string} link: The link to the document.
+ * @param {string} name: The email or username of the user to add the link to.
+ */
 function addDocumentLinkToUser(link, name) {
   model.update(
     {documents: database.sequelize.fn('array_append', database.sequelize.col('documents'), link)},
