@@ -83,7 +83,14 @@ module.exports = {
 
   loginPost: function () {
     route.post('/login', view.get('login'), function (data) {
-      user.authenticate(data.email, data.password);
+      user.authenticate(data.email, data.password).then(function (user) {
+        // TODO:
+        // Create user session.
+        // Redirect to dashboard.
+      }).reject(function (error) {
+        // Display error above login form.
+        console.error(error);
+      });
     });
   }
 };
