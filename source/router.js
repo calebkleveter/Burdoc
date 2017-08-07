@@ -1,6 +1,7 @@
 const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
+const user = require('./models/user');
 
 module.exports = {
   /**
@@ -67,11 +68,11 @@ module.exports = {
   },
 
   /**
-   * The route for the /signup path, which handles any POST requests from the browser.
+   * The POST route for the /signup path, which creates a new user based off the data sent from the signup form.
    */
   signupPost: function () {
     route.post('/signup', view.get('signup'), function (data) {
-      console.log(data);
+      user.create(data.username, data.email, data.password);
     });
   }
 };
