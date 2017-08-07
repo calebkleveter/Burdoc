@@ -72,7 +72,11 @@ module.exports = {
    */
   signupPost: function () {
     route.post('/signup', view.get('signup'), function (data) {
-      user.create(data.username, data.email, data.password);
+      try {
+        user.create(data.username, data.email, data.password);
+      } catch (error) {
+        console.error(`Error hashing users password: ${error}`);
+      }
     });
   }
 };
