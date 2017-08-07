@@ -44,7 +44,7 @@ module.exports = {
   getCSS: function (url, handler) {
     if (this.request.method === 'GET' && this.request.url === url) {
       var data = handler();
-      this.response.writeHead(200, {'Content-Type': 'text/css'});
+      this.response.setHeader('Content-Type', 'text/css');
       this.response.end(data);
     }
   },
@@ -59,7 +59,7 @@ module.exports = {
   getImage: function (url, imageType, handler) {
     if (this.request.method === 'GET' && this.request.url === url) {
       var data = handler();
-      this.response.writeHead(200, {'Content-Type': `image/${imageType}`});
+      this.response.setHeader('Content-Type', `image/${imageType}`);
       this.response.end(data);
     }
   },
@@ -73,7 +73,7 @@ module.exports = {
   getJavaScript: function (url, handler) {
     if (this.request.method === 'GET' && this.request.url === url) {
       var data = handler();
-      this.response.writeHead(200, {'Content-Type': 'application/javascript'});
+      this.response.setHeader('Content-Type', 'application/javascript');
       this.response.end(data);
     }
   },
