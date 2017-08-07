@@ -19,6 +19,7 @@ module.exports = {
     this.signup();
     this.dashboard();
     this.signupPost();
+    this.loginPost();
     response.end();
   },
 
@@ -77,6 +78,12 @@ module.exports = {
       } catch (error) {
         console.error(`Error hashing users password: ${error}`);
       }
+    });
+  },
+
+  loginPost: function () {
+    route.post('/login', view.get('login'), function (data) {
+      user.authenticate(data.email, data.password);
     });
   }
 };

@@ -36,16 +36,13 @@ function sync () {
 /**
  * Gets a user from the database based on the parameter passed in.
  *
- * @param {string} name: The username or email of the user you want to fetch.
+ * @param {string} email: The email of the user you want to fetch.
  * @return A promise that, if resolved, containes the user object fetched from the PostgreSQL database.
  */
-function fetch (name) {
+function fetch (email) {
   return model.findOne({
     where: {
-      name: name,
-      $or: [
-        {email: name}
-      ]
+      email: email
     }
   });
 }
