@@ -1,7 +1,6 @@
 const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
-const formidable = require('formidable');
 
 module.exports = {
   /**
@@ -18,7 +17,7 @@ module.exports = {
     this.login();
     this.signup();
     this.dashboard();
-    this.signupPost(request);
+    this.signupPost();
     response.end();
   },
 
@@ -67,17 +66,12 @@ module.exports = {
     });
   },
 
-  signupPost: function (request) {
-    route.post('/signup', function () {
-      var form = new formidable.IncomingForm();
-
-      form.parse(request, function (error, fields, files) {
-        if (error) {
-          console.error(error);
-        }
-        console.log(request.headers);
-        console.log(fields);
-      });
+  /**
+   * The route for the /signup path, which handles any POST requests from the browser.
+   */
+  signupPost: function () {
+    route.post('/signup', view.get('signup'), function (data) {
+      console.log(data);
     });
   }
 };

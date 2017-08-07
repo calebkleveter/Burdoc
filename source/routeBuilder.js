@@ -1,3 +1,15 @@
+const qs = require('querystring');
+
+function parseBody (request, callback) {
+  var body = '';
+  request.on('data', function (data) {
+    body += data;
+  });
+  request.on('end', function () {
+    callback(qs.parse(body));
+  });
+}
+
 module.exports = {
   /**
    * Sets the request and response objects that will be used to create and return the proper data to the client.
@@ -69,12 +81,15 @@ module.exports = {
    * Creates a route for a POST request.
    *
    * @param {string} url: The URL the route is called on.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+   * @param {string} view: The view that will be written to the response.
+   * @param {function(data)} handler: The handler called if the route matches the URL and HTTP method.
    */
-  post: function (url, handler) {
+  post: function (url, view, handler) {
     if (this.request.method === 'POST' && this.request.url === url) {
-      var data = handler();
-      this.response.end(data);
+      this.response.end(view);
+      parseBody(this.request, function (formData) {
+        handler(formData);
+      });
     }
   }
 };
