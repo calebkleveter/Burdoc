@@ -78,22 +78,22 @@ function create (username, email, password) {
  * @return A promise with that resolves with the user if the name and password match, or rejects with either an error in varifying/fetching the user or with 'password did not match'.
  */
 function authenticate (name, password) {
-  fetch(name).then(function (user) {
-    argon2.verify(user.password, password)
-      .then(function (didMatch) {
-        return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
+    fetch(name).then(function (user) {
+      argon2.verify(user.password, password)
+        .then(function (didMatch) {
           if (didMatch) {
             resolve(user);
           } else {
             reject(new Error('Password did not match with the email/username.'));
           }
+        })
+        .catch(function (error) {
+          reject(error);
         });
-      })
-      .catch(function (error) {
-        return new Promise(function (resolve, reject) { reject(error); });
-      });
-  }).catch(function (error) {
-    return new Promise(function (resolve, reject) { reject(error); });
+    }).catch(function (error) {
+      reject(error);
+    });
   });
 }
 
