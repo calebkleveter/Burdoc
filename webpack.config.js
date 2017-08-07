@@ -6,7 +6,7 @@ module.exports = {
   target: 'node',
   node: {
     __dirname: false,
-    __filename: false,
+    __filename: false
   },
   externals: [nodeExternals()],
   entry: {
@@ -16,6 +16,7 @@ module.exports = {
     'view.js': './source/view.js',
     'database.js': './source/database.js',
     'authenticate.js': './source/authenticate.js',
+    'sockets.js': './sources/sockets.js',
     'models/user.js': './source/models/user.js'
   },
   output: {
@@ -42,8 +43,8 @@ module.exports = {
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: 'source/views', to: 'views'},
-      { from: 'source/resources', to: 'views'}
+      { from: 'source/views', to: 'views' },
+      { from: 'source/resources', to: 'views' }
     ])
   ]
-}
+};
