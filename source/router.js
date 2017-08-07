@@ -87,7 +87,8 @@ module.exports = {
         // TODO:
         // Create user session.
         // Redirect to dashboard.
-      }).reject(function (error) {
+        console.dir(user);
+      }).catch(function (error) {
         // Display error above login form.
         console.error(error);
       });
