@@ -12,7 +12,7 @@ Vue.component('burdoc-form', {
         <label for="password">Password:</label>
         <input type="password" name="password" v-model='password' class="form-control" id="password" placeholder="Password">
       </div>
-      <button type="submit" class="btn btn-default" id="signup-btn" @click="login">{{ submittext }}</button>
+      <button type="button" class="btn btn-default" id="signup-btn" @click="login">{{ submittext }}</button>
     </form>
   </div>
   `,
@@ -24,6 +24,7 @@ Vue.component('burdoc-form', {
   },
   methods: {
     login: function () {
+      console.log('login');
       socket.emit('login', {
         email: this.email,
         password: this.password
