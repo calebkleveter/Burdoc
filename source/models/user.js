@@ -79,7 +79,7 @@ function create (username, email, password) {
  */
 function authenticate (name, password) {
   fetch(name).then(function (user) {
-    argon2.varify(user.password, password)
+    argon2.verify(user.password, password)
       .then(function (didMatch) {
         return new Promise(function (resolve, reject) {
           if (didMatch) {
