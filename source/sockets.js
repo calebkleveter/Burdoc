@@ -1,5 +1,10 @@
 const socketio = require('socket.io');
 
+/**
+ * Creates the socket and registers it and it's events with the server.
+ * 
+ * @param {http.ClientRequest} server: The server the socket should be connected to.
+ */
 function configure (server) {
   const io = socketio(server);
 
