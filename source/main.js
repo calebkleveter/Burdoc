@@ -1,5 +1,5 @@
 const http = require('http');
-const socketio = require('socket.io');
+const sockets = require('./sockets');
 const router = require('./router');
 const database = require('./database');
 const user = require('./models/user');
@@ -15,11 +15,7 @@ const server = http.createServer(function (request, response) {
   router.registerRoutes(request, response);
 }).listen(8080);
 
-const io = socketio(server);
-
-io.on('connection', function (socket) {
-  console.log('Socket connected');
-});
+sockets.configure(server);
 
 // Output that the server has started.
 console.log('Running server on port 8080');
