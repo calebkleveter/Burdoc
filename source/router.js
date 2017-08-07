@@ -1,6 +1,7 @@
 const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
+const formidable = require('formidable');
 
 module.exports = {
   /**
@@ -17,6 +18,7 @@ module.exports = {
     this.login();
     this.signup();
     this.dashboard();
+    this.signupPost(request);
     response.end();
   },
 
@@ -62,6 +64,20 @@ module.exports = {
   dashboard: function () {
     route.get('/dashboard', function () {
       return view.get('dashboard');
+    });
+  },
+
+  signupPost: function (request) {
+    route.post('/signup', function () {
+      var form = new formidable.IncomingForm();
+
+      form.parse(request, function (error, fields, files) {
+        if (error) {
+          console.error(error);
+        }
+        console.log(request.headers);
+        console.log(fields);
+      });
     });
   }
 };
