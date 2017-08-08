@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 /**
  * A instance of Sequelize which is connected to the PostgreSQL database.
  */
-const sequelize = new Sequelize('burdoc', 'calebkleveter', '', {
+const sequelize = new Sequelize('burdoc', 'postgres', 'burdoc', {
   host: 'localhost',
   dialect: 'postgres'
 });
