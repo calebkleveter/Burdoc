@@ -1,14 +1,8 @@
-const https = require('https');
-const fs = require('fs');
+const http = require('http');
 const sockets = require('./sockets');
 const router = require('./router');
 const database = require('./database');
 const user = require('./models/user');
-
-const serverOptions = {
-    key: fs.readFileSync(`${__dirname}/../secrets/key.pem`),
-    cert: fs.readFileSync(`${__dirname}/../secrets/cert.pem`)
-};
 
 // Connect to the PostgreSQL database used to store users.
 database.connect();
@@ -17,7 +11,7 @@ database.connect();
 user.sync();
 
 // Create and start the server on port 8080.
-const server = https.createServer(serverOptions, function (request, response) {
+const server = http.createServer(function (request, response) {
   router.registerRoutes(request, response);
 }).listen(8080);
 
