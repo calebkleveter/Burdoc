@@ -19,7 +19,7 @@ user.sync();
 // Create and start the server on port 8080.
 const server = https.createServer(serverOptions, function (request, response) {
   router.registerRoutes(request, response);
-}).listen(2368);
+}).listen(8080);
 
 sockets.configure(server);
 
