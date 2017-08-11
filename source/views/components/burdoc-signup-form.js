@@ -21,7 +21,7 @@ Vue.component('burdoc-signup-form', {
       <div v-if='error' class="error-message">
         <p>{{ error }}</p>
       </div>
-      <button type="button" class="btn btn-default" id="signup-btn" @click="signup">{{ submittext }}</button>
+      <button type="button" class="btn btn-default" id="signup-btn" :disabled="error != ''" @click="signup">{{ submittext }}</button>
     </form>
   </div>
   `,
