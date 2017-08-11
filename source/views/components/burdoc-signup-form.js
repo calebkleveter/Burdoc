@@ -32,15 +32,18 @@ Vue.component('burdoc-signup-form', {
   },
   methods: {
     signup: function () {
+      this.isSubmitting = true;
       socket.emit('signup', {
         username: this.username,
         email: this.email,
         password: this.password
       });
-      socket.on('signupSuccess', function () {
+      socket.on('signupSuccess', () => {
+        this.isSubmitting = false;
         console.log('Success!');
       });
-      socket.on('signupError', function (error) {
+      socket.on('signupError', (error) => {
+        this.isSubmitting = false;
         console.log(`Error: ${error}`);
       });
     }
