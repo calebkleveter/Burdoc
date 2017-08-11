@@ -1,4 +1,5 @@
 const socketio = require('socket.io');
+const user = require('./models/user');
 
 /**
  * Creates the socket and registers it and it's events with the server.
@@ -20,7 +21,26 @@ function configure (server) {
  * Handels the socket events received from the client.
  */
 var receiverEvents = {
+  registerWithSocket: function(socket) {
+    this.socket = socket;
+    this.signup(socket);
+  },
   
-}
+  /**
+   * Attempts to create a user from the data sent from the client on the 'signup' event.
+   * 
+   * @param {socketio.Socket} socket: The socket the event should be listened for on.
+   */
+  signup: function (socket) {
+    socket.on('signup', function (data) {
+      try {
+        user.create(data.username, data.email, data.password);
+        socket.emit('signupSuccess');
+      } catch (error) {
+        socket.emit('signupError', error);
+      }
+    });
+  }
+};
 
 module.exports.configure = configure;
