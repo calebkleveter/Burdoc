@@ -12,6 +12,7 @@ module.exports = {
     route.setRequestAndResponse(request, response);
     this.css();
     this.js();
+    this.fontAwesome();
     this.calebImage();
     this.burdocImage();
   },
@@ -42,6 +43,15 @@ module.exports = {
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-documents.js`);
       js += fs.readFileSync(`${__dirname}/views/js/index.js`);
       return js;
+    });
+  },
+
+  /**
+   * Writes FontAwsome's fonts to /fonts/fontawesome-webfont.woff2?v=4.7.0
+   */
+  fontAwesome: function () {
+    route.getFont('/fonts/fontawesome-webfont.woff2?v=4.7.0', 'woff2', function () {
+      return fs.readFileSync(`${__dirname}/views/fonts/fontawesome-webfont.woff2`);
     });
   },
 
