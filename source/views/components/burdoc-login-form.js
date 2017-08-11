@@ -1,9 +1,8 @@
-Vue.component('burdoc-form', {
-  props: ['action', 'method', 'submittext'],
+Vue.component('burdoc-login-form', {
+  props: ['submittext'],
   template: `
   <div class="form">
-    <form :action="action" :method="method">
-      <slot></slot>
+    <form>
       <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" name="email" v-model='email' class="form-control" id="email" placeholder="Email">
@@ -24,7 +23,6 @@ Vue.component('burdoc-form', {
   },
   methods: {
     login: function () {
-      console.log('login');
       socket.emit('login', {
         email: this.email,
         password: this.password
