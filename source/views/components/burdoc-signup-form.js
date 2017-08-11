@@ -43,7 +43,7 @@ Vue.component('burdoc-signup-form', {
         password: this.password
       });
       socket.on('signupSuccess', () => {
-        this.isSubmitting = false;
+        window.location.href = '/dashboard';
       });
       socket.on('signupError', (error) => {
         this.isSubmitting = false;
