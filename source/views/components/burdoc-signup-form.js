@@ -2,7 +2,10 @@ Vue.component('burdoc-signup-form', {
   props: ['submittext'],
   template: `
   <div class="form">
-    <form>
+    <div v-if='isSubmitting' style="text-align: center;">
+     <i class="fa fa-cog fa-5x fa-spin" aria-hidden="true"></i>
+    </div>
+    <form v-else>
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" name="username" v-model='username' class="form-control" id="username" placeholder="Username">
@@ -21,6 +24,7 @@ Vue.component('burdoc-signup-form', {
   `,
   data: function () {
     return {
+      isSubmitting: false,
       username: '',
       email: '',
       password: ''
