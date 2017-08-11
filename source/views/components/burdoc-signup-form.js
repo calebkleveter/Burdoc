@@ -8,15 +8,15 @@ Vue.component('burdoc-signup-form', {
     <form v-else>
       <div class="form-group">
         <label for="username">Username:</label>
-        <input type="text" name="username" v-model='username' class="form-control" id="username" placeholder="Username">
+        <input type="text" name="username" v-model='username' class="form-control" id="username" @keydown="reset" placeholder="Username">
       </div>
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" name="email" v-model='email' class="form-control" id="email" placeholder="Email">
+        <input type="email" name="email" v-model='email' class="form-control" id="email" @keydown="reset" placeholder="Email">
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" name="password" v-model='password' class="form-control" id="password" placeholder="Password">
+        <input type="password" name="password" v-model='password' class="form-control" id="password"@keydown="reset"  placeholder="Password">
       </div>
       <div v-if='error' class="error-message">
         <p>{{ error }}</p>
@@ -50,6 +50,10 @@ Vue.component('burdoc-signup-form', {
         this.isSubmitting = false;
         this.error = error;
       });
+    },
+    
+    reset: function () {
+      this.error = '';
     }
   }
 });
