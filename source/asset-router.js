@@ -22,6 +22,7 @@ module.exports = {
   css: function () {
     route.getCSS('/css/main.css', function () {
       var css = fs.readFileSync(`${__dirname}/views/css/bootstrap.min.css`);
+      css += fs.readFileSync(`${__dirname}/views/css/font-awesome.min.css`);
       css += fs.readFileSync(`${__dirname}/views/css/main.css`);
       return css;
     });
