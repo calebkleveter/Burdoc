@@ -40,7 +40,7 @@ var receiverEvents = {
           this.socket.emit('signupSuccess')
         )
         .catch((error) =>
-          this.socket.emit('signupError', error)
+          this.socket.emit('signupError', error.message)
         )
     );
   }
