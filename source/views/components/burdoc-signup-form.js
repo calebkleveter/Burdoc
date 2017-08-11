@@ -33,6 +33,12 @@ Vue.component('burdoc-signup-form', {
         email: this.email,
         password: this.password
       });
+      socket.on('signupSuccess', function () {
+        console.log('Success!');
+      });
+      socket.on('signupError', function (error) {
+        console.log(`Error: ${error}`);
+      });
     }
   }
 });
