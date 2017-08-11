@@ -93,7 +93,7 @@ function create (username, email, password) {
  */
 function authenticate (name, password) {
   return new Promise(function (resolve, reject) {
-    fetch(name).then(function (user) {
+    fetchByName(name).then(function (user) {
       argon2.verify(user.password, password)
         .then(function (didMatch) {
           if (didMatch) {
@@ -130,7 +130,7 @@ function addDocumentLinkToUser (link, name) {
 module.exports = {
   model: model,
   sync: sync,
-  fetch: fetch,
+  fetchByEmail: fetchByEmail,
   fetchByName: fetchByName,
   create: create,
   authenticate: authenticate,
