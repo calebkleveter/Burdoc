@@ -16,4 +16,11 @@ function configure (server) {
   });
 }
 
+/**
+ * Handels the socket events received from the client.
+ */
+var receiverEvents = {
+  
+}
+
 module.exports.configure = configure;
