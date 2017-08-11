@@ -34,15 +34,15 @@ var receiverEvents = {
    * Attempts to create a user from the data sent from the client on the 'signup' event.
    */
   signup: function () {
-    this.socket.on('signup', function (data) {
-      console.log(data);
-      try {
-        user.create(data.username, data.email, data.password);
-        this.socket.emit('signupSuccess');
-      } catch (error) {
-        receiverEvents.socket.emit('signupError', error);
-      }
-    });
+    this.socket.on('signup', (data) =>
+      user.create(data.username, data.email, data.password)
+        .then(() =>
+          this.socket.emit('signupSuccess')
+        )
+        .catch((error) =>
+          this.socket.emit('signupError', error)
+        )
+    );
   }
 };
 
