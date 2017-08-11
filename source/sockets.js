@@ -29,21 +29,19 @@ var receiverEvents = {
    */
   registerWithSocket: function (socket) {
     this.socket = socket;
-    this.signup(socket);
+    this.signup();
   },
   
   /**
    * Attempts to create a user from the data sent from the client on the 'signup' event.
-   * 
-   * @param {socketio.Socket} socket: The socket the event should be listened for on.
    */
-  signup: function (socket) {
-    socket.on('signup', function (data) {
+  signup: function () {
+    this.socket.on('signup', function (data) {
       try {
         user.create(data.username, data.email, data.password);
-        socket.emit('signupSuccess');
+        this.socket.emit('signupSuccess');
       } catch (error) {
-        socket.emit('signupError', error);
+        this.socket.emit('signupError', error);
       }
     });
   }
