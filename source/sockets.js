@@ -18,7 +18,7 @@ function configure (server) {
 }
 
 /**
- * Handels the socket events received from the client.
+ * Handles the socket events received from the client.
  */
 var receiverEvents = {
   
