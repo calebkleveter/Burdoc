@@ -48,6 +48,20 @@ function fetchByEmail (email) {
 }
 
 /**
+ * Gets a user from the database based on their username.
+ *
+ * @param {string} name: The username of the user you want to fetch.
+ * @return A promise that, if resolved, containes the user object fetched from the PostgreSQL database.
+ */
+function fetchByName (name) {
+  return model.findOne({
+    where: {
+      name: name
+    }
+  });
+}
+
+/**
  * Creates a new row in the user table in the PostgreSQL database.
  *
  * @param {string} username: The username of the user to be created.
@@ -117,6 +131,7 @@ module.exports = {
   model: model,
   sync: sync,
   fetch: fetch,
+  fetchByName: fetchByName,
   create: create,
   authenticate: authenticate,
   addDocumentLinkToUser: addDocumentLinkToUser
