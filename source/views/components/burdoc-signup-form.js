@@ -2,7 +2,7 @@ Vue.component('burdoc-signup-form', {
   props: ['submittext'],
   template: `
   <div class="form">
-    <div v-if='isSubmitting' style="text-align: center;">
+    <div v-if='isSubmitting' class="loading-indicator">
      <i class="fa fa-cog fa-5x fa-spin" aria-hidden="true"></i>
     </div>
     <form v-else>
@@ -18,7 +18,7 @@ Vue.component('burdoc-signup-form', {
         <label for="password">Password:</label>
         <input type="password" name="password" v-model='password' class="form-control" id="password" placeholder="Password">
       </div>
-      <div v-if='error'>
+      <div v-if='error' class="error-message">
         <p>{{ error }}</p>
       </div>
       <button type="button" class="btn btn-default" id="signup-btn" @click="signup">{{ submittext }}</button>
