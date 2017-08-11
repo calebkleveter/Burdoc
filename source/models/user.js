@@ -72,13 +72,18 @@ function fetchByName (name) {
 function create (username, email, password) {
   return new Promise(function (resolve, reject) {
     fetchByEmail(email).then(function (user) {
-      reject(new Error('Email Already Taken'));
-    });
-    fetchByName(username).then(function (user) {
-      reject(new Error('Username Already Taken'));
-    });
-    argon2.hash(password)
-    .then(function (hash) {
+      if (user == null) {
+        return fetchByName(username);
+      } else {
+        throw new Error('Email Already Taken');
+      }
+    }).then(function (user) {
+       if (user == null) {
+         return argon2.hash(password);
+       } else {
+         throw new Error('Username Already Taken');
+       }
+    }).then(function (hash) {
       model.create({
         name: username,
         email: email,
@@ -86,8 +91,7 @@ function create (username, email, password) {
         documents: []
       });
       resolve();
-    })
-    .catch(function (error) {
+    }).catch(function (error) {
       reject(error);
     });
   });
