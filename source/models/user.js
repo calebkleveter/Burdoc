@@ -34,12 +34,12 @@ function sync () {
 }
 
 /**
- * Gets a user from the database based on the parameter passed in.
+ * Gets a user from the database based on their email.
  *
  * @param {string} email: The email of the user you want to fetch.
  * @return A promise that, if resolved, containes the user object fetched from the PostgreSQL database.
  */
-function fetch (email) {
+function fetchByEmail (email) {
   return model.findOne({
     where: {
       email: email
