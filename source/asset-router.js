@@ -15,6 +15,7 @@ module.exports = {
     this.fontAwesome();
     this.bootstrapFont();
     this.calebImage();
+    this.favicon();
     this.burdocImage();
   },
 
@@ -62,6 +63,12 @@ module.exports = {
   bootstrapFont: function () {
     route.getFont('/fonts/glyphicons-halflings-regular.woff2', 'woff2', function () {
       return fs.readFileSync(`${__dirname}/views/fonts/glyphicons-halflings-regular.woff2`);
+    });
+  },
+
+  favicon: function () {
+    route.getImage('/favicon.ico', 'x-icon', function () {
+      return fs.readFileSync(`${__dirname}/views/images/favicons/favicon.ico`);
     });
   },
 
