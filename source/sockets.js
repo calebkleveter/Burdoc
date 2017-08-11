@@ -11,9 +11,7 @@ function configure (server) {
 
   io.on('connection', function (socket) {
     console.log('Socket connected');
-    socket.on('login', function (data) {
-      console.log(data);
-    });
+    receiverEvents.registerWithSocket(socket);
   });
 }
 
