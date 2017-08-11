@@ -67,10 +67,17 @@ function fetchByName (name) {
  * @param {string} username: The username of the user to be created.
  * @param {string} email: The email of the user to be created.
  * @param {string} password: The password of the user to be created. This string is hashed using the argon2 hashing algorithm.
- * @throws Any errors when hashing the password.
+ * @return A promises that resolves with no parameters if the user is successfully created.
  */
 function create (username, email, password) {
-  argon2.hash(password)
+  return new Promise(function (resolve, reject) {
+    fetchByEmail(email).then(function (user) {
+      reject(new Error('Email Already Taken'));
+    });
+    fetchByName(username).then(function (user) {
+      reject(new Error('Username Already Taken'));
+    });
+    argon2.hash(password)
     .then(function (hash) {
       model.create({
         name: username,
@@ -78,10 +85,12 @@ function create (username, email, password) {
         password: hash,
         documents: []
       });
+      resolve();
     })
     .catch(function (error) {
-      throw error;
+      reject(error);
     });
+  });
 }
 
 /**
