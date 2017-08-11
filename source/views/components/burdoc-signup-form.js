@@ -18,6 +18,9 @@ Vue.component('burdoc-signup-form', {
         <label for="password">Password:</label>
         <input type="password" name="password" v-model='password' class="form-control" id="password" placeholder="Password">
       </div>
+      <div v-if='error'>
+        <p>{{ error }}</p>
+      </div>
       <button type="button" class="btn btn-default" id="signup-btn" @click="signup">{{ submittext }}</button>
     </form>
   </div>
@@ -27,7 +30,8 @@ Vue.component('burdoc-signup-form', {
       isSubmitting: false,
       username: '',
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
   },
   methods: {
@@ -44,7 +48,7 @@ Vue.component('burdoc-signup-form', {
       });
       socket.on('signupError', (error) => {
         this.isSubmitting = false;
-        console.log(`Error: ${error}`);
+        this.error = error;
       });
     }
   }
