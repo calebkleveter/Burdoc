@@ -35,11 +35,12 @@ var receiverEvents = {
    */
   signup: function () {
     this.socket.on('signup', function (data) {
+      console.log(data);
       try {
         user.create(data.username, data.email, data.password);
         this.socket.emit('signupSuccess');
       } catch (error) {
-        this.socket.emit('signupError', error);
+        receiverEvents.socket.emit('signupError', error);
       }
     });
   }
