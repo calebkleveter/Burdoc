@@ -21,7 +21,13 @@ function configure (server) {
  * Handels the socket events received from the client.
  */
 var receiverEvents = {
-  registerWithSocket: function(socket) {
+  
+  /**
+   * Sets the socket the receiver event functions will connect to and registers the events with it.
+   * 
+   * @param {socketio.Socket} socket: The socket the events will be handled on.
+   */
+  registerWithSocket: function (socket) {
     this.socket = socket;
     this.signup(socket);
   },
