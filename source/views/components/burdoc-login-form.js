@@ -18,6 +18,7 @@ Vue.component('burdoc-login-form', {
         <p>{{ error }}</p>
       </div>
       <button type="button" class="btn btn-default" id="signup-btn" :disabled="error != ''" @click="login">{{ submittext }}</button>
+      <p id="sign-up">Don't have an account? <a href="/signup">Sign Up!</a></p>
     </form>
   </div>
   `,
