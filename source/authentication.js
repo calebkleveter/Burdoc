@@ -1,5 +1,3 @@
-const crypto = require('crypto');
-
 var authentication = {
     /**
    * Sets the request and response that the authentication middleware will connect to.
