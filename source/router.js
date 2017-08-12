@@ -76,6 +76,9 @@ module.exports = {
     });
   },
   
+  /**
+   * The route for the /logout path, which logs out the current user.
+   */
   logout: function () {
     route.get('/logout', function () {
        authentication.resetAuthHeader();
