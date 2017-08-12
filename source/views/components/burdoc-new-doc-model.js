@@ -1,6 +1,6 @@
 Vue.component('burdoc-new-doc-model', {
   template: `
-  <div class="new-doc>
+  <div class="new-doc">
     <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#new-document">
       <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
@@ -12,16 +12,32 @@ Vue.component('burdoc-new-doc-model', {
             <h4 class="modal-title" id="newDocument">Create a New Document</h4>
           </div>
           <div class="modal-body">
-            <label for="document-name">Name:</label>
-            <input type="text" name="document-name" id="document-name" placeholder="Document Name"/>
+            <div class="form-group">
+              <label for="document-name">Name:</label>
+              <input type="text" name="document-name" v-model='documentName' class="form-control" id="document-name" @keydown="reset" placeholder="Document Name">
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Create Document</button>
+            <button type="button" class="btn btn-primary" @onclick="createDocument">Create Document</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  `
+  `,
+  data: function () {
+    return {
+      documentName: ''
+    };
+  },
+  methods: {
+    reset: function () {
+      
+    },
+    
+    createDocument: function () {
+      
+    }
+  }
 });
