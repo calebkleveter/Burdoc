@@ -107,7 +107,8 @@ function create (username, email, password) {
 function authenticate (name, password) {
   return new Promise(function (resolve, reject) {
     fetchByName(name).then(function (user) {
-      argon2.verify(user.password, password)
+      if (user != null) {
+        argon2.verify(user.password, password)
         .then(function (didMatch) {
           if (didMatch) {
             resolve(user);
@@ -118,6 +119,9 @@ function authenticate (name, password) {
         .catch(function (error) {
           reject(error);
         });
+      } else {
+        reject(new Error('No user is registered with that username.'));
+      }
     }).catch(function (error) {
       reject(error);
     });
