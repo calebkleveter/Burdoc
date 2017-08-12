@@ -8,7 +8,17 @@ var authentication = {
    */
   setServer: function (server)  {
     this.server = server;
+  },
+  
+  /**
+   * Creates an authentication header from a username and password and sets the result to the `header` property.
+   * 
+   * @param {string} username: The username for the user during the current session.
+   * @param {string} password: The users password.
+   */
+  setAuthHeader: function (username, password) {
+    this.header = new Buffer.from(`${username}:${password}`).toString('base64');
   }
 };
 
-module.exports = authentication
+module.exports = authentication;
