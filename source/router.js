@@ -72,35 +72,8 @@ module.exports = {
         authentication.response.writeHead(303, {
           'location': '/login',
           'authentication-error': 'You Need to Login Before You can Access the Dashboard.'
-        })
+        });
       }
-    });
-  },
-
-  /**
-   * The POST route for the /signup path, which creates a new user based off the data sent from the signup form.
-   */
-  signupPost: function () {
-    route.post('/signup', view.get('signup'), function (data) {
-      try {
-        user.create(data.username, data.email, data.password);
-      } catch (error) {
-        console.error(`Error hashing users password: ${error}`);
-      }
-    });
-  },
-
-  loginPost: function () {
-    route.post('/login', view.get('login'), function (data) {
-      user.authenticate(data.email, data.password).then(function (user) {
-        // TODO:
-        // Create user session.
-        // Redirect to dashboard.
-        console.dir(user);
-      }).catch(function (error) {
-        // Display error above login form.
-        console.error(error);
-      });
     });
   }
 };
