@@ -112,7 +112,7 @@ function authenticate (name, password) {
           if (didMatch) {
             resolve(user);
           } else {
-            reject(new Error('Password did not match with the email/username.'));
+            reject(new Error('Password did not match with the username passed in.'));
           }
         })
         .catch(function (error) {
