@@ -83,6 +83,12 @@
 
 #document-manager .editing {
   float: right;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+#document-manager .editing li {
+  display: inline-flex;
 }
 
 #document-manager .editing button span {
