@@ -1,1 +1,1 @@
-var authorized = false
+var authorized = false;
