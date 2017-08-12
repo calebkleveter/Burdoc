@@ -19,8 +19,6 @@ module.exports = {
     this.login();
     this.signup();
     this.dashboard();
-    this.signupPost();
-    this.loginPost();
     response.end();
   },
 
