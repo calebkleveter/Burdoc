@@ -4,8 +4,8 @@ Vue.component('burdoc-login-form', {
   <div class="form">
     <form>
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" name="email" v-model='email' class="form-control" id="email" placeholder="Email">
+        <label for="username">Username:</label>
+        <input type="text" name="username" v-model='username' class="form-control" id="username" placeholder="Username">
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
@@ -17,14 +17,14 @@ Vue.component('burdoc-login-form', {
   `,
   data: function () {
     return {
-      email: '',
+      username: '',
       password: ''
     };
   },
   methods: {
     login: function () {
       socket.emit('login', {
-        email: this.email,
+        username: this.username,
         password: this.password
       });
     }
