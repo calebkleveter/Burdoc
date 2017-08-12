@@ -10,6 +10,10 @@
   color: #E52000;
 }
 
+.loading-indicator {
+  text-align: center;
+}
+
 /*
   NAVIGATION
 */
@@ -64,14 +68,6 @@
   border-radius: 5rem;
   display: block;
   margin: 2rem auto;
-}
-
-/*
-  SIGNUP
-*/
-
-#signup .loading-indicator {
-  text-align: center;
 }
 
 /*
