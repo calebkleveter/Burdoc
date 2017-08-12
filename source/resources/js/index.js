@@ -1,5 +1,3 @@
-var authorized = false
-
 new Vue({
   el: "#app",
   created: function () {
