@@ -1,4 +1,5 @@
 const socketio = require('socket.io');
+const authentication = require('authentication');
 const user = require('./models/user');
 
 /**
@@ -34,15 +35,16 @@ var receiverEvents = {
    * Attempts to create a user from the data sent from the client on the 'signup' event.
    */
   signup: function () {
-    this.socket.on('signup', (data) =>
+    this.socket.on('signup', (data) => {
       user.create(data.username, data.email, data.password)
-        .then(() =>
-          this.socket.emit('signupSuccess')
-        )
+        .then(() => {
+          authentication.setAuthHeader(data.username, data.password);
+          this.socket.emit('signupSuccess');
+        })
         .catch((error) =>
           this.socket.emit('signupError', error.message)
-        )
-    );
+        );
+    });
   }
 };
 
