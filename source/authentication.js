@@ -18,6 +18,7 @@ var authentication = {
    */
   setAuthHeader: function (username, password) {
     this.header = new Buffer.from(`${username}:${password}`).toString('base64');
+    this.currentUser = username;
   }
 };
 
