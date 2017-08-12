@@ -19,6 +19,7 @@ module.exports = {
     this.login();
     this.signup();
     this.dashboard();
+    this.logout();
     response.end();
   },
 
@@ -72,6 +73,15 @@ module.exports = {
           'authentication-error': 'You Need to Login Before You can Access the Dashboard.'
         });
       }
+    });
+  },
+  
+  logout: function () {
+    route.get('/logout', function () {
+       authentication.resetAuthHeader();
+       authentication.response.writeHead(303, {
+          'location': '/'
+        });
     });
   }
 };
