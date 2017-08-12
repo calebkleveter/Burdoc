@@ -16,14 +16,16 @@
           <h1>D<span class="small-title">ashboard</span></h1>
         </div>
         <div id="document-manager" class="col-xs-12 col-sm-12">
-            <div class="editing">
-              <button type="button" class="btn btn-default" aria-label="Left Align">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </button>
-              <button type="button" class="btn btn-default" aria-label="Left Align">
-                <i class="fa fa-minus" aria-hidden="true"></i>
-              </button>
-            </div>
+            <ul class="editing">
+              <li>
+                <burdoc-new-doc-model></burdoc-new-doc-model>
+              </li>
+              <li>
+                <button type="button" class="btn btn-default" aria-label="Left Align">
+                  <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+              </li>
+            </ul>
         </div>
         <div id="dashboard">
           <burdoc-documents></burdoc-documents>
