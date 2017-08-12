@@ -1,5 +1,5 @@
 const socketio = require('socket.io');
-const authentication = require('authentication');
+const authentication = require('./authentication');
 const user = require('./models/user');
 
 /**
