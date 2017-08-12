@@ -13,10 +13,10 @@ user.sync();
 
 // Create and start the server on port 8080.
 const server = http.createServer(function (request, response) {
+  authentication.setRequestAndResponse(request, response);
   router.registerRoutes(request, response);
 }).listen(8080);
 
-authentication.setServer(server);
 sockets.configure(server);
 
 // Output that the server has started.

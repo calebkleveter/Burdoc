@@ -2,12 +2,14 @@ const crypto = require('crypto');
 
 var authentication = {
     /**
-   * Sets the server the authentication middleware will connect to.
+   * Sets the request and response that the authentication middleware will connect to.
    * 
-   * @param {http.ClientRequest} server: The server the middleware will connect to.
+   * @param {http.IncomingMessage} request: The request sent by the client that the middleware will connect to.
+   * @param {http.ServerResponse} response: The response from the server to the client that the middleware will connect to.
    */
-  setServer: function (server)  {
-    this.server = server;
+  setRequestAndResponse: function (request, response)  {
+    this.request = request;
+    this.response = response;
   },
   
   /**
