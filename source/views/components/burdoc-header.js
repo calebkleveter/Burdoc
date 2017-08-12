@@ -40,6 +40,7 @@ Vue.component('burdoc-header', {
     socket.on('authorized', () => {
       this.links = [
         {url: '/dashboard', name: 'Dashboard'},
+        {url: '/logout', name: 'Logout'},
         {url: '/about', name: 'About'}, 
         {url: '/', name: 'Home'}
       ]
