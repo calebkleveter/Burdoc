@@ -37,11 +37,23 @@ Vue.component('burdoc-signup-form', {
   methods: {
     signup: function () {
       this.isSubmitting = true;
-      socket.emit('signup', {
-        username: this.username,
-        email: this.email,
-        password: this.password
-      });
+      if (this.username !== '' && this.password !== '' && this.email !== '') {
+        socket.emit('signup', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        });
+      } else {
+        this.isSubmitting = false;
+        if (this.username == '') {
+          this.error = 'A username is required for signup';
+        } else if (this.password == '') {
+          this.error = 'A password is required for signup';
+        } else {
+          this.error = 'An email is required for signup'
+        }
+      }
+      
       socket.on('signupSuccess', () => {
         window.location.href = '/dashboard';
       });
