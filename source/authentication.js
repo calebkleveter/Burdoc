@@ -21,6 +21,14 @@ var authentication = {
   setAuthHeader: function (username, password) {
     this.header = new Buffer.from(`${username}:${password}`).toString('base64');
     this.currentUser = username;
+  },
+  
+  /**
+   * Resets the `header` and `currentUser` properties to undifined, login out the user.
+   */
+  resetAuthHeader: function () {
+    this.header = undefined;
+    this.currentUser = undefined;
   }
 };
 
