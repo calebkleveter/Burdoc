@@ -1,6 +1,7 @@
 const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
+const authentication = require('./authentication');
 const user = require('./models/user');
 
 module.exports = {
@@ -64,7 +65,15 @@ module.exports = {
    */
   dashboard: function () {
     route.get('/dashboard', function () {
-      return view.get('dashboard');
+      if (authentication.header != undefined) {
+        authentication.response.setHeader('Authorization', authentication.header);
+        return view.get('dashboard'); 
+      } else {
+        authentication.response.writeHead(303, {
+          'location': '/login',
+          'authentication-error': 'You Need to Login Before You can Access the Dashboard.'
+        })
+      }
     });
   },
 
