@@ -57,7 +57,7 @@ var receiverEvents = {
       user.authenticate(data.username, data.password)
         .then((user) => {
           authentication.setAuthHeader(data.username, data.password);
-          this.socket.emit('LoginSuccess', user);
+          this.socket.emit('loginSuccess', user);
         })
         .catch((error) => {
           this.socket.emit('loginError', error.message);
