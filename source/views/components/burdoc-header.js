@@ -25,13 +25,23 @@ Vue.component('burdoc-header', {
   </header>
   `,
   data: function () {
-    return {
-      links: [
-        {url: '/signup', name: 'Sign Up'},
-        {url: '/login', name: 'Login'},
-        {url: '/about', name: 'About'},
-        {url: '/', name: 'Home'}
-      ]
-    };
+    if (authorized) {
+      return {
+        links: [
+          {url: '/dashboard', name: 'Dashboard'},
+          {url: '/about', name: 'About'},
+          {url: '/', name: 'Home'}
+        ]
+      };
+    } else {
+      return {
+        links: [
+          {url: '/signup', name: 'Sign Up'},
+          {url: '/login', name: 'Login'},
+          {url: '/about', name: 'About'},
+          {url: '/', name: 'Home'}
+        ]
+      };
+    }
   }
 });
