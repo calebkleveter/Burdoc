@@ -30,6 +30,7 @@ var receiverEvents = {
     this.socket = socket;
     this.signup();
     this.login();
+    this.checkForAuthorization();
   },
   
   /**
@@ -61,6 +62,17 @@ var receiverEvents = {
         .catch((error) => {
           this.socket.emit('loginError', error.message);
         });
+    });
+  },
+  
+  /**
+   * Checks to seee if a user is authenticated on the 'checkForAuthorization' socket event.
+   */
+  checkForAuthorization: function () {
+    this.socket.on('checkForAuthorization', () => {
+      if (authentication.header != undefined) {
+        this.socket.emit('authorized');
+      }
     });
   }
 };
