@@ -15,7 +15,7 @@ module.exports = {
     'router.js': './source/router.js',
     'view.js': './source/view.js',
     'database.js': './source/database.js',
-    'authenticate.js': './source/authenticate.js',
+    'authentication.js': './source/authentication.js',
     'sockets.js': './source/sockets.js',
     'models/user.js': './source/models/user.js'
   },
