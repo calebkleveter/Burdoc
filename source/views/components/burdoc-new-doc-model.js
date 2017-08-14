@@ -37,7 +37,17 @@ Vue.component('burdoc-new-doc-model', {
   },
   methods: {
     createDocument: function () {
-      
+      if (this.documentName != nil) {
+        socket.emit('createDocument', {name: this.documentName});
+        socket.on('documentCreated', function (data) {
+          window.location.href = data.url;
+        });
+        socket.on('documentCreationError', function (errorMessage) {
+          this.error = errorMessage;
+        });
+      } else {
+        this.error = 'Pick a name for your new document!';
+      }
     }
   }
 });
