@@ -25,7 +25,7 @@ Vue.component('burdoc-new-doc-model', {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @onclick="createDocument">Create Document</button>
+            <button type="button" class="btn btn-primary" @click="createDocument">Create Document</button>
           </div>
         </div>
       </div>
