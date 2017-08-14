@@ -12,7 +12,10 @@ Vue.component('burdoc-new-doc-model', {
             <h4 class="modal-title" id="newDocument">Create a New Document</h4>
           </div>
           <div class="modal-body">
-            <div class="form-group">
+            <div v-if='isSubmitting' class="loading-indicator">
+             <i class="fa fa-cog fa-5x fa-spin" aria-hidden="true"></i>
+            </div>
+            <div v-else class="form-group">
               <label for="document-name">Name:</label>
               <input type="text" name="document-name" v-model='documentName' class="form-control" id="document-name" placeholder="Document Name">
             </div>
@@ -32,17 +35,20 @@ Vue.component('burdoc-new-doc-model', {
   data: function () {
     return {
       documentName: '',
+      isSubmitting: false,
       error: ''
     };
   },
   methods: {
     createDocument: function () {
+      this.isSubmitting = true;
       if (this.documentName != nil) {
         socket.emit('createDocument', {name: this.documentName});
         socket.on('documentCreated', function (data) {
           window.location.href = data.url;
         });
         socket.on('documentCreationError', function (errorMessage) {
+          this.isSubmitting = false;
           this.error = errorMessage;
         });
       } else {
