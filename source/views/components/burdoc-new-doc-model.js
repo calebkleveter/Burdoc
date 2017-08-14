@@ -19,7 +19,7 @@ Vue.component('burdoc-new-doc-model', {
               <label for="document-name">Name:</label>
               <input type="text" name="document-name" v-model='documentName' class="form-control" id="document-name" placeholder="Document Name">
             </div>
-            <div v-if='error'>
+            <div v-if='error' class="error-message">
               <p>{{ error }}</p>
             </div>
           </div>
