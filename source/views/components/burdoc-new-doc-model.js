@@ -42,7 +42,8 @@ Vue.component('burdoc-new-doc-model', {
   methods: {
     createDocument: function () {
       this.isSubmitting = true;
-      if (this.documentName != nil) {
+      this.error = '';
+      if (this.documentName != '') {
         socket.emit('createDocument', {name: this.documentName});
         socket.on('documentCreated', function (data) {
           window.location.href = data.url;
@@ -52,6 +53,7 @@ Vue.component('burdoc-new-doc-model', {
           this.error = errorMessage;
         });
       } else {
+        this.isSubmitting = false;
         this.error = 'Pick a name for your new document!';
       }
     }
