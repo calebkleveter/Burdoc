@@ -14,7 +14,10 @@ Vue.component('burdoc-new-doc-model', {
           <div class="modal-body">
             <div class="form-group">
               <label for="document-name">Name:</label>
-              <input type="text" name="document-name" v-model='documentName' class="form-control" id="document-name" @keydown="reset" placeholder="Document Name">
+              <input type="text" name="document-name" v-model='documentName' class="form-control" id="document-name" placeholder="Document Name">
+            </div>
+            <div v-if='error'>
+              <p>{{ error }}</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -28,14 +31,11 @@ Vue.component('burdoc-new-doc-model', {
   `,
   data: function () {
     return {
-      documentName: ''
+      documentName: '',
+      error: ''
     };
   },
   methods: {
-    reset: function () {
-      
-    },
-    
     createDocument: function () {
       
     }
