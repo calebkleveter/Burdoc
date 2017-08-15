@@ -2,6 +2,10 @@
   GLOBAL
 */
 
+#app {
+  height: 100vh;
+}
+
 .small-title {
   font-size: 0.8em;
 }
@@ -117,6 +121,16 @@
   background-color: #9d9d9a;
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em;
+}
+
+/*
+  EDITOR
+*/
+
+#editor #document-editor {
+  width: 100%;
+  height: 90vh;
+  resize: none;
 }
 
 /*
