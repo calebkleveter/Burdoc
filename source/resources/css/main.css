@@ -133,6 +133,40 @@
   resize: none;
 }
 
+#menu-bar {
+  padding: 0.5em;
+  margin: 1em 0;
+  background-color: #9d9d9a;
+  border-radius: 0.5em;
+}
+
+#menu-bar .left {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+#menu-bar .left ul {
+  padding-left: 0;
+}
+
+#menu-bar .right {
+  float: right;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+#menu-bar .menu-buttons {
+  margin-bottom: 0;
+}
+
+#menu-bar .menu-buttons li {
+  display: inline-flex;
+}
+
+#menu-bar .menu-buttons button span {
+  font-size: 1.5em;
+}
+
 /*
   MEDIA QUERYS
 */
