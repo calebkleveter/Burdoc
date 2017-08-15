@@ -1,6 +1,17 @@
 Vue.component('burdoc-doc-editor', {
   template: `
   <div id="editor" class="col-xs-12 col-sm-12">
+    <div id="menu-bar">
+      <div class="left">
+        <ul class="menu-buttons">
+          <li>
+            <button type="button" class="btn btn-default" aria-label="Left Align" alt="Save Document">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div id="edit-tab" class="col-md-6">
       <textarea name="document-editor" id="document-editor" v-model="documentText" @keyup="render"></textarea>
     </div>
