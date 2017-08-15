@@ -20,6 +20,7 @@ module.exports = {
     this.signup();
     this.dashboard();
     this.logout();
+    this.editor();
     response.end();
   },
 
@@ -85,6 +86,15 @@ module.exports = {
        authentication.response.writeHead(303, {
           'location': '/'
         });
+    });
+  },
+  
+  /**
+   * A temporary route for testing and developing the 'editor'  view.
+   */
+  editor: function () {
+    route.get('/editor', function () {
+      return view.get('editor');
     });
   }
 };
