@@ -133,6 +133,12 @@
   resize: none;
 }
 
+#editor #preview-tab {
+  border: 0.75px rgb(169, 169, 169) solid;
+  height: 82vh;
+  overflow-y: scroll;
+}
+
 #menu-bar {
   padding: 0.5em;
   margin: 1em 0;
