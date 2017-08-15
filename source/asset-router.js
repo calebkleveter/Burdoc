@@ -45,6 +45,7 @@ module.exports = {
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-login-form.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-new-doc-model.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-documents.js`);
+       js += fs.readFileSync(`${__dirname}/views/components/burdoc-doc-editor.js`);
       js += fs.readFileSync(`${__dirname}/views/js/index.js`);
       return js;
     });
