@@ -5,7 +5,7 @@ Vue.component('burdoc-doc-editor', {
       <div class="left">
         <ul class="menu-buttons">
           <li>
-            <button type="button" class="btn btn-default" aria-label="Left Align" alt="Save Document">
+            <button type="button" class="btn btn-default" aria-label="Left Align" @keydown.ctrl.83.prevent="save" @click="save">
               <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
           </li>
@@ -29,6 +29,8 @@ Vue.component('burdoc-doc-editor', {
     render: function () {
       var converter = new showdown.Converter();
       this.html = converter.makeHtml(this.documentText);
-    }
+    },
+    
+    save: function () { console.log('save') }
   }
 });
