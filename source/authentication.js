@@ -1,15 +1,15 @@
 var authentication = {
-    /**
+  /**
    * Sets the request and response that the authentication middleware will connect to.
    * 
    * @param {http.IncomingMessage} request: The request sent by the client that the middleware will connect to.
    * @param {http.ServerResponse} response: The response from the server to the client that the middleware will connect to.
    */
-  setRequestAndResponse: function (request, response)  {
+  setRequestAndResponse: function (request, response) {
     this.request = request;
     this.response = response;
   },
-  
+
   /**
    * Creates an authentication header from a username and password and sets the result to the `header` property.
    * 
@@ -20,7 +20,7 @@ var authentication = {
     this.header = new Buffer.from(`${username}:${password}`).toString('base64');
     this.currentUser = username;
   },
-  
+
   /**
    * Resets the `header` and `currentUser` properties to undifined, login out the user.
    */

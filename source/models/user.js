@@ -75,11 +75,11 @@ function create (username, email, password) {
         throw new Error('Email Already Taken');
       }
     }).then(function (user) {
-       if (user == null) {
-         return argon2.hash(password);
-       } else {
-         throw new Error('Username Already Taken');
-       }
+      if (user == null) {
+        return argon2.hash(password);
+      } else {
+        throw new Error('Username Already Taken');
+      }
     }).then(function (hash) {
       model.create({
         name: username,
@@ -106,16 +106,16 @@ function authenticate (name, password) {
     fetchByName(name).then(function (user) {
       if (user != null) {
         argon2.verify(user.password, password)
-        .then(function (didMatch) {
-          if (didMatch) {
-            resolve(user);
-          } else {
-            reject(new Error('Password did not match with the username passed in.'));
-          }
-        })
-        .catch(function (error) {
-          reject(error);
-        });
+          .then(function (didMatch) {
+            if (didMatch) {
+              resolve(user);
+            } else {
+              reject(new Error('Password did not match with the username passed in.'));
+            }
+          })
+          .catch(function (error) {
+            reject(error);
+          });
       } else {
         reject(new Error('No user is registered with that username.'));
       }
