@@ -1,6 +1,7 @@
 const socketio = require('socket.io');
 const authentication = require('./authentication');
 const user = require('./models/user');
+const document = require('./models/document');
 
 /**
  * Creates the socket and registers it and it's events with the server.
@@ -31,6 +32,7 @@ var receiverEvents = {
     this.signup();
     this.login();
     this.checkForAuthorization();
+    this.createDocument();
   },
   
   /**
@@ -64,7 +66,7 @@ var receiverEvents = {
         });
     });
   },
-  
+
   /**
    * Checks to seee if a user is authenticated on the 'checkForAuthorization' socket event.
    */
@@ -73,6 +75,21 @@ var receiverEvents = {
       if (authentication.header != undefined) {
         this.socket.emit('authorized');
       }
+    });
+  },
+
+  /**
+   * Attempts to create a new document for the current user.
+   */
+  createDocument: function () {
+    this.socket.on('createDocument', (data) => {
+      user.fetchByName(authentication.currentUser).then((user) => {
+        document.create(user.id, data.name, '').then(() => {
+          this.socket.emit('documentCreated', {url: `${authentication.currentUser}/${data.name}`});
+        }).catch((error) => {
+          this.socket.emit('documentCreationError', error.message);
+        });
+      });
     });
   }
 };
