@@ -21,7 +21,7 @@ function configure (server) {
  * Handles the socket events received from the client.
  */
 var receiverEvents = {
-  
+
   /**
    * Sets the socket the receiver event functions will connect to and registers the events with it.
    * 
@@ -34,7 +34,7 @@ var receiverEvents = {
     this.checkForAuthorization();
     this.createDocument();
   },
-  
+
   /**
    * Attempts to create a user from the data sent from the client on the 'signup' event.
    */
@@ -50,7 +50,7 @@ var receiverEvents = {
         );
     });
   },
-  
+
   /**
    * Attempts to authenticate an existing user from the data sent from the client on the 'login' socket event.
    */
@@ -72,7 +72,7 @@ var receiverEvents = {
    */
   checkForAuthorization: function () {
     this.socket.on('checkForAuthorization', () => {
-      if (authentication.header != undefined) {
+      if (authentication.header !== undefined) {
         this.socket.emit('authorized');
       }
     });
