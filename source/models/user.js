@@ -14,9 +14,6 @@ const model = database.sequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING
-  },
-  documents: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 });
 
@@ -128,28 +125,11 @@ function authenticate (name, password) {
   });
 }
 
-/**
- * Adds a link to a document held in the ElasticSearch database to a users documents array.
- *
- * @param {string} link: The link to the document.
- * @param {string} name: The email or username of the user to add the link to.
- */
-function addDocumentLinkToUser (link, name) {
-  model.update(
-    {documents: database.sequelize.fn('array_append', database.sequelize.col('documents'), link)},
-    {where: {
-      name: name,
-      $or: [{email: name}]}
-    }
-  );
-}
-
 module.exports = {
   model: model,
   sync: sync,
   fetchByEmail: fetchByEmail,
   fetchByName: fetchByName,
   create: create,
-  authenticate: authenticate,
-  addDocumentLinkToUser: addDocumentLinkToUser
+  authenticate: authenticate
 };
