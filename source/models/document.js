@@ -16,6 +16,20 @@ const model = database.sequelize.define('document', {
   }
 });
 
+/**
+ * Creates a document table if one does not already exist.
+ */
+function sync () {
+  model.sync({force: false})
+    .then(function () {
+      console.log('Synced document table');
+    })
+    .catch(function (error) {
+      console.error('Failed to sync document table: ', error);
+    });
+}
+
 module.exports = {
-  model: model
+  model: model,
+  sync: sync
 };
