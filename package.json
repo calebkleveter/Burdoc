@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "argon2": "^0.16.1",
-    "pg": "^7.0.2",
+    "pg": "^7.1.2",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.4.2",
+    "sequelize": "^4.5.0",
     "showdown": "^1.7.2",
     "socket.io": "^2.0.3",
     "webpack-node-externals": "^1.6.0"
@@ -29,6 +29,6 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.4"
   }
 }
