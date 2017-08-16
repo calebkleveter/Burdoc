@@ -45,8 +45,36 @@ function findByNameAndUserID (name, userID) {
   });
 }
 
+/**
+ * Creates a new document if one does not already exist with the name and user ID.
+ * 
+ * @param {string} userID The database ID of the user who owns the document.
+ * @param {string} name The name of the document.
+ * @param {string} contents The Markdown contained in the document.
+ * @returns A promise that resolves if the document is successfully created.
+ */
+function create (userID, name, contents) {
+  return new Promise(function (resolve, reject) {
+    findByNameAndUserID(name, userID).then(function (document) {
+      if (document == null) {
+        model.create({
+          userID: userID,
+          name: name,
+          contents: contents
+        });
+        resolve();
+      } else {
+        throw new Error('A document already exists with that name and user ID');
+      }
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
-  findByNameAndUserID: findByNameAndUserID
+  findByNameAndUserID: findByNameAndUserID,
+  create: create
 };
