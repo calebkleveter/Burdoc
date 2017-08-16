@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
 const database = require('../database');
 
+/**
+ * The model definition for Sequelize.
+ */
 const model = database.sequelize.define('document', {
   userID: {
     type: Sequelize.INTEGER
