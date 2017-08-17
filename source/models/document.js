@@ -156,6 +156,20 @@ function deleteByNameAndUserID (name, userID) {
   });
 }
 
+/**
+ * Gets all documents from the database that belong to a certain user.
+ * 
+ * @param {string} userID The ID of the user that the documents are for.
+ * @returns Promise<Array<documents>> The documents belonging to the user ID.
+ */
+function fetchAllForUserID (userID) {
+  return model.findAll({
+    where: {
+      userID: userID
+    }
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
@@ -163,5 +177,6 @@ module.exports = {
   create: create,
   updateContentsForNameAndUserID: updateContentsForNameAndUserID,
   updateNameForNameAndUserID: updateNameForNameAndUserID,
-  delete: deleteByNameAndUserID
+  delete: deleteByNameAndUserID,
+  fetchAllForUserID: fetchAllForUserID
 };
