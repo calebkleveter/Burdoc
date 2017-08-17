@@ -33,6 +33,7 @@ var receiverEvents = {
     this.login();
     this.checkForAuthorization();
     this.createDocument();
+    this.documentsFetch();
   },
 
   /**
@@ -88,6 +89,26 @@ var receiverEvents = {
           this.socket.emit('documentCreated', {url: `${authentication.currentUser}/${userModel.url}`});
         }).catch((error) => {
           this.socket.emit('documentCreationError', error.message);
+        });
+      });
+    });
+  },
+
+  documentsFetch: function () {
+    this.socket.on('getUserDocuments', () => {
+      user.fetchByName(authentication.currentUser).then((user) => {
+        document.fetchAllForUserID(user.id).then((documents) => {
+          var data = [];
+          documents.forEach(function (doc) {
+            data.push({
+              title: doc.dataValues.name,
+              titleCharacter: doc.dataValues.name[0],
+              url: `${authentication.currentUser}/${doc.dataValues.url}`
+            });
+          });
+          this.socket.emit('documentsFetched', data);
+        }).catch((error) => {
+          this.socket.emit('documentFetchFailed', error.message);
         });
       });
     });
