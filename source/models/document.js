@@ -100,10 +100,39 @@ function updateContentsForNameAndUserID (contents, name, userID) {
   });
 }
 
+/**
+ * Updates the name of a document based on it's user ID and name.
+ * 
+ * @param {string} newName The new name for the document.
+ * @param {string} name The name of the document to be updated.
+ * @param {string} userID The ID of the user that owns the document.
+ * @returns A promises that resolves if a document was updated.
+ */
+function updateNameForNameAndUserID (newName, name, userID) {
+  return new Promise(function (resolve, reject) {
+    model.update(
+      {name: newName},
+      {
+        name: name,
+        userID: userID
+      }
+    ).then(function (data) {
+      if (data[0] === 0) {
+        reject(new Error('There is no document for the user ID and name passed in.'));
+      } else {
+        resolve();
+      }
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
   findByNameAndUserID: findByNameAndUserID,
   create: create,
-  updateContentsForNameAndUserID: updateContentsForNameAndUserID
+  updateContentsForNameAndUserID: updateContentsForNameAndUserID,
+  updateNameForNameAndUserID: updateNameForNameAndUserID
 };
