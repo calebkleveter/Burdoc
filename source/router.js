@@ -2,7 +2,6 @@ const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
 const authentication = require('./authentication');
-const user = require('./models/user');
 
 module.exports = {
   /**
@@ -65,9 +64,9 @@ module.exports = {
    */
   dashboard: function () {
     route.get('/dashboard', function () {
-      if (authentication.header != undefined) {
+      if (authentication.header !== undefined) {
         authentication.response.setHeader('Authorization', authentication.header);
-        return view.get('dashboard'); 
+        return view.get('dashboard');
       } else {
         authentication.response.writeHead(303, {
           'location': '/login',
@@ -76,19 +75,19 @@ module.exports = {
       }
     });
   },
-  
+
   /**
    * The route for the /logout path, which logs out the current user.
    */
   logout: function () {
     route.get('/logout', function () {
-       authentication.resetAuthHeader();
-       authentication.response.writeHead(303, {
-          'location': '/'
-        });
+      authentication.resetAuthHeader();
+      authentication.response.writeHead(303, {
+        'location': '/'
+      });
     });
   },
-  
+
   /**
    * A temporary route for testing and developing the 'editor'  view.
    */

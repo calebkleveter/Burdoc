@@ -77,7 +77,7 @@ module.exports = {
       this.response.end(data);
     }
   },
-  
+
   /**
    * Creates a route for getting a font file.
    *
@@ -91,7 +91,7 @@ module.exports = {
       this.response.end(data);
     }
   },
-  
+
   /**
    * Creates a route for a POST request.
    *

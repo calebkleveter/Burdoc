@@ -10,10 +10,10 @@ const document = require('./models/document');
 // Connect to the PostgreSQL database used to store users.
 database.connect();
 
-// Sync the user table in the PostgreSQL database.
+// Create a user table in the database if one does not exist yet.
 user.sync();
 
-// Created a document table in the database if one does not exist yet.
+// Create a document table in the database if one does not exist yet.
 document.sync();
 
 const certs = {
