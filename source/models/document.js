@@ -55,7 +55,7 @@ function findByNameAndUserID (name, userID) {
  * @param {string} userID The database ID of the user who owns the document.
  * @param {string} name The name of the document.
  * @param {string} contents The Markdown contained in the document.
- * @returns A promise that resolves if the document is successfully created.
+ * @returns Promise<document> The document that was created.
  */
 function create (userID, name, contents) {
   return new Promise(function (resolve, reject) {
@@ -66,8 +66,11 @@ function create (userID, name, contents) {
           name: name,
           url: slug(name),
           contents: contents
+        }).then(function (user) {
+          resolve(user);
+        }).catch(function (error) {
+          reject(error);
         });
-        resolve();
       } else {
         throw new Error('A document already exists with that name and user ID');
       }
