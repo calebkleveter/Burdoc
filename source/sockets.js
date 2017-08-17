@@ -84,8 +84,8 @@ var receiverEvents = {
   createDocument: function () {
     this.socket.on('createDocument', (data) => {
       user.fetchByName(authentication.currentUser).then((user) => {
-        document.create(user.id, data.name, '').then(() => {
-          this.socket.emit('documentCreated', {url: `${authentication.currentUser}/${data.name}`});
+        document.create(user.id, data.name, '').then((userModel) => {
+          this.socket.emit('documentCreated', {url: `${authentication.currentUser}/${userModel.url}`});
         }).catch((error) => {
           this.socket.emit('documentCreationError', error.message);
         });
