@@ -8,7 +8,7 @@ Vue.component('burdoc-header', {
           <div class="logo-link col-xs-12 col-sm-12 col-md-2 col-lg-2">
             <a class="" href="/">
               <div class="logo">
-                <img src="images/burdoc.svg" alt="Alt">
+                <img src="/images/burdoc.svg" alt="Alt">
                 <h1>B<span class="small-title">URDOC</span></h1>
               </div>
             </a>
