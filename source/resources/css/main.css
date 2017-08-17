@@ -112,6 +112,7 @@ body {
   border-radius: 1em;
   padding: 0;
   margin-bottom: 2em;
+  cursor: pointer;
 }
 
 .document .identifier {
