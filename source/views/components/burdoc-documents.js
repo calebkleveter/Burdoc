@@ -1,8 +1,8 @@
 Vue.component('burdoc-documents', {
   template: `
   <div id="documents">
-    <div class="docs-loop col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="document in documents">
-      <div class="document">
+    <div v-if="documents.length > 0" class="docs-loop col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="document in documents">
+      <div @click="redirect(document)" class="document">
         <div class="identifier">
           <p>{{ document.titleCharacter }}</p>
         </div>
@@ -11,21 +11,31 @@ Vue.component('burdoc-documents', {
         </div>
       </div>
     </div>
+    <div v-else>
+      <p :class="messageClass">{{ noDocumentsMessage }}</p>
+    </div>
   </div>
   `,
   data: function () {
     return {
-      documents: [
-        {titleCharacter: 'T', title: 'Test Doc'},
-        {titleCharacter: 'B', title: 'Burdoc'},
-        {titleCharacter: 'O', title: 'On War and Peace'},
-        {titleCharacter: 'U', title: 'User Authentication in Vapor'},
-        {titleCharacter: 'R', title: 'The Revenge of the Swift'},
-        {titleCharacter: '1', title: '101 Ways to Eat Eggplant'},
-        {titleCharacter: 'C', title: 'Click Me'},
-        {titleCharacter: 'M', title: 'The Middle Man'},
-        {titleCharacter: 'S', title: 'Schindler\'s List'}
-      ]
+      documents: [],
+      messageClass: '',
+      noDocumentsMessage: 'You Don\'t Have Any Documents'
     };
+  },
+  methods: {
+    redirect: (doc) => {
+      window.location.href = doc.url;
+    }
+  },
+  created: function () {
+    socket.emit('getUserDocuments');
+    socket.on('documentsFetched', (docs) => {
+      this.documents = docs;
+    });
+    socket.on('documentFetchFailed', (error) => {
+      this.messageClass = 'error-message';
+      this.noDocumentsMessage = error;
+    });
   }
 });
