@@ -128,11 +128,29 @@ function updateNameForNameAndUserID (newName, name, userID) {
   });
 }
 
+/**
+ * Deletes a document based on it's name and user ID.
+ * 
+ * @param {string} name The name of the document to be deleted.
+ * @param {string} userID The ID of the user that owns the document.
+ * @returns Promise<Number> The number of deleted documents. This can not excede 1.
+ */
+function deleteByNameAndUserID (name, userID) {
+  return model.destroy({
+    where: {
+      name: name,
+      userID: userID
+    },
+    limit: 1
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
   findByNameAndUserID: findByNameAndUserID,
   create: create,
   updateContentsForNameAndUserID: updateContentsForNameAndUserID,
-  updateNameForNameAndUserID: updateNameForNameAndUserID
+  updateNameForNameAndUserID: updateNameForNameAndUserID,
+  delete: deleteByNameAndUserID
 };
