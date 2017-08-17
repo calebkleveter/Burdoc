@@ -92,7 +92,7 @@ module.exports = {
    * A temporary route for testing and developing the 'editor'  view.
    */
   editor: function () {
-    route.get('/editor', function () {
+    route.regexGet('\\/[\\w]+\\/.+', function () {
       return view.get('editor');
     });
   }
