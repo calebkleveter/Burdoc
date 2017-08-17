@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const slug = require('slug');
 const database = require('../database');
 
 /**
@@ -9,6 +10,9 @@ const model = database.sequelize.define('document', {
     type: Sequelize.INTEGER
   },
   name: {
+    type: Sequelize.STRING
+  },
+  url: {
     type: Sequelize.STRING
   },
   contents: {
@@ -60,6 +64,7 @@ function create (userID, name, contents) {
         model.create({
           userID: userID,
           name: name,
+          url: slug(name),
           contents: contents
         });
         resolve();
@@ -111,7 +116,10 @@ function updateContentsForNameAndUserID (contents, name, userID) {
 function updateNameForNameAndUserID (newName, name, userID) {
   return new Promise(function (resolve, reject) {
     model.update(
-      {name: newName},
+      {
+        name: newName,
+        url: slug(newName)
+      },
       {
         name: name,
         userID: userID
