@@ -36,6 +36,20 @@ module.exports = {
   },
 
   /**
+   * Creates a route for a GET request based off of a regex pattern
+   * 
+   * @param {string} urlPattern The RegExp pattern the request's url should match.
+   * @param {function()-><string>} handler A function that returns the data that will be sent to the client.
+   */
+  regexGet: function (urlPattern, handler) {
+    var urlRegex = new RegExp(urlPattern, 'g');
+    if (this.request.method === 'GET' && urlRegex.test(this.request.url)) {
+      var data = handler();
+      this.response.end(data);
+    }
+  },
+
+  /**
    * Creates a route for getting a CSS file.
    *
    * @param {string} url: The URL the route is called on.
