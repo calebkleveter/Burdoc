@@ -49,6 +49,15 @@ function findByNameAndUserID (name, userID) {
   });
 }
 
+function findByURLAndUserID (url, userID) {
+  return model.findOne({
+    where: {
+      url: url,
+      $and: {userID: userID}
+    }
+  });
+}
+
 /**
  * Creates a new document if one does not already exist with the name and user ID.
  * 
