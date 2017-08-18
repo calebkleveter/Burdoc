@@ -34,6 +34,7 @@ var receiverEvents = {
     this.checkForAuthorization();
     this.createDocument();
     this.documentsFetch();
+    this.saveDocument();
   },
 
   /**
@@ -110,6 +111,22 @@ var receiverEvents = {
         }).catch((error) => {
           this.socket.emit('documentFetchFailed', error.message);
         });
+      });
+    });
+  },
+
+  saveDocument: function () {
+    this.socket.on('saveDocument', (data) => {
+      var model;
+      user.fetchByName(data.documentOwner).then((userModel) => {
+        model = userModel;
+        return document.findByURLAndUserID(data.documentURL, model.id);
+      }).then((doc) => {
+        return document.updateContentsForNameAndUserID(data.contents, doc.name, model.id);
+      }).then(() => {
+        this.socket.emit('documentSaved');
+      }).catch((error) => {
+        this.socket.emit('saveFailed', error.message);
       });
     });
   }
