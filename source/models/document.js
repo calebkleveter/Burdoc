@@ -101,10 +101,10 @@ function updateContentsForNameAndUserID (contents, name, userID) {
   return new Promise(function (resolve, reject) {
     model.update(
       {contents: contents},
-      {
+      {where: {
         name: name,
         userID: userID
-      }
+      }}
     ).then(function (data) {
       if (data[0] === 0) {
         reject(new Error('There is no document for the user ID and name passed in.'));
@@ -132,10 +132,10 @@ function updateNameForNameAndUserID (newName, name, userID) {
         name: newName,
         url: slug(newName)
       },
-      {
+      {where: {
         name: name,
         userID: userID
-      }
+      }}
     ).then(function (data) {
       if (data[0] === 0) {
         reject(new Error('There is no document for the user ID and name passed in.'));
