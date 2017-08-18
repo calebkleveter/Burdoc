@@ -183,6 +183,7 @@ module.exports = {
   model: model,
   sync: sync,
   findByNameAndUserID: findByNameAndUserID,
+  findByURLAndUserID: findByURLAndUserID,
   create: create,
   updateContentsForNameAndUserID: updateContentsForNameAndUserID,
   updateNameForNameAndUserID: updateNameForNameAndUserID,
