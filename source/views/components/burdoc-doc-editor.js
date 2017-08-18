@@ -5,7 +5,7 @@ Vue.component('burdoc-doc-editor', {
       <div class="left">
         <ul class="menu-buttons">
           <li>
-            <button type="button" class="btn btn-default" aria-label="Left Align" @keydown.ctrl.83.prevent="save" @click="save">
+            <button type="button" class="btn btn-default" aria-label="Left Align" :style="saveButtonStyle" @keydown.ctrl.83.prevent="save" @click="save">
               <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
           </li>
@@ -22,15 +22,30 @@ Vue.component('burdoc-doc-editor', {
   data: function () {
     return {
       documentText: '',
-      html: ''
+      html: '',
+      saveButtonStyle: ''
     };
   },
   methods: {
     render: function () {
+      this.saveButtonStyle = 'background-color: rgb(218, 208, 120)';
       var converter = new showdown.Converter();
       this.html = converter.makeHtml(this.documentText);
     },
-    
-    save: function () { console.log('save') }
+
+    save: function () {
+      var documentData = window.location.pathname.split('/');
+      socket.emit('saveDocument', {
+        contents: this.documentText,
+        documentOwner: documentData[1],
+        documentURL: documentData[2]
+      });
+      socket.on('documentSaved', () => {
+        this.saveButtonStyle = '';
+      });
+      socket.on('saveFailed', function (error) {
+        alert(error);
+      });
+    }
   }
 });
