@@ -1,6 +1,6 @@
 {
   "name": "burdoc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Markdown editor in the cloud",
   "main": "main.js",
   "author": "Caleb Kleveter",
