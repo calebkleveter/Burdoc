@@ -49,7 +49,11 @@ Vue.component('burdoc-doc-editor', {
     }
   },
   created: function () {
-    socket.emit('fetchDocument');
+    var documentData = window.location.pathname.split('/');
+    socket.emit('fetchDocument', {
+      documentOwner: documentData[2],
+      documentURL: documentData[3]
+    });
     socket.on('documentFetched', (data) => {
       this.documentText = data.markdown;
       this.html = data.html;
