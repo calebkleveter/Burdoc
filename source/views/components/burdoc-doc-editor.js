@@ -37,8 +37,8 @@ Vue.component('burdoc-doc-editor', {
       var documentData = window.location.pathname.split('/');
       socket.emit('saveDocument', {
         contents: this.documentText,
-        documentOwner: documentData[1],
-        documentURL: documentData[2]
+        documentOwner: documentData[2],
+        documentURL: documentData[3]
       });
       socket.on('documentSaved', () => {
         this.saveButtonStyle = '';

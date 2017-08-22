@@ -87,7 +87,7 @@ var receiverEvents = {
     this.socket.on('createDocument', (data) => {
       user.fetchByName(authentication.currentUser).then((user) => {
         document.create(user.id, data.name, '').then((userModel) => {
-          this.socket.emit('documentCreated', {url: `${authentication.currentUser}/${userModel.url}`});
+          this.socket.emit('documentCreated', {url: `document/${authentication.currentUser}/${userModel.url}`});
         }).catch((error) => {
           this.socket.emit('documentCreationError', error.message);
         });
@@ -104,7 +104,7 @@ var receiverEvents = {
             data.push({
               title: doc.dataValues.name,
               titleCharacter: doc.dataValues.name[0],
-              url: `${authentication.currentUser}/${doc.dataValues.url}`
+              url: `document/${authentication.currentUser}/${doc.dataValues.url}`
             });
           });
           this.socket.emit('documentsFetched', data);
