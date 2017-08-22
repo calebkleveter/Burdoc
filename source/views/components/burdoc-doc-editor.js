@@ -47,5 +47,15 @@ Vue.component('burdoc-doc-editor', {
         alert(error);
       });
     }
+  },
+  created: function () {
+    socket.emit('fetchDocument');
+    socket.on('documentFetched', (data) => {
+      this.documentText = data.markdown;
+      this.html = data.html;
+    });
+    socket.on('fetchFailed', (error) => {
+      alert(error);
+    });
   }
 });
