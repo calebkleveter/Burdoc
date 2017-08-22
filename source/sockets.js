@@ -103,8 +103,14 @@ var receiverEvents = {
         document.fetchAllForUserID(user.id).then((documents) => {
           var data = [];
           documents.forEach(function (doc) {
+            var title = '';
+            if (doc.dataValues.name.length > 24) {
+              title = `${doc.dataValues.name.substring(0, 21)}...`;
+            } else {
+              title = doc.dataValues.name;
+            }
             data.push({
-              title: doc.dataValues.name,
+              title: title,
               titleCharacter: doc.dataValues.name[0],
               url: `document/${authentication.currentUser}/${doc.dataValues.url}`
             });
