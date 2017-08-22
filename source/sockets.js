@@ -1,4 +1,5 @@
 const socketio = require('socket.io');
+const showdown = require('showdown');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
@@ -35,6 +36,7 @@ var receiverEvents = {
     this.createDocument();
     this.documentsFetch();
     this.saveDocument();
+    this.fetchDocumentData();
   },
 
   /**
@@ -127,6 +129,26 @@ var receiverEvents = {
         this.socket.emit('documentSaved');
       }).catch((error) => {
         this.socket.emit('saveFailed', error.message);
+      });
+    });
+  },
+
+  fetchDocumentData: function () {
+    this.socket.on('fetchDocument', (data) => {
+      var model;
+      user.fetchByName(data.documentOwner).then((userModel) => {
+        model = userModel;
+        return document.findByURLAndUserID(data.documentURL, model.id);
+      }).then((doc) => {
+        var markdownConverter = new showdown.Converter();
+        var markdown = doc.contents;
+        var html = markdownConverter.makeHtml(markdown);
+        this.socket.emit('documentFetched', {
+          markdown: markdown,
+          html: html
+        });
+      }).catch((error) => {
+        this.socket.emit('fetchFailed', error.message);
       });
     });
   }
