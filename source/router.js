@@ -92,8 +92,17 @@ module.exports = {
    * A temporary route for testing and developing the 'editor'  view.
    */
   editor: function () {
-    route.regexGet('\\/document\\/[\\w]+\\/.+', function () {
-      return view.get('editor');
+    route.regexGet('\\/document\\/[\\w]+\\/.+', function (request) {
+      var user = request.url.split('/')[2];
+      if (authentication.header !== undefined && authentication.currentUser === user) {
+        authentication.response.setHeader('Authorization', authentication.header);
+        return view.get('editor');
+      } else {
+        authentication.response.writeHead(303, {
+          'location': '/dashboard',
+          'authentication-error': 'You need to be logged in as a collaborator for this document to view it.'
+        });
+      }
     });
   }
 };
