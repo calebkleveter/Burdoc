@@ -10,14 +10,7 @@ module.exports = {
   },
   externals: [nodeExternals()],
   entry: {
-    'main.js': './source/main.js',
-    'routeBuilder.js': './source/routeBuilder.js',
-    'router.js': './source/router.js',
-    'view.js': './source/view.js',
-    'database.js': './source/database.js',
-    'authentication.js': './source/authentication.js',
-    'sockets.js': './source/sockets.js',
-    'models/user.js': './source/models/user.js'
+    'main.js': './source/main.js'
   },
   output: {
     path: `${__dirname}/dist`,
