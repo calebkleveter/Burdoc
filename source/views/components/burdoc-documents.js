@@ -3,6 +3,9 @@ Vue.component('burdoc-documents', {
   <div id="documents">
     <div v-if="documents.length > 0" class="docs-loop col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="document in documents">
       <div @click="redirect(document)" class="document">
+        <div class="document-menu">
+          <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
+        </div>
         <div class="identifier">
           <p>{{ document.titleCharacter }}</p>
         </div>
