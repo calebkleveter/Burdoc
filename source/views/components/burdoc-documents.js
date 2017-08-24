@@ -44,7 +44,7 @@ Vue.component('burdoc-documents', {
     socket.on('documentsFetched', (docs) => {
       this.documents = docs;
 
-      // HACK: For some reason you have to call this function, otherwise, if you try to select a document without selecting a document menu first, you won't be driected to the editor.
+      // HACK: For some reason you have to call this function, otherwise, if you try to select a document without selecting a document menu first, you won't be directed to the editor.
       this.redirect();
     });
     socket.on('documentFetchFailed', (error) => {
