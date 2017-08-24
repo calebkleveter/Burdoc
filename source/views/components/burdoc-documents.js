@@ -3,7 +3,7 @@ Vue.component('burdoc-documents', {
   <div id="documents">
     <div v-if="documents.length > 0" class="docs-loop col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="document in documents">
       <div @click="redirect(document)" class="document">
-        <div class="document-menu">
+        <div class="document-menu" @click="menu">
           <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
         </div>
         <div class="identifier">
@@ -23,18 +23,29 @@ Vue.component('burdoc-documents', {
     return {
       documents: [],
       messageClass: '',
-      noDocumentsMessage: 'You Don\'t Have Any Documents'
+      noDocumentsMessage: 'You Don\'t Have Any Documents',
+      shouldRedirect: true
     };
   },
   methods: {
     redirect: (doc) => {
-      window.location.href = doc.url;
+      if (this.shouldRedirect === true) {
+        window.location.href = doc.url;
+      } else {
+        this.shouldRedirect = true;
+      }
+    },
+    menu: () => {
+      this.shouldRedirect = false;
     }
   },
   created: function () {
     socket.emit('getUserDocuments');
     socket.on('documentsFetched', (docs) => {
       this.documents = docs;
+
+      // HACK: For some reason you have to call this function, otherwise, if you try to select a document without selecting a document menu first, you won't be driected to the editor.
+      this.redirect();
     });
     socket.on('documentFetchFailed', (error) => {
       this.messageClass = 'error-message';
