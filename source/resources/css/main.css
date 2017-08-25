@@ -115,6 +115,10 @@ body {
   cursor: pointer;
 }
 
+ul.document-menu {
+  top: 0%;
+}
+
 .document .document-menu {
   float: right;
   margin: 0.5em 0.5em 0;
