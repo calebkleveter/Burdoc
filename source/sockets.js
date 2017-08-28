@@ -37,6 +37,7 @@ var receiverEvents = {
     this.documentsFetch();
     this.saveDocument();
     this.fetchDocumentData();
+    this.renameDocument();
   },
 
   /**
@@ -156,6 +157,16 @@ var receiverEvents = {
         });
       }).catch((error) => {
         this.socket.emit('fetchFailed', error.message);
+      });
+    });
+  },
+
+  renameDocument: function () {
+    this.socket.on('renameDocument', (data) => {
+      document.updateNameWithID(data.name, data.id).then(() => {
+        this.socket.emit('documentRenamed');
+      }).catch((error) => {
+        this.socket.emit('documentRenamingError', error.message);
       });
     });
   }
