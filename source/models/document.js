@@ -90,6 +90,30 @@ function create (userID, name, contents) {
 }
 
 /**
+ * Deletes a document with a specified ID.
+ * 
+ * @param {Number} id The ID of the document that will be deleted.
+ * @returns Promise<>
+ */
+function deleteWithID (id) {
+  return new Promise(function (resolve, reject) {
+    model.destroy({
+      where: {
+        id: id
+      }
+    }).then(function (destroyedRows) {
+      if (destroyedRows > 0) {
+        resolve();
+      } else {
+        reject(new Error('No document exists with the specified ID.'));
+      }
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
+/**
  * Updates the contents of a document based on it's user ID and name.
  * 
  * @param {string} contents The new contents for the document.
@@ -218,5 +242,6 @@ module.exports = {
   updateContentsForNameAndUserID: updateContentsForNameAndUserID,
   updateNameForNameAndUserID: updateNameForNameAndUserID,
   delete: deleteByNameAndUserID,
+  deleteWithID: deleteWithID,
   fetchAllForUserID: fetchAllForUserID
 };
