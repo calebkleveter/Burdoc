@@ -8,7 +8,7 @@ Vue.component('burdoc-documents', {
         </div>
         <ul class="dropdown-menu">
           <li>
-            <a @click="rename">Rename</a>
+            <a @click="rename(document)">Rename</a>
           </li>
         </ul>
         <div class="identifier">
