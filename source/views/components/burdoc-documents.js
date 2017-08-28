@@ -7,6 +7,9 @@ Vue.component('burdoc-documents', {
           <i class="fa fa-lg fa-ellipsis-h" aria-hidden="true"></i>
         </div>
         <ul class="dropdown-menu">
+          <li>
+            <a @click="rename">Rename</a>
+          </li>
         </ul>
         <div class="identifier">
           <p>{{ document.titleCharacter }}</p>
@@ -16,6 +19,7 @@ Vue.component('burdoc-documents', {
         </div>
       </div>
     </div>
+    <burdoc-rename-doc-model></burdoc-rename-doc-model>
     <div v-else>
       <p :class="messageClass">{{ noDocumentsMessage }}</p>
     </div>
@@ -39,6 +43,10 @@ Vue.component('burdoc-documents', {
     },
     menu: () => {
       this.shouldRedirect = false;
+    },
+    rename: () => {
+      this.shouldRedirect = false;
+      $('#rename-document').modal('show');
     }
   },
   created: function () {
@@ -48,6 +56,7 @@ Vue.component('burdoc-documents', {
 
       // HACK: For some reason you have to call this function, otherwise, if you try to select a document without selecting a document menu first, you won't be directed to the editor.
       this.redirect();
+      $('#rename-document').modal({show: false});
     });
     socket.on('documentFetchFailed', (error) => {
       this.messageClass = 'error-message';
