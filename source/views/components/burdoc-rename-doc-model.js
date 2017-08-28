@@ -52,7 +52,7 @@ Vue.component('burdoc-rename-doc-model', {
           id: this.documentData.id
         });
         socket.on('documentRenamed', function (data) {
-          window.location.href = data.url;
+          window.location.href = '/dashboard';
         });
         socket.on('documentRenamingError', function (errorMessage) {
           this.isSubmitting = false;
