@@ -47,6 +47,7 @@ Vue.component('burdoc-documents', {
     rename: function (doc) {
       this.shouldRedirect = false;
       $('#rename-document').modal('show');
+      Dispatch.$emit('rename-model-started', doc);
     }
   },
   created: function () {
