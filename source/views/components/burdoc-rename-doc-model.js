@@ -33,8 +33,14 @@ Vue.component('burdoc-rename-doc-model', {
     return {
       documentName: '',
       isSubmitting: false,
-      error: ''
+      error: '',
+      documentData: {}
     };
+  },
+  created: function () {
+    Dispatch.$on('rename-model-started', (doc) => {
+      this.documentData = doc;
+    });
   },
   methods: {
     renameDocument: function () {
