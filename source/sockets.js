@@ -38,6 +38,7 @@ var receiverEvents = {
     this.saveDocument();
     this.fetchDocumentData();
     this.renameDocument();
+    this.deleteDocument();
   },
 
   /**
@@ -167,6 +168,16 @@ var receiverEvents = {
         this.socket.emit('documentRenamed');
       }).catch((error) => {
         this.socket.emit('documentRenamingError', error.message);
+      });
+    });
+  },
+
+  deleteDocument: function () {
+    this.socket.on('deleteDocument', (id) => {
+      document.deleteWithID(id).then(() => {
+        this.socket.emit('documentDeleted');
+      }).catch((error) => {
+        this.socket.emit('deletionFailed', error.message);
       });
     });
   }
