@@ -19,10 +19,10 @@ Vue.component('burdoc-documents', {
         </div>
       </div>
     </div>
-    <burdoc-rename-doc-model></burdoc-rename-doc-model>
     <div v-else>
       <p :class="messageClass">{{ noDocumentsMessage }}</p>
     </div>
+    <burdoc-rename-doc-model></burdoc-rename-doc-model>
   </div>
   `,
   data: function () {
