@@ -129,7 +129,7 @@ function updateNameWithID (newName, id) {
     model.update(
       {
         name: newName,
-        url: `document/${slug(newName)}`
+        url: slug(newName)
       },
       {where: {
         id: id
@@ -159,7 +159,7 @@ function updateNameForNameAndUserID (newName, name, userID) {
     model.update(
       {
         name: newName,
-        url: `document/${slug(newName)}`
+        url: slug(newName)
       },
       {where: {
         name: name,
