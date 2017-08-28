@@ -118,6 +118,34 @@ function updateContentsForNameAndUserID (contents, name, userID) {
 }
 
 /**
+ * Updates the document's name that matches an ID.
+ * 
+ * @param {string} newName The new name for the document.
+ * @param {Number} id The ID of the document that will be updated.
+ * @returns Promise<>
+ */
+function updateNameWithID (newName, id) {
+  return new Promise(function (resolve, reject) {
+    model.update(
+      {
+        name: newName
+      },
+      {where: {
+        id: id
+      }}
+    ).then(function (data) {
+      if (data[0] === 0) {
+        reject(new Error('There is no document for the ID passed in.'));
+      } else {
+        resolve();
+      }
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
+/**
  * Updates the name of a document based on it's user ID and name.
  * 
  * @param {string} newName The new name for the document.
@@ -185,6 +213,7 @@ module.exports = {
   findByNameAndUserID: findByNameAndUserID,
   findByURLAndUserID: findByURLAndUserID,
   create: create,
+  updateNameWithID: updateNameWithID,
   updateContentsForNameAndUserID: updateContentsForNameAndUserID,
   updateNameForNameAndUserID: updateNameForNameAndUserID,
   delete: deleteByNameAndUserID,
