@@ -112,7 +112,8 @@ var receiverEvents = {
             data.push({
               title: title,
               titleCharacter: doc.dataValues.name[0],
-              url: `document/${authentication.currentUser}/${doc.dataValues.url}`
+              url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
+              id: doc.id
             });
           });
           this.socket.emit('documentsFetched', data);
