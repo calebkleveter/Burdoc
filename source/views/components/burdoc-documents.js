@@ -10,6 +10,9 @@ Vue.component('burdoc-documents', {
           <li>
             <a @click="rename(document)">Rename</a>
           </li>
+          <li>
+            <a @click="destroy(document)">Delete</a>
+          </li>
         </ul>
         <div class="identifier">
           <p>{{ document.titleCharacter }}</p>
@@ -48,6 +51,23 @@ Vue.component('burdoc-documents', {
       this.shouldRedirect = false;
       $('#rename-document').modal('show');
       Dispatch.$emit('rename-model-started', doc);
+    },
+    destroy: function (doc) {
+      this.shouldRedirect = false;
+      bootbox.confirm({
+        message: 'Are you sure you want to delete this document? This can not be reversed!',
+        callback: (result) => {
+          if (result) {
+            socket.emit('deleteDocument', doc.id);
+            socket.on('documentDeleted', function () {
+              window.location.href = '/dashboard';
+            });
+            socket.on('deletionFailed', function (error) {
+              alert(error);
+            });
+          }
+        }
+      });
     }
   },
   created: function () {
