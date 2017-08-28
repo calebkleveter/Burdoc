@@ -34,17 +34,17 @@ Vue.component('burdoc-documents', {
     };
   },
   methods: {
-    redirect: (doc) => {
+    redirect: function (doc) {
       if (this.shouldRedirect === true) {
         window.location.href = doc.url;
       } else {
         this.shouldRedirect = true;
       }
     },
-    menu: () => {
+    menu: function () {
       this.shouldRedirect = false;
     },
-    rename: () => {
+    rename: function (doc) {
       this.shouldRedirect = false;
       $('#rename-document').modal('show');
     }
