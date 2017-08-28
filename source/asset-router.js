@@ -40,6 +40,7 @@ module.exports = {
       js += fs.readFileSync(`${__dirname}/views/js/bootstrap.min.js`);
       js += fs.readFileSync(`${__dirname}/views/js/vue.js`);
       js += fs.readFileSync(`${__dirname}/views/js/showdown.min.js`);
+      js += fs.readFileSync(`${__dirname}/views/js/bootbox.min.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-header.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-signup-form.js`);
       js += fs.readFileSync(`${__dirname}/views/components/burdoc-login-form.js`);
