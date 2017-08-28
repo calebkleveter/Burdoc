@@ -47,7 +47,10 @@ Vue.component('burdoc-rename-doc-model', {
       this.isSubmitting = true;
       this.error = '';
       if (this.documentName !== '') {
-        socket.emit('renameDocument', {name: this.documentName});
+        socket.emit('renameDocument', {
+          name: this.documentName,
+          id: this.documentData.id
+        });
         socket.on('documentRenamed', function (data) {
           window.location.href = data.url;
         });
