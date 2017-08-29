@@ -39,6 +39,7 @@ module.exports = {
       'vue',
       'showdown.min',
       'bootbox.min',
+      'jsPDF.min',
       'burdoc-header',
       'burdoc-signup-form',
       'burdoc-login-form',
