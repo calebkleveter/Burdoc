@@ -41,6 +41,8 @@ var receiverEvents = {
     this.deleteDocument();
   },
 
+  // MARK: - AUTHENTICATION
+
   /**
    * Attempts to create a user from the data sent from the client on the 'signup' event.
    */
@@ -84,48 +86,56 @@ var receiverEvents = {
     });
   },
 
+  // MARK: - DOCUMENTS
+
   /**
    * Attempts to create a new document for the current user.
    */
   createDocument: function () {
     this.socket.on('createDocument', (data) => {
       user.fetchByName(authentication.currentUser).then((user) => {
-        document.create(user.id, data.name, '').then((userModel) => {
-          this.socket.emit('documentCreated', {url: `document/${authentication.currentUser}/${userModel.url}`});
-        }).catch((error) => {
-          this.socket.emit('documentCreationError', error.message);
-        });
+        return document.create(user.id, data.name, '');
+      }).then((userModel) => {
+        this.socket.emit('documentCreated', {url: `document/${authentication.currentUser}/${userModel.url}`});
+      }).catch((error) => {
+        this.socket.emit('documentCreationError', error.message);
       });
     });
   },
 
+  /**
+   * Fetches all the documents for a certain user for displaying on the dashboard.
+   */
   documentsFetch: function () {
     this.socket.on('getUserDocuments', () => {
       user.fetchByName(authentication.currentUser).then((user) => {
-        document.fetchAllForUserID(user.id).then((documents) => {
-          var data = [];
-          documents.forEach(function (doc) {
-            var title = '';
-            if (doc.dataValues.name.length > 24) {
-              title = `${doc.dataValues.name.substring(0, 21)}...`;
-            } else {
-              title = doc.dataValues.name;
-            }
-            data.push({
-              title: title,
-              titleCharacter: doc.dataValues.name[0],
-              url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
-              id: doc.id
-            });
+        return document.fetchAllForUserID(user.id);
+      }).then((documents) => {
+        var data = [];
+        documents.forEach(function (doc) {
+          var title = '';
+          if (doc.dataValues.name.length > 24) {
+            title = `${doc.dataValues.name.substring(0, 21)}...`;
+          } else {
+            title = doc.dataValues.name;
+          }
+          data.push({
+            title: title,
+            titleCharacter: doc.dataValues.name[0],
+            url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
+            id: doc.id
           });
-          this.socket.emit('documentsFetched', data);
-        }).catch((error) => {
-          this.socket.emit('documentFetchFailed', error.message);
         });
+        this.socket.emit('documentsFetched', data);
+      }).catch((error) => {
+        this.socket.emit('documentFetchFailed', error.message);
       });
     });
   },
 
+  /**
+   * Saves new contents for a document.
+   */
   saveDocument: function () {
     this.socket.on('saveDocument', (data) => {
       var model;
@@ -142,6 +152,9 @@ var receiverEvents = {
     });
   },
 
+  /**
+   * Sends the markdown and rendered markdown to the editor.
+   */
   fetchDocumentData: function () {
     this.socket.on('fetchDocument', (data) => {
       var model;
@@ -162,6 +175,9 @@ var receiverEvents = {
     });
   },
 
+  /**
+   * Assigns a new name to a document.
+   */
   renameDocument: function () {
     this.socket.on('renameDocument', (data) => {
       document.updateNameWithID(data.name, data.id).then(() => {
@@ -172,6 +188,9 @@ var receiverEvents = {
     });
   },
 
+  /**
+   * Deletes a document.
+   */
   deleteDocument: function () {
     this.socket.on('deleteDocument', (id) => {
       document.deleteWithID(id).then(() => {
