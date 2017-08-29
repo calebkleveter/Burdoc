@@ -23,10 +23,15 @@ const certs = {
 
 // Create and start the server on port 8080.
 const server = https.createServer(certs, function (request, response) {
+
+  // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
+
+  // Register all routes with the server
   router.registerRoutes(request, response);
 }).listen(8080);
 
+// Register the socket with the server instance.
 sockets.configure(server);
 
 // Output that the server has started.
