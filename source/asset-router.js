@@ -35,22 +35,21 @@ module.exports = {
    * Writes the project's front-end JavaScript to /js/index.js
    */
   js: function () {
-    route.getJavaScript('/js/index.js', function () {
-      var js = fs.readFileSync(`${__dirname}/views/js/jquery-3.2.1.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/bootstrap.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/vue.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/showdown.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/bootbox.min.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-header.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-signup-form.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-login-form.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-new-doc-model.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-rename-doc-model.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-documents.js`);
-      js += fs.readFileSync(`${__dirname}/views/components/burdoc-doc-editor.js`);
-      js += fs.readFileSync(`${__dirname}/views/js/index.js`);
-      return js;
-    });
+    route.getJavaScript('/js/index.js', [
+      'jquery-3.2.1.min',
+      'bootstrap.min',
+      'vue',
+      'showdown.min',
+      'bootbox.min',
+      'burdoc-header',
+      'burdoc-signup-form',
+      'burdoc-login-form',
+      'burdoc-new-doc-model',
+      'burdoc-rename-doc-model',
+      'burdoc-documents',
+      'burdoc-doc-editor',
+      'index'
+    ]);
   },
 
   /**
