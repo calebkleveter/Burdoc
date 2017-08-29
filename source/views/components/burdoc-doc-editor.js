@@ -44,7 +44,7 @@ Vue.component('burdoc-doc-editor', {
         this.saveButtonStyle = '';
       });
       socket.on('saveFailed', function (error) {
-        alert(error);
+        bootbox.alert(error);
       });
     }
   },
@@ -59,7 +59,7 @@ Vue.component('burdoc-doc-editor', {
       this.html = data.html;
     });
     socket.on('fetchFailed', (error) => {
-      alert(error);
+      bootbox.alert(error);
     });
   }
 });

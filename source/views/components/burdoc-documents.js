@@ -63,7 +63,7 @@ Vue.component('burdoc-documents', {
               window.location.href = '/dashboard';
             });
             socket.on('deletionFailed', function (error) {
-              alert(error);
+              bootbox.alert(error);
             });
           }
         }
