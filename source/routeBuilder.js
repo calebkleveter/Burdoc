@@ -112,11 +112,11 @@ module.exports = {
    * Creates a route for getting a font file.
    *
    * @param {string} url: The URL the route is called on.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+   * @param {fstring} handler: The name of the font that will be loaded to the URL.
    */
-  getFont: function (url, fontType, handler) {
+  getFont: function (url, fontType, fontName) {
     if (this.request.method === 'GET' && this.request.url === url) {
-      var data = handler();
+      var data = fs.readFileSync(`${__dirname}/views/fonts/${fontName}`);
       this.response.setHeader('Content-Type', `font/${fontType}`);
       this.response.end(data);
     }
