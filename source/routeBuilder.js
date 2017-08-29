@@ -1,4 +1,5 @@
 const qs = require('querystring');
+const fs = require('fs');
 
 function parseBody (request, callback) {
   var body = '';
@@ -82,11 +83,21 @@ module.exports = {
    * Creates a route for getting a JavaScript file.
    *
    * @param {string} url: The URL the route is called on.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+   * @param {Array<string>} names: The names of the JavaScript files that will be loaded to the URL.
    */
-  getJavaScript: function (url, handler) {
+  getJavaScript: function (url, names) {
     if (this.request.method === 'GET' && this.request.url === url) {
-      var data = handler();
+      var data = '';
+
+      for (let name of names) {
+        try {
+          data += fs.readFileSync(`${__dirname}/views/js/${name}.js`);
+        } catch (ignore) {}
+        try {
+          data += fs.readFileSync(`${__dirname}/views/components/${name}.js`);
+        } catch (ignore) {}
+      }
+
       this.response.setHeader('Content-Type', 'application/javascript');
       this.response.end(data);
     }
