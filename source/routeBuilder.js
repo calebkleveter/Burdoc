@@ -54,11 +54,16 @@ module.exports = {
    * Creates a route for getting a CSS file.
    *
    * @param {string} url: The URL the route is called on.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+   * @param {Array<string>} names: The names of the CSS files that will be loaded to the URL.
    */
-  getCSS: function (url, handler) {
+  getCSS: function (url, names) {
     if (this.request.method === 'GET' && this.request.url === url) {
-      var data = handler();
+      var data = '';
+
+      for (let name of names) {
+        data += fs.readFileSync(`${__dirname}/views/css/${name}.css`);
+      }
+
       this.response.setHeader('Content-Type', 'text/css');
       this.response.end(data);
     }
