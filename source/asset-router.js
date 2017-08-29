@@ -55,18 +55,14 @@ module.exports = {
    * Writes FontAwsome's fonts to /fonts/fontawesome-webfont.woff2?v=4.7.0
    */
   fontAwesome: function () {
-    route.getFont('/fonts/fontawesome-webfont.woff2?v=4.7.0', 'woff2', function () {
-      return fs.readFileSync(`${__dirname}/views/fonts/fontawesome-webfont.woff2`);
-    });
+    route.getFont('/fonts/fontawesome-webfont.woff2?v=4.7.0', 'woff2', 'fontawesome-webfont.woff2');
   },
 
   /**
    * Writes Bootstraps's fonts to /fonts/glyphicons-halflings-regular.woff2
    */
   bootstrapFont: function () {
-    route.getFont('/fonts/glyphicons-halflings-regular.woff2', 'woff2', function () {
-      return fs.readFileSync(`${__dirname}/views/fonts/glyphicons-halflings-regular.woff2`);
-    });
+    route.getFont('/fonts/glyphicons-halflings-regular.woff2', 'woff2', 'glyphicons-halflings-regular.woff2');
   },
 
   favicon: function () {
