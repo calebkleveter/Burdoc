@@ -74,11 +74,11 @@ module.exports = {
    *
    * @param {string} url: The URL the route is called on.
    * @param {string} imageType: The second half of an HTTP header image content type.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
+   * @param {string} imageName: The name of the image that will be loaded to the URL.
    */
-  getImage: function (url, imageType, handler) {
+  getImage: function (url, imageType, imageName) {
     if (this.request.method === 'GET' && this.request.url === url) {
-      var data = handler();
+      var data = fs.readFileSync(`${__dirname}/views/images/${imageName}`);
       this.response.setHeader('Content-Type', `image/${imageType}`);
       this.response.end(data);
     }
