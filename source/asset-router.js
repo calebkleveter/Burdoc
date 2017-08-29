@@ -70,26 +70,20 @@ module.exports = {
   },
 
   favicon: function () {
-    route.getImage('/favicon.ico', 'x-icon', function () {
-      return fs.readFileSync(`${__dirname}/views/images/favicons/favicon.ico`);
-    });
+    route.getImage('/favicon.ico', 'x-icon', 'favicons/favicon.ico');
   },
 
   /**
    * Writes the caleb.JPG image to /images/caleb.jpg
    */
   calebImage: function () {
-    route.getImage('/images/caleb.jpg', 'jpeg', function () {
-      return fs.readFileSync(`${__dirname}/views/images/caleb.JPG`);
-    });
+    route.getImage('/images/caleb.jpg', 'jpeg', 'caleb.JPG');
   },
 
   /**
    * Writes the burdoc.svg image to /images/burdoc.svg
    */
   burdocImage: function () {
-    route.getImage('/images/burdoc.svg', 'svg+xml', function () {
-      return fs.readFileSync(`${__dirname}/views/images/burdoc.svg`);
-    });
+    route.getImage('/images/burdoc.svg', 'svg+xml', 'burdoc.svg');
   }
 };
