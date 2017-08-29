@@ -1,5 +1,4 @@
 const route = require('./routeBuilder');
-const fs = require('fs');
 
 module.exports = {
   /**
