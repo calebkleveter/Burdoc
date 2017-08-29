@@ -23,12 +23,11 @@ module.exports = {
    * Writes the project's CSS to /css/main.css
    */
   css: function () {
-    route.getCSS('/css/main.css', function () {
-      var css = fs.readFileSync(`${__dirname}/views/css/bootstrap.min.css`);
-      css += fs.readFileSync(`${__dirname}/views/css/font-awesome.min.css`);
-      css += fs.readFileSync(`${__dirname}/views/css/main.css`);
-      return css;
-    });
+    route.getCSS('/css/main.css', [
+      'bootstrap.min',
+      'font-awesome.min',
+      'main'
+    ]);
   },
 
   /**
