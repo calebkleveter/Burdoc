@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -35,6 +36,7 @@ module.exports = {
     }]
   },
   plugins: [
+    // new DashboardPlugin(),
     new CopyWebpackPlugin([
       { from: 'source/views', to: 'views' },
       { from: 'source/resources', to: 'views' }
