@@ -4,7 +4,13 @@ A Markdown editor for the cloud.
 
 ## Development
 
-Clone down the repo, `cd` into the directory, and run `npm install` and `npm run build`:
+Make sure you have PostgreSQL installed and you have it running. Then create a database called `burdoc` with no password:
+
+```bash
+createdb burdoc
+```
+
+Then clone down the repo, `cd` into the directory, and run `npm install` and `npm run build`:
 
 ```bash
 git clone git@github.com:calebkleveter/Burdoc.git
