@@ -9,6 +9,16 @@ Vue.component('burdoc-doc-editor', {
               <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
           </li>
+          <li>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Left Align">
+              <i class="fa fa-download" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Markdown</a></li>
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">PDF</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
     </div>
