@@ -61,17 +61,17 @@ Vue.component('burdoc-doc-editor', {
     downloadPDF: function () {
       var element = document.getElementById('preview-tab');
       html2pdf(element, {
-        filename: `${window.location.href.split('/')[3]}.pdf`
+        filename: `${window.location.href.split('/')[5]}.pdf`
       });
     },
 
     downloadHTML: function () {
-      var fileName = window.location.href.split('/')[3];
+      var fileName = window.location.href.split('/')[5];
       this.download(this.html, `${fileName}.html`, 'html');
     },
 
     downloadMarkdown: function () {
-      var fileName = window.location.href.split('/')[3];
+      var fileName = window.location.href.split('/')[5];
       this.download(this.documentText, `${fileName}.md`, 'plain');
     },
 
