@@ -40,6 +40,7 @@ module.exports = {
       'showdown.min',
       'bootbox.min',
       'jsPDF.min',
+      'html2canvas',
       'burdoc-header',
       'burdoc-signup-form',
       'burdoc-login-form',
