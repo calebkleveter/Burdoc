@@ -1,4 +1,18 @@
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 var authentication = {
+
+  /**
+   * The name of the header that is used for authentication
+   */
+  headerName: '',
+
+  /**
+   * The key to use when varifying against a JWT.
+   */
+  key: '',
+
   /**
    * Sets the request and response that the authentication middleware will connect to.
    * 
@@ -11,22 +25,22 @@ var authentication = {
   },
 
   /**
-   * Creates an authentication header from a username and password and sets the result to the `header` property.
+   * Sets an authentication header to the response from a user..
    * 
-   * @param {string} username: The username for the user during the current session.
-   * @param {string} password: The users password.
+   * @param {User} user: The user for the current session.
    */
-  setAuthHeader: function (username, password) {
-    this.header = new Buffer.from(`${username}:${password}`).toString('base64');
-    this.currentUser = username;
+  setAuthHeader: function (user) {
+    this.headerName = crypto.randomBytes(16).toString('hex');
+    this.key = crypto.randomBytes(16).toString('hex');
+    this.response.setHeader(this.headerName, jwt.sign({id: user.id, email: user.email, name: user.name}, this.key));
   },
 
   /**
-   * Resets the `header` and `currentUser` properties to undifined, login out the user.
+   * Resets the `headerName` and `key` properties to undifined, logout the user.
    */
   resetAuthHeader: function () {
-    this.header = undefined;
-    this.currentUser = undefined;
+    this.headerName = undefined;
+    this.key = undefined;
   }
 };
 
