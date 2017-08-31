@@ -63,16 +63,14 @@ module.exports = {
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.get('/dashboard', function () {
-      if (authentication.header !== undefined) {
-        authentication.response.setHeader('Authorization', authentication.header);
-        return view.get('dashboard');
-      } else {
-        authentication.response.writeHead(303, {
-          'location': '/login',
-          'authentication-error': 'You Need to Login Before You can Access the Dashboard.'
-        });
-      }
+    route.protected('/dashboard', function () {
+      return view.get('dashboard');
+    }, {
+      statusCode: 303,
+      headers: [
+        ['location', '/login'],
+        ['authentication-error', 'You must be authenticated to access the dashboard']
+      ]
     });
   },
 
