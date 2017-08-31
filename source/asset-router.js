@@ -42,6 +42,7 @@ module.exports = {
       'jsPDF.min',
       'html2canvas',
       'html2pdf',
+      'vue-resource',
       'burdoc-header',
       'burdoc-signup-form',
       'burdoc-login-form',
