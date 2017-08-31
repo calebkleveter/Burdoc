@@ -9,7 +9,7 @@
 
 - Collaborative editing:
 
-	- Using Mongo to hold the temporary data while editing so there can be live updates with Sockets, then save the data to the Postgres DB when the save button is activated.
+	- Using Redis to hold the temporary data while editing so there can be live updates with Sockets, then save the data to the Postgres DB when the save button is activated.
 	- Have custom updating ping times, i.e. every 1, 0.25, 0.1 seconds, etc. Default to 0.1 seconds?
 	
 	
