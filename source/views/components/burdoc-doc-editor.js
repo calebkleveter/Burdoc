@@ -14,8 +14,7 @@ Vue.component('burdoc-doc-editor', {
               <i class="fa fa-download" aria-hidden="true"></i>
             </button>
             <ul class="dropdown-menu">
-              <li><a href="#">Markdown</a></li>
-              <li><a href="#">HTML</a></li>
+              <li><a @click="downloadMarkdown">Markdown</a></li>
               <li><a href="#">PDF</a></li>
             </ul>
           </li>
@@ -56,6 +55,11 @@ Vue.component('burdoc-doc-editor', {
       socket.on('saveFailed', function (error) {
         bootbox.alert(error);
       });
+    },
+
+    downloadMarkdown: function () {
+      var fileName = window.location.href.split('/')[3];
+      this.download(this.documentText, `${fileName}.md`, 'plain');
     },
 
     download: function (text, filename, texttype) {
