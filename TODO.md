@@ -1,4 +1,4 @@
-- Downloading a document:
+- Downloading a document ✅:
 
 	- This should include downloading in Markdown, HTML, and PDF format.
 
