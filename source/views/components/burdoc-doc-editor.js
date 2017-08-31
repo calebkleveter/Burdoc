@@ -68,6 +68,7 @@ Vue.component('burdoc-doc-editor', {
       this.download(this.documentText, `${fileName}.md`, 'plain');
     },
 
+    // Thanks to NatureShade for his/her answer here: https://stackoverflow.com/questions/609530/download-textarea-contents-as-a-file-using-only-javascript-no-server-side#19332584
     download: function (text, filename, texttype) {
       var textFileAsBlob = new Blob([text], {type: `text/${texttype}`});
       var downloadLink = document.createElement('a');
