@@ -37,6 +37,28 @@ module.exports = {
   },
 
   /**
+   * Creates a route for a Get request that is protected with JWT authentication.
+   * 
+   * @param {string} url: The URL that the route is called on.
+   * @param {function()} handler: The handler called if the route matches the URL and HTTP method from the client.
+   * @param {object<Number, Array<Array<string>>>} failOptions: An object that contains that status code and headers that are sent with the response if the user is not authenticated.
+   */
+  protected: function (url, handler, failOptions) {
+    if (this.request.method === 'GET' && this.request.url === url) {
+      if (this.request.user) {
+        var data = handler();
+        this.response.end(data);
+      } else {
+        this.response.statusCode = failOptions.statusCode;
+        for (let header of failOptions.headers) {
+          this.response.setHeader(...header);
+        }
+        this.response.end();
+      }
+    }
+  },
+
+  /**
    * Creates a route for a GET request based off of a regex pattern
    * 
    * @param {string} urlPattern The RegExp pattern the request's url should match.
