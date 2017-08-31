@@ -4,7 +4,7 @@
 
 - Upgrade authentication:
 
-	- Use cookies and check header data against value stored on server.
+	- Use cookies and check header data against value stored on server or JWT.
 	- Allow authentication with GitHub and Twitter.
 
 - Collaborative editing:
