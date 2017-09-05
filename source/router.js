@@ -20,7 +20,6 @@ module.exports = {
     this.dashboard();
     this.logout();
     this.editor();
-    response.end();
   },
 
   /**
