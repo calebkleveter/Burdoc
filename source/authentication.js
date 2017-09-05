@@ -40,6 +40,9 @@ var authentication = {
    * Resets the `headerName` and `key` properties to undifined, logout the user.
    */
   resetAuthHeader: function () {
+    var now = new Date();
+    now.setTime(now.getTime());
+    this.response.setHeader('Set-Cookie', `${this.headerName}=''; expires=${now.toUTCString()}; Secure; HttpOnly;`);
     this.headerName = undefined;
     this.key = undefined;
   }
