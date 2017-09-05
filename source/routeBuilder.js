@@ -24,7 +24,31 @@ function parseCookies (request) {
   return list;
 }
 
+var method = {
+  get: 'GET',
+  post: 'POST',
+  put: 'PUT',
+  patch: 'PATCH',
+  delete: 'DELETE',
+  copy: 'COPY',
+  head: 'HEAD',
+  options: 'OPTIONS',
+  link: 'LINK',
+  unlink: 'UNLINK',
+  purge: 'PURGE',
+  lock: 'LOCK',
+  unlock: 'UNLOCK',
+  propfind: 'PROPFIND',
+  view: 'VIEW'
+};
+
 module.exports = {
+
+  /**
+   * An object containing all existing HTTP methods.
+   */
+  method: method,
+
   /**
    * Sets the request and response objects that will be used to create and return the proper data to the client.
    *
