@@ -214,11 +214,12 @@ module.exports = {
    * @param {string} view: The view that will be written to the response.
    * @param {function(data)} handler: The handler called if the route matches the URL and HTTP method.
    */
-  post: function (url, view, handler) {
-    if (this.request.method === 'POST' && this.request.url === url) {
-      this.response.end(view);
-      parseBody(this.request, function (formData) {
-        handler(formData);
+  post: function (url, handler) {
+    if (this.request.method === 'POST' && this.request.url === url && !routeFound) {
+      routeFound = true;
+      getBody(this.request, (data) => {
+        var view = handler(data);
+        this.response.end(view);
       });
     }
   }
