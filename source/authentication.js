@@ -45,6 +45,27 @@ var authentication = {
     this.response.setHeader('Set-Cookie', `${this.headerName}=''; expires=${now.toUTCString()}; Secure; HttpOnly;`);
     this.headerName = undefined;
     this.key = undefined;
+  },
+
+  /**
+   * Fail an attempted authentication or accessing a protected route by redirecting or returning a message.
+   * 
+   * @param {string} option The error message that will be returned in JSON or the route to redirect to.
+   * @param {bool=} redirect If true, we redirect, otherwise we display an error. This value defaults to false.
+   */
+  fail: function (option, redirect = false) {
+    if (redirect) {
+      this.response.statusCode = 303;
+      this.response.setHeader('location', option);
+    } else {
+      this.response.statusCode = 401;
+      this.response.write(`
+      {
+        "message": "${option}"
+      }
+      `);
+    }
+    this.response.end();
   }
 };
 
