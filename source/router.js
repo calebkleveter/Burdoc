@@ -70,15 +70,9 @@ module.exports = {
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.protected('/dashboard', function () {
+    route.protected(route.method.get, '/dashboard', function () {
       return view.get('dashboard');
-    }, {
-      statusCode: 303,
-      headers: [
-        ['location', '/login'],
-        ['authentication-error', 'You must be authenticated to access the dashboard']
-      ]
-    });
+    }, '/login');
   },
 
   /**
