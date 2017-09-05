@@ -33,29 +33,16 @@ Vue.component('burdoc-login-form', {
   methods: {
     login: function () {
       this.isSubmitting = true;
-      if (this.username !== '' && this.password !== '') {
-        socket.emit('login', {
-          username: this.username,
-          password: this.password
-        });
-      } else {
-        this.isSubmitting = false;
-        if (this.username == '') {
-          this.error = 'A username is required for login';
-        } else {
-          this.error = 'A password is required for login';
-        }
-      }
-      
-      socket.on('loginSuccess', function () {
+      this.$http.post('/login', {
+        username: this.username,
+        password: this.password
+      }).then((response) => {
         window.location.href = '/dashboard';
-      });
-      socket.on('loginError', (error) => {
-        this.isSubmitting = false;
-        this.error = error;
+      }).catch((error) => {
+        this.error = error.message;
       });
     },
-    
+
     reset: function () {
       this.error = '';
     }
