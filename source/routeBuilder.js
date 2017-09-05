@@ -2,13 +2,13 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const authentication = require('./authentication');
 
-function parseBody (request, callback) {
+function getBody (request, callback) {
   var body = '';
   request.on('data', function (data) {
     body += data;
   });
   request.on('end', function () {
-    callback(qs.parse(body));
+    callback(body);
   });
 }
 
