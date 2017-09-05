@@ -12,6 +12,18 @@ function getBody (request, callback) {
   });
 }
 
+function parseCookies (request) {
+  var list = {};
+  var rc = request.headers.cookie;
+
+  rc && rc.split(';').forEach(function (cookie) {
+    var parts = cookie.split('=');
+    list[parts.shift().trim()] = decodeURI(parts.join('='));
+  });
+
+  return list;
+}
+
 module.exports = {
   /**
    * Sets the request and response objects that will be used to create and return the proper data to the client.
