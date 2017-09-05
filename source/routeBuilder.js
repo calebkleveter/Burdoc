@@ -79,23 +79,39 @@ module.exports = {
   },
 
   /**
-   * Creates a route for a Get request that is protected with JWT authentication.
-   * 
-   * @param {string} url: The URL that the route is called on.
-   * @param {function()} handler: The handler called if the route matches the URL and HTTP method from the client.
-   * @param {object<Number, Array<Array<string>>>} failOptions: An object that contains that status code and headers that are sent with the response if the user is not authenticated.
+   * @callback handler
+   * @param {User} user The user that is authenticated.
+   * @return View
    */
-  protected: function (url, handler, failOptions) {
-    if (this.request.method === 'GET' && this.request.url === url) {
-      if (this.request.user) {
-        var data = handler();
-        this.response.end(data);
+
+  /**
+   * Creates a route that is protected by a JWT.
+   * 
+   * @param {method} method The HTTP method that the request must match.
+   * @param {string} url The URL that the request must match.
+   * @param {handler} handler A function that is called if the request matches the method and URL.
+   * @param {string=} redirectLocation An optional string that is the URL that the user will be redirected to if they are not authenticated. A JSON reponse with an error message will be returned if this is left empty.
+   */
+  protected: function (method, url, handler, redirectLocation) {
+    if (this.request.method === method && this.request.url === url && !routeFound) {
+      routeFound = true;
+      var cookies = parseCookies(this.request);
+      var userJwt = cookies[authentication.headerName];
+      if (userJwt) {
+        jwt.verify(userJwt, authentication.key, (error, user) => {
+          if (!error) {
+            var data = handler(user);
+            this.response.end(data);
+          } else {
+            var redirect = !!redirectLocation;
+            var option = redirect ? redirectLocation : error;
+            authentication.fail(option, redirect);
+          }
+        });
       } else {
-        this.response.statusCode = failOptions.statusCode;
-        for (let header of failOptions.headers) {
-          this.response.setHeader(...header);
-        }
-        this.response.end();
+        var redirect = !!redirectLocation;
+        var option = redirect ? redirectLocation : 'You must authenticate to access this route';
+        authentication.fail(option, redirect);
       }
     }
   },
