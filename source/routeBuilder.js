@@ -1,5 +1,6 @@
-const qs = require('querystring');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const authentication = require('./authentication');
 
 function parseBody (request, callback) {
   var body = '';
