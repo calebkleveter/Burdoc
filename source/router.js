@@ -80,10 +80,9 @@ module.exports = {
    */
   logout: function () {
     route.get('/logout', function () {
+      authentication.response.statusCode = 303;
+      authentication.response.setHeader('location', '/');
       authentication.resetAuthHeader();
-      authentication.response.writeHead(303, {
-        'location': '/'
-      });
     });
   },
 
