@@ -16,6 +16,7 @@ module.exports = {
     this.home();
     this.about();
     this.login();
+    this.loginPost();
     this.signup();
     this.dashboard();
     this.logout();
@@ -45,6 +46,13 @@ module.exports = {
    */
   login: function () {
     route.get('/login', function () {
+      return view.get('login');
+    });
+  },
+
+  loginPost: function () {
+    route.post('/login', function (user) {
+      authentication.setAuthHeader(user);
       return view.get('login');
     });
   },
