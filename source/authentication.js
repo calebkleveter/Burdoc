@@ -32,7 +32,8 @@ var authentication = {
   setAuthHeader: function (user) {
     this.headerName = crypto.randomBytes(16).toString('hex');
     this.key = crypto.randomBytes(16).toString('hex');
-    this.response.setHeader(this.headerName, jwt.sign({id: user.id, email: user.email, name: user.name}, this.key));
+    var token = jwt.sign({id: user.id, email: user.email, name: user.name}, this.key);
+    this.response.setHeader('Set-Cookie', `${this.headerName}=${token}; Secure; HttpOnly;`);
   },
 
   /**
