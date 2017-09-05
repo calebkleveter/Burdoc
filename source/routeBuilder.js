@@ -42,6 +42,9 @@ var method = {
   view: 'VIEW'
 };
 
+// Used to prevent multiple route functions from getting called and causing collions because the response is locked twice.
+var routeFound = false;
+
 module.exports = {
 
   /**
@@ -58,6 +61,7 @@ module.exports = {
   setRequestAndResponse: function (request, response) {
     this.request = request;
     this.response = response;
+    routeFound = false;
   },
 
   /**
@@ -67,7 +71,8 @@ module.exports = {
    * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
    */
   get: function (url, handler) {
-    if (this.request.method === 'GET' && this.request.url === url) {
+    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+      routeFound = true;
       var data = handler();
       this.response.end(data);
     }
@@ -103,7 +108,8 @@ module.exports = {
    */
   regexGet: function (urlPattern, handler) {
     var urlRegex = new RegExp(urlPattern, 'g');
-    if (this.request.method === 'GET' && urlRegex.test(this.request.url)) {
+    if (this.request.method === 'GET' && urlRegex.test(this.request.url) && !routeFound) {
+      routeFound = true;
       var data = handler(this.request);
       this.response.end(data);
     }
@@ -116,7 +122,8 @@ module.exports = {
    * @param {Array<string>} names: The names of the CSS files that will be loaded to the URL.
    */
   getCSS: function (url, names) {
-    if (this.request.method === 'GET' && this.request.url === url) {
+    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+      routeFound = true;
       var data = '';
 
       for (let name of names) {
@@ -136,7 +143,8 @@ module.exports = {
    * @param {string} imageName: The name of the image that will be loaded to the URL.
    */
   getImage: function (url, imageType, imageName) {
-    if (this.request.method === 'GET' && this.request.url === url) {
+    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+      routeFound = true;
       var data = fs.readFileSync(`${__dirname}/views/images/${imageName}`);
       this.response.setHeader('Content-Type', `image/${imageType}`);
       this.response.end(data);
@@ -150,7 +158,8 @@ module.exports = {
    * @param {Array<string>} names: The names of the JavaScript files that will be loaded to the URL.
    */
   getJavaScript: function (url, names) {
-    if (this.request.method === 'GET' && this.request.url === url) {
+    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+      routeFound = true;
       var data = '';
 
       for (let name of names) {
@@ -174,7 +183,8 @@ module.exports = {
    * @param {fstring} handler: The name of the font that will be loaded to the URL.
    */
   getFont: function (url, fontType, fontName) {
-    if (this.request.method === 'GET' && this.request.url === url) {
+    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+      routeFound = true;
       var data = fs.readFileSync(`${__dirname}/views/fonts/${fontName}`);
       this.response.setHeader('Content-Type', `font/${fontType}`);
       this.response.end(data);
