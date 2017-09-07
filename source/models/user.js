@@ -103,21 +103,19 @@ function create (username, email, password) {
  */
 function authenticate (name, password) {
   return new Promise(function (resolve, reject) {
-    fetchByName(name).then(function (user) {
-      if (user != null) {
-        argon2.verify(user.password, password)
-          .then(function (didMatch) {
-            if (didMatch) {
-              resolve(user);
-            } else {
-              reject(new Error('Password did not match with the username passed in.'));
-            }
-          })
-          .catch(function (error) {
-            reject(error);
-          });
+    var user;
+    fetchByName(name).then(function (model) {
+      if (model != null) {
+        user = model;
+        return argon2.verify(user.password, password);
       } else {
         reject(new Error('No user is registered with that username.'));
+      }
+    }).then(function (didMatch) {
+      if (didMatch) {
+        resolve(user);
+      } else {
+        reject(new Error('Password did not match with the username passed in.'));
       }
     }).catch(function (error) {
       reject(error);
