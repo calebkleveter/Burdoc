@@ -218,8 +218,9 @@ module.exports = {
     if (this.request.method === 'POST' && this.request.url === url && !routeFound) {
       routeFound = true;
       getBody(this.request, (data) => {
-        var view = handler(data);
-        this.response.end(view);
+        handler(data, (view) => {
+          this.response.end(view);
+        });
       });
     }
   }
