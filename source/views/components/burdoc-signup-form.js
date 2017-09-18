@@ -41,8 +41,13 @@ Vue.component('burdoc-signup-form', {
         username: this.username,
         email: this.email,
         password: this.password
-      }).then(function () {
-        window.location.href = '/dashboard';
+      }).then((response) => {
+        if (response.headers.has('Auth-Error')) {
+          this.isSubmitting = false;
+          this.error = response.headers.get('Auth-Error');
+        } else {
+          window.location.href = '/dashboard';
+        }
       }).catch((error) => {
         this.error = error.message;
       });
