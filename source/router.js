@@ -19,6 +19,7 @@ module.exports = {
     this.login();
     this.loginPost();
     this.signup();
+    this.signupPost();
     this.dashboard();
     this.logout();
     this.editor();
@@ -69,6 +70,18 @@ module.exports = {
   signup: function () {
     route.get('/signup', function () {
       return view.get('signup');
+    });
+  },
+
+  signupPost: function () {
+    route.post('/signup', function (data, finish) {
+      user.create(data.username, data.email, data.password).then(function (model) {
+        authentication.setAuthHeader(model);
+        finish(view.get('signup'));
+      }).catch(function (error) {
+        console.error(error);
+        finish(view.get('signup'));
+      });
     });
   },
 
