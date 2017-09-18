@@ -81,13 +81,14 @@ function create (username, email, password) {
         throw new Error('Username Already Taken');
       }
     }).then(function (hash) {
-      model.create({
+      return model.create({
         name: username,
         email: email,
         password: hash,
         documents: []
       });
-      resolve();
+    }).then(function (user) {
+      resolve(user);
     }).catch(function (error) {
       reject(error);
     });
