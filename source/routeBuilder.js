@@ -8,7 +8,7 @@ function getBody (request, callback) {
     body += data;
   });
   request.on('end', function () {
-    callback(body);
+    callback(JSON.parse(body));
   });
 }
 
