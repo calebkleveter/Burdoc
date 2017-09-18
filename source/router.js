@@ -58,7 +58,7 @@ module.exports = {
         authentication.setAuthHeader(model);
         finish(view.get('login'));
       }).catch(function (error) {
-        console.error(error);
+        authentication.response.setHeader('Auth-Error', error.message);
         finish(view.get('login'));
       });
     });
