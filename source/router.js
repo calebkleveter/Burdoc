@@ -2,6 +2,7 @@ const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
 const authentication = require('./authentication');
+const user = require('./models/user');
 
 module.exports = {
   /**
@@ -51,9 +52,14 @@ module.exports = {
   },
 
   loginPost: function () {
-    route.post('/login', function (user) {
-      authentication.setAuthHeader(user);
-      return view.get('login');
+    route.post('/login', function (data, finish) {
+      user.authenticate(data.username, data.password).then(function (model) {
+        authentication.setAuthHeader(model);
+        finish(view.get('login'));
+      }).catch(function (error) {
+        console.error(error);
+        finish(view.get('login'));
+      });
     });
   },
 
