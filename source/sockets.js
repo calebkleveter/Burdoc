@@ -5,6 +5,11 @@ const user = require('./models/user');
 const document = require('./models/document');
 
 /**
+ * The socket connecting the client and server.
+ */
+var _socket;
+
+/**
  * Creates the socket and registers it and it's events with the server.
  * 
  * @param {http.ClientRequest} server: The server the socket should be connected to.
@@ -14,6 +19,7 @@ function configure (server) {
 
   io.on('connection', function (socket) {
     console.log('Socket connected');
+    _socket = socket;
     receiverEvents.registerWithSocket(socket);
   });
 }
