@@ -25,6 +25,8 @@ module.exports = {
     this.editor();
   },
 
+  // MARK: - App Page Routes
+
   /**
    * The route for the root path, which sends the home.html view to the reponse.
    */
@@ -52,6 +54,10 @@ module.exports = {
     });
   },
 
+  /**
+   * The route for the /login path on a POST request.
+   * It attempts to authenticate the user based on the data from the request body.
+   */
   loginPost: function () {
     route.post('/login', function (data, finish) {
       user.authenticate(data.username, data.password).then(function (model) {
@@ -73,6 +79,10 @@ module.exports = {
     });
   },
 
+  /**
+   * The route for the /signup path on a POST request. 
+   * A user is created from the data from the request body and is then authenticated.
+   */
   signupPost: function () {
     route.post('/signup', function (data, finish) {
       user.create(data.username, data.email, data.password).then(function (model) {
@@ -106,7 +116,7 @@ module.exports = {
   },
 
   /**
-   * A temporary route for testing and developing the 'editor'  view.
+   * A route for any /document/.../... path.
    */
   editor: function () {
     route.regexGet('\\/document\\/[\\w]+\\/.+', function (request) {
