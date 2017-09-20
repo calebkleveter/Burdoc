@@ -37,7 +37,6 @@ var receiverEvents = {
   registerWithSocket: function (socket) {
     this.socket = socket;
     this.createDocument();
-    this.documentsFetch();
     this.saveDocument();
     this.fetchDocumentData();
     this.renameDocument();
@@ -57,36 +56,6 @@ var receiverEvents = {
         this.socket.emit('documentCreated', {url: `document/${authentication.currentUser}/${userModel.url}`});
       }).catch((error) => {
         this.socket.emit('documentCreationError', error.message);
-      });
-    });
-  },
-
-  /**
-   * Fetches all the documents for a certain user for displaying on the dashboard.
-   */
-  documentsFetch: function () {
-    this.socket.on('getUserDocuments', () => {
-      user.fetchByName(authentication.currentUser).then((user) => {
-        return document.fetchAllForUserID(user.id);
-      }).then((documents) => {
-        var data = [];
-        documents.forEach(function (doc) {
-          var title = '';
-          if (doc.dataValues.name.length > 24) {
-            title = `${doc.dataValues.name.substring(0, 21)}...`;
-          } else {
-            title = doc.dataValues.name;
-          }
-          data.push({
-            title: title,
-            titleCharacter: doc.dataValues.name[0],
-            url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
-            id: doc.id
-          });
-        });
-        this.socket.emit('documentsFetched', data);
-      }).catch((error) => {
-        this.socket.emit('documentFetchFailed', error.message);
       });
     });
   },
