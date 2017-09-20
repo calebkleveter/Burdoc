@@ -102,8 +102,8 @@ module.exports = {
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.protected(route.method.get, '/dashboard', function (model, finish) {
-      finish(view.get('dashboard'));
+    route.protected(route.method.get, '/dashboard', function (args) {
+      args.finish(view.get('dashboard'));
     }, '/login');
   },
 
@@ -142,8 +142,8 @@ module.exports = {
    * A route for fetching the documents for a user's dashboard.
    */
   userDocuments: function () {
-    route.protected(route.method.post, '/user-documents', function (model, finish) {
-      document.fetchAllForUserID(model.id).then(function (documents) {
+    route.protected(route.method.post, '/user-documents', function (args) {
+      document.fetchAllForUserID(args.user.id).then(function (documents) {
         var data = [];
         documents.forEach(function (doc) {
           var title = '';
@@ -155,13 +155,13 @@ module.exports = {
           data.push({
             title: title,
             titleCharacter: doc.dataValues.name[0],
-            url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
+            url: `document/${args.user.name}/${doc.dataValues.url}`,
             id: doc.id
           });
         });
-        finish(JSON.stringify(data));
+        args.finish(JSON.stringify(data));
       }).catch(function (error) {
-        finish(`${{error: error.message}}`);
+        args.finish(`${{error: error.message}}`);
       });
     });
   }
