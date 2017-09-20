@@ -122,18 +122,17 @@ module.exports = {
    * A route for any /document/.../... path.
    */
   editor: function () {
-    route.regexGet('\\/document\\/[\\w]+\\/.+', function (request) {
-      var user = request.url.split('/')[2];
-      if (authentication.header !== undefined && authentication.currentUser === user) {
-        authentication.response.setHeader('Authorization', authentication.header);
-        return view.get('editor');
+    route.protected(route.method.get, /\/document\/[\w]+\/.+/, function (args) {
+      var user = args.request.url.split('/')[2];
+      if (args.user.name === user) {
+        args.finish(view.get('editor'));
       } else {
-        authentication.response.writeHead(303, {
-          'location': '/dashboard',
-          'authentication-error': 'You need to be logged in as a collaborator for this document to view it.'
-        });
+        args.response.statusCode = 303;
+        args.response.setHeader('location', '/dashboard');
+        args.response.setHeader('Auth-Error', 'You need to be logged in as a collaborator for this document to view it.');
+        args.finish();
       }
-    });
+    }, '/dashboard');
   },
 
   // MARK: - Page Support Routes
