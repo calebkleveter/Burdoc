@@ -71,14 +71,10 @@ Vue.component('burdoc-documents', {
     }
   },
   created: function () {
-    socket.emit('getUserDocuments');
-    socket.on('documentsFetched', (docs) => {
-      this.documents = docs;
-      $('#rename-document').modal({show: false});
-    });
-    socket.on('documentFetchFailed', (error) => {
-      this.messageClass = 'error-message';
-      this.noDocumentsMessage = error;
+    this.$http.post('/user-documents').then((response) => {
+      this.documents = response.body;
+    }).catch(function (error) {
+      bootbox.alert(error.message);
     });
   }
 });
