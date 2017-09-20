@@ -113,13 +113,23 @@ module.exports = {
       routeFound = true;
       var cookies = parseCookies(this.request);
       var userJwt = cookies[authentication.headerName];
+
       if (userJwt) {
         jwt.verify(userJwt, authentication.key, (error, user) => {
           if (!error) {
-            handler(user, (data) => {
-              this.response.write(data);
-              this.response.end();
-            });
+            var handlerArguments = {
+              user: user,
+              request: this.request,
+              response: this.response,
+
+              finish: (data) => {
+                if (data) {
+                  this.response.write(data);
+                }
+                this.response.end();
+              }
+            };
+            handler(handlerArguments);
           } else {
             var redirect = !!redirectLocation;
             var option = redirect ? redirectLocation : error;
