@@ -3,6 +3,7 @@ const assetRouter = require('./asset-router');
 const view = require('./view');
 const authentication = require('./authentication');
 const user = require('./models/user');
+const document = require('./models/document');
 
 module.exports = {
   /**
@@ -23,6 +24,8 @@ module.exports = {
     this.dashboard();
     this.logout();
     this.editor();
+
+    this.userDocuments();
   },
 
   // MARK: - App Page Routes
@@ -99,8 +102,8 @@ module.exports = {
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.protected(route.method.get, '/dashboard', function () {
-      return view.get('dashboard');
+    route.protected(route.method.get, '/dashboard', function (model, finish) {
+      finish(view.get('dashboard'));
     }, '/login');
   },
 
@@ -130,6 +133,36 @@ module.exports = {
           'authentication-error': 'You need to be logged in as a collaborator for this document to view it.'
         });
       }
+    });
+  },
+
+  // MARK: - Page Support Routes
+
+  /**
+   * A route for fetching the documents for a user's dashboard.
+   */
+  userDocuments: function () {
+    route.protected(route.method.post, '/user-documents', function (model, finish) {
+      document.fetchAllForUserID(model.id).then(function (documents) {
+        var data = [];
+        documents.forEach(function (doc) {
+          var title = '';
+          if (doc.dataValues.name.length > 24) {
+            title = `${doc.dataValues.name.substring(0, 21)}...`;
+          } else {
+            title = doc.dataValues.name;
+          }
+          data.push({
+            title: title,
+            titleCharacter: doc.dataValues.name[0],
+            url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
+            id: doc.id
+          });
+        });
+        finish(JSON.stringify(data));
+      }).catch(function (error) {
+        finish(`${{error: error.message}}`);
+      });
     });
   }
 };
