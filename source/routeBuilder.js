@@ -100,8 +100,10 @@ module.exports = {
       if (userJwt) {
         jwt.verify(userJwt, authentication.key, (error, user) => {
           if (!error) {
-            var data = handler(user);
-            this.response.end(data);
+            handler(user, (data) => {
+              this.response.write(data);
+              this.response.end();
+            });
           } else {
             var redirect = !!redirectLocation;
             var option = redirect ? redirectLocation : error;
