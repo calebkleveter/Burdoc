@@ -8,7 +8,7 @@ function getBody (request, callback) {
     body += data;
   });
   request.on('end', function () {
-    callback(body);
+    callback(JSON.parse(body));
   });
 }
 
@@ -71,7 +71,15 @@ module.exports = {
    * @param {function()} handler: The handler called if the route matches the URL and HTTP method.
    */
   get: function (url, handler) {
-    if (this.request.method === 'GET' && this.request.url === url && !routeFound) {
+    var urlMatches = false;
+
+    if (typeof url === 'string') {
+      urlMatches = url === this.request.url;
+    } else {
+      urlMatches = url.test(this.request.url);
+    }
+
+    if (this.request.method === 'GET' && urlMatches && !routeFound) {
       routeFound = true;
       var data = handler();
       this.response.end(data);
@@ -93,15 +101,35 @@ module.exports = {
    * @param {string=} redirectLocation An optional string that is the URL that the user will be redirected to if they are not authenticated. A JSON reponse with an error message will be returned if this is left empty.
    */
   protected: function (method, url, handler, redirectLocation) {
-    if (this.request.method === method && this.request.url === url && !routeFound) {
+    var urlMatches = false;
+
+    if (typeof url === 'string') {
+      urlMatches = url === this.request.url;
+    } else {
+      urlMatches = url.test(this.request.url);
+    }
+
+    if (this.request.method === method && urlMatches && !routeFound) {
       routeFound = true;
       var cookies = parseCookies(this.request);
       var userJwt = cookies[authentication.headerName];
+
       if (userJwt) {
         jwt.verify(userJwt, authentication.key, (error, user) => {
           if (!error) {
-            var data = handler(user);
-            this.response.end(data);
+            var handlerArguments = {
+              user: user,
+              request: this.request,
+              response: this.response,
+
+              finish: (data) => {
+                if (data) {
+                  this.response.write(data);
+                }
+                this.response.end();
+              }
+            };
+            handler(handlerArguments);
           } else {
             var redirect = !!redirectLocation;
             var option = redirect ? redirectLocation : error;
@@ -113,21 +141,6 @@ module.exports = {
         var option = redirect ? redirectLocation : 'You must authenticate to access this route';
         authentication.fail(option, redirect);
       }
-    }
-  },
-
-  /**
-   * Creates a route for a GET request based off of a regex pattern
-   * 
-   * @param {string} urlPattern The RegExp pattern the request's url should match.
-   * @param {function(http.ClientRequest)-><string>} handler A function that takes in the clients request and returns the data that will be sent to the client.
-   */
-  regexGet: function (urlPattern, handler) {
-    var urlRegex = new RegExp(urlPattern, 'g');
-    if (this.request.method === 'GET' && urlRegex.test(this.request.url) && !routeFound) {
-      routeFound = true;
-      var data = handler(this.request);
-      this.response.end(data);
     }
   },
 
@@ -215,11 +228,20 @@ module.exports = {
    * @param {function(data)} handler: The handler called if the route matches the URL and HTTP method.
    */
   post: function (url, handler) {
-    if (this.request.method === 'POST' && this.request.url === url && !routeFound) {
+    var urlMatches = false;
+
+    if (typeof url === 'string') {
+      urlMatches = url === this.request.url;
+    } else {
+      urlMatches = url.test(this.request.url);
+    }
+
+    if (this.request.method === 'POST' && urlMatches && !routeFound) {
       routeFound = true;
       getBody(this.request, (data) => {
-        var view = handler(data);
-        this.response.end(view);
+        handler(data, (view) => {
+          this.response.end(view);
+        });
       });
     }
   }

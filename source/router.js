@@ -2,6 +2,8 @@ const route = require('./routeBuilder');
 const assetRouter = require('./asset-router');
 const view = require('./view');
 const authentication = require('./authentication');
+const user = require('./models/user');
+const document = require('./models/document');
 
 module.exports = {
   /**
@@ -18,10 +20,15 @@ module.exports = {
     this.login();
     this.loginPost();
     this.signup();
+    this.signupPost();
     this.dashboard();
     this.logout();
     this.editor();
+
+    this.userDocuments();
   },
+
+  // MARK: - App Page Routes
 
   /**
    * The route for the root path, which sends the home.html view to the reponse.
@@ -50,10 +57,19 @@ module.exports = {
     });
   },
 
+  /**
+   * The route for the /login path on a POST request.
+   * It attempts to authenticate the user based on the data from the request body.
+   */
   loginPost: function () {
-    route.post('/login', function (user) {
-      authentication.setAuthHeader(user);
-      return view.get('login');
+    route.post('/login', function (data, finish) {
+      user.authenticate(data.username, data.password).then(function (model) {
+        authentication.setAuthHeader(model);
+        finish(view.get('login'));
+      }).catch(function (error) {
+        authentication.response.setHeader('Auth-Error', error.message);
+        finish(view.get('login'));
+      });
     });
   },
 
@@ -67,11 +83,27 @@ module.exports = {
   },
 
   /**
+   * The route for the /signup path on a POST request. 
+   * A user is created from the data from the request body and is then authenticated.
+   */
+  signupPost: function () {
+    route.post('/signup', function (data, finish) {
+      user.create(data.username, data.email, data.password).then(function (model) {
+        authentication.setAuthHeader(model);
+        finish(view.get('signup'));
+      }).catch(function (error) {
+        authentication.response.setHeader('Auth-Error', error.message);
+        finish(view.get('signup'));
+      });
+    });
+  },
+
+  /**
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.protected(route.method.get, '/dashboard', function () {
-      return view.get('dashboard');
+    route.protected(route.method.get, '/dashboard', function (args) {
+      args.finish(view.get('dashboard'));
     }, '/login');
   },
 
@@ -87,20 +119,49 @@ module.exports = {
   },
 
   /**
-   * A temporary route for testing and developing the 'editor'  view.
+   * A route for any /document/.../... path.
    */
   editor: function () {
-    route.regexGet('\\/document\\/[\\w]+\\/.+', function (request) {
-      var user = request.url.split('/')[2];
-      if (authentication.header !== undefined && authentication.currentUser === user) {
-        authentication.response.setHeader('Authorization', authentication.header);
-        return view.get('editor');
+    route.protected(route.method.get, /\/document\/[\w]+\/.+/, function (args) {
+      var user = args.request.url.split('/')[2];
+      if (args.user.name === user) {
+        args.finish(view.get('editor'));
       } else {
-        authentication.response.writeHead(303, {
-          'location': '/dashboard',
-          'authentication-error': 'You need to be logged in as a collaborator for this document to view it.'
-        });
+        args.response.statusCode = 303;
+        args.response.setHeader('location', '/dashboard');
+        args.response.setHeader('Auth-Error', 'You need to be logged in as a collaborator for this document to view it.');
+        args.finish();
       }
+    }, '/dashboard');
+  },
+
+  // MARK: - Page Support Routes
+
+  /**
+   * A route for fetching the documents for a user's dashboard.
+   */
+  userDocuments: function () {
+    route.protected(route.method.post, '/user-documents', function (args) {
+      document.fetchAllForUserID(args.user.id).then(function (documents) {
+        var data = [];
+        documents.forEach(function (doc) {
+          var title = '';
+          if (doc.dataValues.name.length > 24) {
+            title = `${doc.dataValues.name.substring(0, 21)}...`;
+          } else {
+            title = doc.dataValues.name;
+          }
+          data.push({
+            title: title,
+            titleCharacter: doc.dataValues.name[0],
+            url: `document/${args.user.name}/${doc.dataValues.url}`,
+            id: doc.id
+          });
+        });
+        args.finish(JSON.stringify(data));
+      }).catch(function (error) {
+        args.finish(`${{error: error.message}}`);
+      });
     });
   }
 };

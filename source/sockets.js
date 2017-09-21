@@ -5,6 +5,11 @@ const user = require('./models/user');
 const document = require('./models/document');
 
 /**
+ * The socket connecting the client and server.
+ */
+var _socket;
+
+/**
  * Creates the socket and registers it and it's events with the server.
  * 
  * @param {http.ClientRequest} server: The server the socket should be connected to.
@@ -14,6 +19,7 @@ function configure (server) {
 
   io.on('connection', function (socket) {
     console.log('Socket connected');
+    _socket = socket;
     receiverEvents.registerWithSocket(socket);
   });
 }
@@ -30,60 +36,11 @@ var receiverEvents = {
    */
   registerWithSocket: function (socket) {
     this.socket = socket;
-    this.signup();
-    this.login();
-    this.checkForAuthorization();
     this.createDocument();
-    this.documentsFetch();
     this.saveDocument();
     this.fetchDocumentData();
     this.renameDocument();
     this.deleteDocument();
-  },
-
-  // MARK: - AUTHENTICATION
-
-  /**
-   * Attempts to create a user from the data sent from the client on the 'signup' event.
-   */
-  signup: function () {
-    this.socket.on('signup', (data) => {
-      user.create(data.username, data.email, data.password)
-        .then(() => {
-          authentication.setAuthHeader(data.username, data.password);
-          this.socket.emit('signupSuccess');
-        })
-        .catch((error) =>
-          this.socket.emit('signupError', error.message)
-        );
-    });
-  },
-
-  /**
-   * Attempts to authenticate an existing user from the data sent from the client on the 'login' socket event.
-   */
-  login: function () {
-    this.socket.on('login', (data) => {
-      user.authenticate(data.username, data.password)
-        .then((user) => {
-          authentication.setAuthHeader(data.username, data.password);
-          this.socket.emit('loginSuccess', user);
-        })
-        .catch((error) => {
-          this.socket.emit('loginError', error.message);
-        });
-    });
-  },
-
-  /**
-   * Checks to seee if a user is authenticated on the 'checkForAuthorization' socket event.
-   */
-  checkForAuthorization: function () {
-    this.socket.on('checkForAuthorization', () => {
-      if (authentication.header !== undefined) {
-        this.socket.emit('authorized');
-      }
-    });
   },
 
   // MARK: - DOCUMENTS
@@ -99,36 +56,6 @@ var receiverEvents = {
         this.socket.emit('documentCreated', {url: `document/${authentication.currentUser}/${userModel.url}`});
       }).catch((error) => {
         this.socket.emit('documentCreationError', error.message);
-      });
-    });
-  },
-
-  /**
-   * Fetches all the documents for a certain user for displaying on the dashboard.
-   */
-  documentsFetch: function () {
-    this.socket.on('getUserDocuments', () => {
-      user.fetchByName(authentication.currentUser).then((user) => {
-        return document.fetchAllForUserID(user.id);
-      }).then((documents) => {
-        var data = [];
-        documents.forEach(function (doc) {
-          var title = '';
-          if (doc.dataValues.name.length > 24) {
-            title = `${doc.dataValues.name.substring(0, 21)}...`;
-          } else {
-            title = doc.dataValues.name;
-          }
-          data.push({
-            title: title,
-            titleCharacter: doc.dataValues.name[0],
-            url: `document/${authentication.currentUser}/${doc.dataValues.url}`,
-            id: doc.id
-          });
-        });
-        this.socket.emit('documentsFetched', data);
-      }).catch((error) => {
-        this.socket.emit('documentFetchFailed', error.message);
       });
     });
   },
