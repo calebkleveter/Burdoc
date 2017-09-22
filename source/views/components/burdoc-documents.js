@@ -60,7 +60,10 @@ Vue.component('burdoc-documents', {
     manageTags: function (doc) {
       this.shouldRedirect = false;
       $('#tag-manager-modal').modal('show');
-      Dispatch.$emit('', this.documentTags[doc.id]);
+      Dispatch.$emit('tag-manager-started', {
+        documentID: doc.id,
+        tags: this.documentTags[doc.id]
+      });
     },
     destroy: function (doc) {
       this.shouldRedirect = false;
@@ -86,5 +89,11 @@ Vue.component('burdoc-documents', {
     }).catch(function (error) {
       bootbox.alert(error.message);
     });
+
+    this.$http.get('/document-tags').then((response) => {
+      this.documentTags = response.body;
+    }).catch(function (error) {
+      bootbox.alert(error.message);
+    })
   }
 });
