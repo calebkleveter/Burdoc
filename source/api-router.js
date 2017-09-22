@@ -4,7 +4,7 @@ const user = require('./models/user');
 const document = require('./models/document');
 
 function registerRoutes () {
-  this.userDocuments();
+  userDocuments();
 }
 
 /**
