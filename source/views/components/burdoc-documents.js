@@ -11,6 +11,10 @@ Vue.component('burdoc-documents', {
             <a @click="rename(document)">Rename</a>
           </li>
           <li>
+            <a @click="manageTags(document)">Manage Tags</a>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li>
             <a @click="destroy(document)">Delete</a>
           </li>
         </ul>
@@ -31,6 +35,7 @@ Vue.component('burdoc-documents', {
   data: function () {
     return {
       documents: [],
+      documentTags: {},
       messageClass: '',
       noDocumentsMessage: 'You Don\'t Have Any Documents',
       shouldRedirect: true
@@ -51,6 +56,11 @@ Vue.component('burdoc-documents', {
       this.shouldRedirect = false;
       $('#rename-document').modal('show');
       Dispatch.$emit('rename-model-started', doc);
+    },
+    manageTags: function (doc) {
+      this.shouldRedirect = false;
+      $('#tag-manager-modal').modal('show');
+      Dispatch.$emit('', this.documentTags[doc.id]);
     },
     destroy: function (doc) {
       this.shouldRedirect = false;
