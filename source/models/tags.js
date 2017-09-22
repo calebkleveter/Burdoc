@@ -23,7 +23,16 @@ function sync () {
     });
 }
 
+function findByName (name) {
+  return model.findOne({
+    where: {
+      name: name
+    }
+  });
+}
+
 module.exports = {
   model: model,
-  sync: sync
+  sync: sync,
+  findByName: findByName
 };
