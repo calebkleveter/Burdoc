@@ -13,6 +13,20 @@ const model = database.sequelize.define('tags', {
   }
 });
 
+/**
+ * Creates a document-tag pivot table if one does not already exist.
+ */
+function sync () {
+  model.sync({force: false})
+    .then(function () {
+      console.log('Synced user table');
+    })
+    .catch(function (error) {
+      console.error('Failed to sync user table: ', error);
+    });
+}
+
 module.exports = {
-  model: model
+  model: model,
+  sync: sync
 };
