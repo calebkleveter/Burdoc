@@ -16,7 +16,7 @@ Vue.component('burdoc-tag-manager', {
             <div id="tags">
               <div class="tag btn btn-default" v-for="tag in tags">
                 {{tag.name}}
-                <span class="glyphicon glyphicon-remove" aria-hidden="true" @click="removeTag(tag.id)"></span>
+                <span class="glyphicon glyphicon-remove" aria-hidden="true" @click="removeTag(tag)"></span>
               </div>
             </div>
             <div class="add-tag">
@@ -38,13 +38,22 @@ Vue.component('burdoc-tag-manager', {
   `,
   data: function () {
     return {
+      documentID: undefined,
       newTagName: '',
       tags: []
     };
   },
   methods: {
-    removeTag: function (id) {
-      // Impliment method
+    removeTag: function (tag) {
+      this.$http.post('/remove-document-tag', {
+        documentID: this.documentID,
+        tagID: tag.id
+      }).then((response) => {
+        var index = this.tags.indexOf(tag);
+        this.tags.splice(index, 1);
+      }).catch(function (error) {
+        bootbox.alert(error.message);
+      })
     },
 
     createTag: function () {
@@ -60,8 +69,9 @@ Vue.component('burdoc-tag-manager', {
     }
   },
   created: function () {
-    Dispatch.$on('tag-manager-started', (tags) => {
-      this.tags = tags;
+    Dispatch.$on('tag-manager-started', (data) => {
+      this.documentID = data.documentID;
+      this.tags = data.tags;
     });
   }
 });
