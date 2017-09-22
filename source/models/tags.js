@@ -51,9 +51,18 @@ function findByName (name) {
   });
 }
 
+function fetchByID (id) {
+  return model.findAll({
+    where: {
+      id: id
+    }
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
   findByName: findByName,
-  create: create
+  create: create,
+  fetchByID: fetchByID
 };
