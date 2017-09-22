@@ -23,6 +23,26 @@ function sync () {
     });
 }
 
+function create (name) {
+  return new Promise(function (resolve, reject) {
+    findByName(name).then(function (tag) {
+      if (tag == null) {
+        return model.create({
+          name: name
+        });
+      } else {
+        resolve(tag);
+      }
+    }).then(function () {
+      findByName(name).then(function (tag) {
+        resolve(tag);
+      });
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
 function findByName (name) {
   return model.findOne({
     where: {
@@ -34,5 +54,6 @@ function findByName (name) {
 module.exports = {
   model: model,
   sync: sync,
-  findByName: findByName
+  findByName: findByName,
+  create: create
 };
