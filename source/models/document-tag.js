@@ -26,7 +26,23 @@ function sync () {
     });
 }
 
+function create (documentID, tagID) {
+  return new Promise(function (resolve, reject) {
+    model.findOne({
+      where: {
+        documentID: documentID,
+        tagID: tagID
+      }
+    }).then(function () {
+      resolve();
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
 module.exports = {
   model: model,
-  sync: sync
+  sync: sync,
+  create: create
 };
