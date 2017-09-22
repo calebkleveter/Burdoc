@@ -48,6 +48,7 @@ module.exports = {
       'burdoc-login-form',
       'burdoc-new-doc-model',
       'burdoc-rename-doc-model',
+      'burdoc-tag-manager',
       'burdoc-documents',
       'burdoc-doc-editor',
       'index'
