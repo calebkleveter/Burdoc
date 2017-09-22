@@ -41,8 +41,17 @@ function create (documentID, tagID) {
   });
 }
 
+function fetchAllByDocumentID (id) {
+  return model.findAll({
+    where: {
+      documentID: id
+    }
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
-  create: create
+  create: create,
+  fetchAllByDocumentID: fetchAllByDocumentID
 };
