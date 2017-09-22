@@ -3,7 +3,6 @@ const assetRouter = require('./asset-router');
 const view = require('./view');
 const authentication = require('./authentication');
 const user = require('./models/user');
-const document = require('./models/document');
 
 module.exports = {
   /**
@@ -24,8 +23,6 @@ module.exports = {
     this.dashboard();
     this.logout();
     this.editor();
-
-    this.userDocuments();
   },
 
   // MARK: - App Page Routes
