@@ -2,9 +2,12 @@ const route = require('./routeBuilder');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
+const documentTag = require('./models/document-tag');
+const tag = require('./models/tags');
 
 function registerRoutes () {
   userDocuments();
+  documentTags();
 }
 
 /**
@@ -31,6 +34,28 @@ function userDocuments () {
       args.finish(JSON.stringify(data));
     }).catch(function (error) {
       args.finish(`${{error: error.message}}`);
+    });
+  });
+}
+
+function documentTags () {
+  route.protected(route.method.get, '/document-tags', function (args) {
+    var documentsComplete = 0;
+    var tags = {};
+    document.fetchAllForUserID(args.user.id).then(function (documents) {
+      documents.forEach(function (doc) {
+        tags[doc.id] = [];
+        documentTag.fetchAllByDocumentID(doc.id).then(function (pivots) {
+          pivots.forEach(function (pivot) {
+            tag.fetchByID(pivot.tagID).then(function (documentTag) {
+              tags[doc.id].push(documentTag);
+              if (documentsComplete > documents.length) {
+                args.finish(tags);
+              }
+            });
+          });
+        });
+      });
     });
   });
 }
