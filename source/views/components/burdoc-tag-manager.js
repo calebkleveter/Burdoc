@@ -1,10 +1,6 @@
 Vue.component('burdoc-tag-manager', {
   template: `
   <div class="tag-manager">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#tag-manager-modal">
-      Manage Tags
-    </button>
-
     <div class="modal fade" id="tag-manager-modal" tabindex="-1" role="dialog" aria-labelledby="tag-manager-modal-label">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -58,10 +54,15 @@ Vue.component('burdoc-tag-manager', {
 
     createTag: function () {
       if (this.newTagName !== '') {
-        this.tags.push({
-          name: this.newTagName
+        this.$http.post('/create-tag', {
+          documentID: this.documentID,
+          tagName: this.tagName
+        }).then((response) => {
+          this.tags.push(response.body);
+        }).catch(function (error) {
+          bootbox.alert(error.message);
         });
-        // Send the new tag to the server so it can be saved in the database.
+
         this.newTagName = '';
       } else {
         bootbox.alert('A name is needed to create a new tag!');
