@@ -16,10 +16,10 @@ const model = database.sequelize.define('tags', {
 function sync () {
   model.sync({force: false})
     .then(function () {
-      console.log('Synced user table');
+      console.log('Synced tags table');
     })
     .catch(function (error) {
-      console.error('Failed to sync user table: ', error);
+      console.error('Failed to sync tags table: ', error);
     });
 }
 
