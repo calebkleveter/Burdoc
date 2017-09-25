@@ -7,6 +7,8 @@ const database = require('./database');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
+const tag = require('./models/tags');
+const documentTag = require('./models/document-tag');
 
 // Connect to the PostgreSQL database used to store users.
 database.connect();
@@ -16,6 +18,10 @@ user.sync();
 
 // Create a document table in the database if one does not exist yet.
 document.sync();
+
+tag.sync();
+
+documentTag.sync();
 
 const certs = {
   key: fs.readFileSync(`${__dirname}/../secrets/server.key`),
