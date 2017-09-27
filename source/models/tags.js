@@ -4,7 +4,7 @@ const database = require('../database');
 /**
  * The tags model for sequelize.
  */
-const model = database.sequelize.define('tags', {
+const model = database.sequelize.define('tag', {
   name: {
     type: Sequelize.STRING
   }
