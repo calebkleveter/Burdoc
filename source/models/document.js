@@ -77,8 +77,8 @@ function create (userID, name, contents) {
           name: name,
           url: slug(name),
           contents: contents
-        }).then(function (user) {
-          resolve(user);
+        }).then(function (doc) {
+          resolve(doc);
         }).catch(function (error) {
           reject(error);
         });
