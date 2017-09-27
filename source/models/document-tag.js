@@ -4,7 +4,7 @@ const database = require('../database');
 /**
  * The document-tag pivot model for sequelize.
  */
-const model = database.sequelize.define('tags', {
+const model = database.sequelize.define('document_tag', {
   documentID: {
     type: Sequelize.INTEGER
   },
@@ -19,10 +19,10 @@ const model = database.sequelize.define('tags', {
 function sync () {
   model.sync({force: false})
     .then(function () {
-      console.log('Synced user table');
+      console.log('Synced document_tag pivot table');
     })
     .catch(function (error) {
-      console.error('Failed to sync user table: ', error);
+      console.error('Failed to sync document-tag table: ', error);
     });
 }
 
