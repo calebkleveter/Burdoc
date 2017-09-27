@@ -58,9 +58,19 @@ function fetchAllByDocumentID (id) {
   });
 }
 
+function deleteWithDocumentAndTagID(docID, tagID) {
+  return model.destroy({
+    where: {
+      documentID: docID,
+      tagID: tagID
+    }
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
   create: create,
-  fetchAllByDocumentID: fetchAllByDocumentID
+  fetchAllByDocumentID: fetchAllByDocumentID,
+  deleteWithDocumentAndTagID: deleteWithDocumentAndTagID
 };
