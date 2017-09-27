@@ -49,7 +49,7 @@ Vue.component('burdoc-tag-manager', {
         this.tags.splice(index, 1);
       }).catch(function (error) {
         bootbox.alert(error.message);
-      })
+      });
     },
 
     createTag: function () {
@@ -62,7 +62,6 @@ Vue.component('burdoc-tag-manager', {
         }).catch(function (error) {
           bootbox.alert(error.message);
         });
-
         this.newTagName = '';
       } else {
         bootbox.alert('A name is needed to create a new tag!');
