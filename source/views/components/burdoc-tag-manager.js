@@ -71,7 +71,12 @@ Vue.component('burdoc-tag-manager', {
   created: function () {
     Dispatch.$on('tag-manager-started', (data) => {
       this.documentID = data.documentID;
-      this.tags = data.tags;
+
+      if (data.tags) {
+        this.tags = data.tags;
+      } else {
+        this.tags = [];
+      }
     });
   }
 });
