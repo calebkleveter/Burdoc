@@ -43,19 +43,20 @@ Vue.component('burdoc-new-doc-model', {
     createDocument: function () {
       this.isSubmitting = true;
       this.error = '';
-      if (this.documentName != '') {
-        socket.emit('createDocument', {name: this.documentName});
-        socket.on('documentCreated', function (data) {
-          window.location.href = data.url;
-        });
-        socket.on('documentCreationError', function (errorMessage) {
+
+      this.$http.post('/create-document', {
+        name: this.documentName
+      }).then((response) => {
+        if (response.body.error) {
           this.isSubmitting = false;
-          this.error = errorMessage;
-        });
-      } else {
+          bootbox.alert(response.body.error);
+        } else {
+          window.location.href = response.body.url;
+        }
+      }).catch(function (error) {
         this.isSubmitting = false;
-        this.error = 'Pick a name for your new document!';
-      }
+        bootbox.alert(error.message);
+      });
     }
   }
 });
