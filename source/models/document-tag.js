@@ -33,7 +33,16 @@ function create (documentID, tagID) {
         documentID: documentID,
         tagID: tagID
       }
-    }).then(function () {
+    }).then(function (pivot) {
+      if (pivot) {
+        reject(new Error('The document select already has the tag passed in'));
+      } else {
+        return model.create({
+          documentID: documentID,
+          tagID: tagID
+        });
+      }
+    }).then(function (pivot) {
       resolve();
     }).catch(function (error) {
       reject(error);
