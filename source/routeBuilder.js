@@ -8,7 +8,11 @@ function getBody (request, callback) {
     body += data;
   });
   request.on('end', function () {
-    callback(JSON.parse(body));
+    if (body) {
+      callback(JSON.parse(body));
+    } else {
+      callback(undefined);
+    }
   });
 }
 
@@ -129,7 +133,10 @@ module.exports = {
                 this.response.end();
               }
             };
-            handler(handlerArguments);
+            getBody(this.request, function (requestBody) {
+              handlerArguments.body = requestBody;
+              handler(handlerArguments);
+            });
           } else {
             var redirect = !!redirectLocation;
             var option = redirect ? redirectLocation : error;
