@@ -56,7 +56,7 @@ Vue.component('burdoc-tag-manager', {
       if (this.newTagName !== '') {
         this.$http.post('/create-tag', {
           documentID: this.documentID,
-          tagName: this.tagName
+          tagName: this.newTagName
         }).then((response) => {
           this.tags.push(response.body);
         }).catch(function (error) {
