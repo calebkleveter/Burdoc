@@ -147,6 +147,20 @@ ul.dropdown-menu {
   border-bottom-right-radius: 1em;
 }
 
+/* tag manager */
+
+.tag {
+  margin: 0 0.5em 0.5em;
+}
+
+.tag .glyphicon {
+  font-size: 0.75em;
+}
+
+.add-tag {
+  margin-top: 1em;
+}
+
 /*
   EDITOR
 */
