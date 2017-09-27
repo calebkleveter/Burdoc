@@ -86,14 +86,11 @@ Vue.component('burdoc-documents', {
   created: function () {
     this.$http.post('/user-documents').then((response) => {
       this.documents = response.body;
-    }).catch(function (error) {
-      bootbox.alert(error.message);
-    });
-
-    this.$http.get('/document-tags').then((response) => {
+      return this.$http.post('/all-tags');
+    }).then((response) => {
       this.documentTags = response.body;
     }).catch(function (error) {
       bootbox.alert(error.message);
-    })
+    });
   }
 });
