@@ -66,6 +66,9 @@ function userDocuments () {
   });
 }
 
+/**
+ * Creates a route at the path /all-tags to fetch all tags for all the user's documents.
+ */
 function allDocumentTags () {
   route.protected(route.method.post, '/all-tags', function (args) {
     document.fetchAllForUserID(args.user.id).then(function (docs) {
