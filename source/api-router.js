@@ -95,6 +95,9 @@ function allDocumentTags () {
   });
 }
 
+/**
+ * Creates a route at the path /document-tags to get all of a document's tags.
+ */
 function documentTags () {
   route.protected(route.method.post, '/document-tags', function (args) {
     document.findByNameAndUserID(args.body.name, args.user.id).then(function (doc) {
