@@ -19,10 +19,13 @@ user.sync();
 // Create a document table in the database if one does not exist yet.
 document.sync();
 
+// Create a tags table in the database if one does not exist yet.
 tag.sync();
 
+// Create a document-tags pivot table in the database if one does not exist yet.
 documentTag.sync();
 
+// The certificates used for the HTTPS server.
 const certs = {
   key: fs.readFileSync(`${__dirname}/../secrets/server.key`),
   cert: fs.readFileSync(`${__dirname}/../secrets/server.crt`)
@@ -30,7 +33,6 @@ const certs = {
 
 // Create and start the server on port 8080.
 const server = https.createServer(certs, function (request, response) {
-
   // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
 
