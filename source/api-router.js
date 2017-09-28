@@ -117,6 +117,9 @@ function documentTags () {
   });
 }
 
+/**
+ * Creates a route at the path /remove-document-tag to remove a tag from a document.
+ */
 function removeDocumentTag () {
   route.protected(route.method.post, '/remove-document-tag', function (args) {
     documentTag.deleteWithDocumentAndTagID(args.body.documentID, args.body.tagID).then(function () {
