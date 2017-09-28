@@ -130,6 +130,10 @@ function removeDocumentTag () {
   });
 }
 
+/**
+ * Creates a route at the path '/create-tag' to create a new tag for a document.
+ * 
+ */
 function createTag () {
   route.protected(route.method.post, '/create-tag', function (args) {
     var newTag;
