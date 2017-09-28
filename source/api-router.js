@@ -21,6 +21,10 @@ function registerRoutes (request, response) {
   createTag();
 }
 
+/**
+ * Creates a route at the path /create-document to create a new document for the current user,
+ * 
+ */
 function createDocument () {
   route.protected(route.method.post, '/create-document', function (args) {
     document.create(args.user.id, args.body.name, '').then(function (documentModel) {
