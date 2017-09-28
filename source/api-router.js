@@ -1,11 +1,18 @@
 const route = require('./routeBuilder');
-const authentication = require('./authentication');
-const user = require('./models/user');
 const document = require('./models/document');
 const documentTag = require('./models/document-tag');
 const tag = require('./models/tags');
 
-function registerRoutes () {
+/**
+ * Register the routes with the server's request and response.
+ * 
+ * @param {http.IncomingMessage} request: The request passed into the `.createServer` callback.
+ * @param {http.ServerResponse} response: The response passed into the `.createServer` callback.
+ */
+function registerRoutes (request, response) {
+  if (request && response) {
+    route.setRequestAndResponse(request, response);
+  }
   createDocument();
   userDocuments();
   documentTags();
