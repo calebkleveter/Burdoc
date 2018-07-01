@@ -18,7 +18,11 @@
         <div id="login">
           <burdoc-login-form submittext="Login"></burdoc-login-form>
         </div>
-        <!-- HACK: This causes the fontawesome font to get fetched on the /login GET request instead of the POST request, because the fontawsome GET request causes the POST reponse to end, preventing headers from getting set on the /login POST request. -->
+        <!-- 
+          HACK: This causes the fontawesome font to get fetched on the /login GET request 
+          instead of the POST request, because the fontawsome GET request causes the POST reponse to end, 
+          preventing headers from getting set on the /login POST request. 
+        -->
         <i class="fa fa-floppy-o" aria-hidden="true" style="color: white"></i>
       </div>
       <div class="col-sm-2 col-xs-2"></div>
