@@ -1,4 +1,4 @@
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const sockets = require('./sockets');
 const router = require('./router');
@@ -16,13 +16,8 @@ user.sync();
 // Create a document table in the database if one does not exist yet.
 document.sync();
 
-const certs = {
-  key: fs.readFileSync(`${__dirname}/../secrets/server.key`),
-  cert: fs.readFileSync(`${__dirname}/../secrets/server.crt`)
-};
-
 // Create and start the server on port 8080.
-const server = https.createServer(certs, function (request, response) {
+const server = http.createServer(function (request, response) {
 
   // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
