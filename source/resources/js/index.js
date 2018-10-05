@@ -1,5 +1,7 @@
-window.Dispatch = new Vue();
+import Vue from './vue.js';
+import BurdocHeader from '../../views/components/burdoc-header.vue';
 
 new Vue({
-  el: "#app"
+  el: "#app",
+  components: { BurdocHeader }
 });
