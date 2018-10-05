@@ -13,12 +13,14 @@ module.exports = {
   },
   externals: [nodeExternals()],
   entry: {
-    'main.js': './source/main.js'
+    'main.js': './source/main.js',
+    'js/index.js': './source/resources/js/index.js'
   },
   output: {
     path: `${__dirname}/dist`,
     filename: '[name]',
-    libraryTarget: 'commonjs2'
+    library: 'App',
+    libraryTarget: 'var'
   },
   module: {
     rules: [
@@ -26,7 +28,9 @@ module.exports = {
         test: /\.vue$/,
         use: {
           loader: 'vue-loader',
-          options: {}
+          options: {
+            optimizeSSR: false
+          }
         }
       },
       {
@@ -59,7 +63,7 @@ module.exports = {
     // new DashboardPlugin(),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
-      { from: 'source/views', to: 'views' },
+//      { from: 'source/views', to: 'views' },
       { from: 'source/resources/images', to: 'images' },
       { from: 'source/resources/fonts', to: 'fonts' }
     ]),
@@ -69,25 +73,6 @@ module.exports = {
           'source/resources/css/bootstrap.min.css',
           'source/resources/css/font-awesome.min.css',
           'source/resources/css/main.css'
-        ],
-        'js/index.js': [
-          'source/resources/js/jquery-3.2.1.min.js',
-          'source/resources/js/bootstrap.min.js',
-          'source/resources/js/vue.js',
-          'source/resources/js/showdown.min.js',
-          'source/resources/js/bootbox.min.js',
-          'source/resources/js/jsPDF.min.js',
-          'source/resources/js/html2canvas.js',
-          'source/resources/js/html2pdf.js',
-          'source/resources/js/vue-resource.js',
-          // 'source/views/components/burdoc-header.js',
-          // 'source/views/components/burdoc-signup-form.js',
-          // 'source/views/components/burdoc-login-form.js',
-          // 'source/views/components/burdoc-new-doc-model.js',
-          // 'source/views/components/burdoc-rename-doc-model.js',
-          // 'source/views/components/burdoc-documents.js',
-          // 'source/views/components/burdoc-doc-editor.js',
-          // 'source/resources/js/index.js'
         ]
       }
     })
