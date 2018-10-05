@@ -1,10 +1,14 @@
 const route = require('./routeBuilder');
-const view = require('./view');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
 
-import home from "./views/home.html";
+import home from './views/home.html';
+import about from './views/about.html';
+import login from './views/login.html';
+import signup from './views/signup.html';
+import dashboard from './views/dashboard.html'
+import editor from './views/editor.html';
 
 export default {
   /**
@@ -44,7 +48,7 @@ export default {
    */
   about: function () {
     route.get('/about', function () {
-      return view.get('about');
+      return about;
     });
   },
 
@@ -53,7 +57,7 @@ export default {
    */
   login: function () {
     route.get('/login', function () {
-      return view.get('login');
+      return login;
     });
   },
 
@@ -65,10 +69,10 @@ export default {
     route.post('/login', function (data, finish) {
       user.authenticate(data.username, data.password).then(function (model) {
         authentication.setAuthHeader(model);
-        finish(view.get('login'));
+        finish(login);
       }).catch(function (error) {
         authentication.response.setHeader('Auth-Error', error.message);
-        finish(view.get('login'));
+        finish(login);
       });
     });
   },
@@ -78,7 +82,7 @@ export default {
    */
   signup: function () {
     route.get('/signup', function () {
-      return view.get('signup');
+      return signup;
     });
   },
 
@@ -90,10 +94,10 @@ export default {
     route.post('/signup', function (data, finish) {
       user.create(data.username, data.email, data.password).then(function (model) {
         authentication.setAuthHeader(model);
-        finish(view.get('signup'));
+        finish(signup);
       }).catch(function (error) {
         authentication.response.setHeader('Auth-Error', error.message);
-        finish(view.get('signup'));
+        finish(signup);
       });
     });
   },
@@ -103,7 +107,7 @@ export default {
    */
   dashboard: function () {
     route.protected(route.method.get, '/dashboard', function (args) {
-      args.finish(view.get('dashboard'));
+      args.finish(dashboard);
     }, '/login');
   },
 
@@ -125,7 +129,7 @@ export default {
     route.protected(route.method.get, /\/document\/[\w]+\/.+/, function (args) {
       var user = args.request.url.split('/')[2];
       if (args.user.name === user) {
-        args.finish(view.get('editor'));
+        args.finish(editor);
       } else {
         args.response.statusCode = 303;
         args.response.setHeader('location', '/dashboard');
