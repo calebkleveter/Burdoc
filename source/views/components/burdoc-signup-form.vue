@@ -35,6 +35,9 @@ export default {
       error: ''
     };
   },
+  props: {
+    submittext: String
+  },
   methods: {
     signup: function () {
       this.isSubmitting = true;
