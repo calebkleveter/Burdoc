@@ -23,13 +23,16 @@
 
 <script>
 export default {
-      data: function () {
+  data: function () {
     return {
       isSubmitting: false,
       username: '',
       password: '',
       error: ''
     };
+  },
+  props: {
+      submittext: String
   },
   methods: {
     login: function () {
