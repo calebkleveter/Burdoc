@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const Merge = require('webpack-merge-and-include-globally');
 
 module.exports = {
@@ -20,24 +21,34 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            ['env', {
-              'targets': {
-                'node': 'current'
-              }
-            }]
-          ]
+    rules: [
+      {
+        test: /\.vue$/,
+        use: {
+          loader: 'vue-loader',
+          options: {}
+        }
+      },
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['env', {
+                'targets': {
+                  'node': 'current'
+                }
+              }]
+            ]
+          }
         }
       }
-    }]
+    ]
   },
   plugins: [
     // new DashboardPlugin(),
+    new VueLoaderPlugin(),
     new CopyWebpackPlugin([
       { from: 'source/views', to: 'views' },
       { from: 'source/resources/images', to: 'images' },
