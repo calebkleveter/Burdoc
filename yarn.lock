@@ -1576,6 +1576,10 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.1"
     event-emitter "~0.3.5"
 
+es6-promisify@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/es6-promisify/-/es6-promisify-6.0.0.tgz#b526a75eaa5ca600e960bf3d5ad98c40d75c7203"
+
 es6-set@~0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/es6-set/-/es6-set-0.1.5.tgz#d2b3ec5d4d800ced818db538d28974db0a73ccb1"
@@ -4344,6 +4348,13 @@ webpack-dashboard@^1.0.0-4:
     most "^1.6.1"
     socket.io "^1.4.8"
     socket.io-client "^1.4.8"
+
+webpack-merge-and-include-globally@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/webpack-merge-and-include-globally/-/webpack-merge-and-include-globally-2.0.11.tgz#6f98a728015aa3230b36cd91f80069246f538160"
+  dependencies:
+    es6-promisify "^6.0.0"
+    glob "^7.1.2"
 
 webpack-node-externals@^1.7.2:
   version "1.7.2"
