@@ -60,13 +60,13 @@ module.exports = {
           'source/resources/js/html2canvas.js',
           'source/resources/js/html2pdf.js',
           'source/resources/js/vue-resource.js',
-          'source/resources/js/burdoc-header.js',
-          'source/resources/js/burdoc-signup-form.js',
-          'source/resources/js/burdoc-login-form.js',
-          'source/resources/js/burdoc-new-doc-model.js',
-          'source/resources/js/burdoc-rename-doc-model.js',
-          'source/resources/js/burdoc-documents.js',
-          'source/resources/js/burdoc-doc-editor.js',
+          'source/views/components/burdoc-header.js',
+          'source/views/components/burdoc-signup-form.js',
+          'source/views/components/burdoc-login-form.js',
+          'source/views/components/burdoc-new-doc-model.js',
+          'source/views/components/burdoc-rename-doc-model.js',
+          'source/views/components/burdoc-documents.js',
+          'source/views/components/burdoc-doc-editor.js',
           'source/resources/js/index.js'
         ]
       }
