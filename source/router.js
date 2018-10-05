@@ -4,7 +4,9 @@ const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
 
-module.exports = {
+import home from "./views/home.html";
+
+export default {
   /**
    * Registers the router's routes with a request and response.
    *
@@ -33,7 +35,7 @@ module.exports = {
    */
   home: function () {
     route.get('/', function () {
-      return view.get('home');
+      return home;
     });
   },
 

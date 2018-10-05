@@ -1,11 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 const sockets = require('./sockets');
-const router = require('./router');
 const database = require('./database');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
+
+import router from './router'
 
 // Connect to the PostgreSQL database used to store users.
 database.connect();
