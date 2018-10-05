@@ -43,6 +43,15 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src']
+          }
+        }
       }
     ]
   },
@@ -71,14 +80,14 @@ module.exports = {
           'source/resources/js/html2canvas.js',
           'source/resources/js/html2pdf.js',
           'source/resources/js/vue-resource.js',
-          'source/views/components/burdoc-header.js',
-          'source/views/components/burdoc-signup-form.js',
-          'source/views/components/burdoc-login-form.js',
-          'source/views/components/burdoc-new-doc-model.js',
-          'source/views/components/burdoc-rename-doc-model.js',
-          'source/views/components/burdoc-documents.js',
-          'source/views/components/burdoc-doc-editor.js',
-          'source/resources/js/index.js'
+          // 'source/views/components/burdoc-header.js',
+          // 'source/views/components/burdoc-signup-form.js',
+          // 'source/views/components/burdoc-login-form.js',
+          // 'source/views/components/burdoc-new-doc-model.js',
+          // 'source/views/components/burdoc-rename-doc-model.js',
+          // 'source/views/components/burdoc-documents.js',
+          // 'source/views/components/burdoc-doc-editor.js',
+          // 'source/resources/js/index.js'
         ]
       }
     })
