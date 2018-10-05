@@ -1,3 +1,5 @@
 secrets/
 dist/
 node_modules/
+ssl.crt
+ssl.key
