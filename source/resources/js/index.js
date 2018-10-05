@@ -4,8 +4,16 @@ import BurdocRenameDocModel from '../../views/components/burdoc-rename-doc-model
 import BurdocNewDocModel from '../../views/components/burdoc-new-doc-model.vue';
 import BurdocLoginForm from '../../views/components/burdoc-login-form.vue'
 import BurdocDocuments from '../../views/components/burdoc-documents.vue';
+import BurdocDocEditor from '../../views/components/burdoc-doc-editor.vue';
 
 new Vue({
   el: "#app",
-  components: { BurdocHeader, BurdocRenameDocModel, BurdocNewDocModel, BurdocLoginForm, BurdocDocuments }
+  components: { 
+    BurdocHeader,
+    BurdocRenameDocModel,
+    BurdocNewDocModel,
+    BurdocLoginForm, 
+    BurdocDocuments, 
+    BurdocDocEditor 
+  }
 });
