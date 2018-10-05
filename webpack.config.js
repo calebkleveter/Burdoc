@@ -63,7 +63,6 @@ module.exports = {
     // new DashboardPlugin(),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
-//      { from: 'source/views', to: 'views' },
       { from: 'source/resources/images', to: 'images' },
       { from: 'source/resources/fonts', to: 'fonts' }
     ]),
