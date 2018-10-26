@@ -2,19 +2,71 @@
 
 A Markdown editor for the cloud.
 
-## Development
+## Setup
 
-Make sure you have PostgreSQL installed and you have it running. Then create a database called `burdoc` with no password:
+### Install Homebrew
+
+```bash
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+### Install Nginx
+
+```bash
+brew install nginx
+```
+
+### Install OpenSSL
+
+```bash
+brew install openssl
+```
+
+### Install PostgreSQL
+
+```bash
+brew install postgres
+postgres -D /usr/local/var/postgres
+```
+
+### Create PostgreSQL Database
 
 ```bash
 createdb burdoc
 ```
 
-Then clone down the repo, `cd` into the directory, and run `npm install` and `npm run build`:
+### Clone Project
 
 ```bash
 git clone git@github.com:calebkleveter/Burdoc.git
 cd Burdoc/
+```
+
+### Create SSL Certificates
+
+```bash
+openssl req \
+-newkey rsa:2048 \
+-nodes \
+-keyout ssl.key \
+-x509 \
+-reqexts SAN \
+-extensions SAN \
+-config <(cat /etc/ssl/openssl.cnf \
+<(printf '[SAN]\nsubjectAltName=DNS:burdoc.caleb,IP:127.0.0.1')) \
+-days 365 \
+-out ssl.crt
+```
+
+### Start Nginx
+
+```bash
+nginx -c $(pwd)/nginx.conf
+```
+
+### Build App
+
+```bash
 npm install
 npm run build
 ```
