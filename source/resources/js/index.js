@@ -7,6 +7,12 @@ import BurdocSignupForm from '../../views/components/burdoc-signup-form.vue';
 import BurdocDocuments from '../../views/components/burdoc-documents.vue';
 import BurdocDocEditor from '../../views/components/burdoc-doc-editor.vue';
 
+import JQuery from '../../resources/js/jquery-3.2.1.min.js';
+
+Vue.prototype.$ = JQuery;
+
+window.Dispatch = new Vue();
+
 new Vue({
   el: "#app",
   components: { 
