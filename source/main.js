@@ -25,11 +25,8 @@ const server = http.createServer(function (request, response) {
   // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
 
-  // Register all web routes with the server.
-  webRouter.registerRoutes(request, response);
-
   // Register all API routes with the server.
-  apiRouter.registerRoutes();
+  router.registerRoutes(request, response);
 }).listen(8080);
 
 // Register the socket with the server instance.
