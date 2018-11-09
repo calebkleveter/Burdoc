@@ -5,6 +5,8 @@ const database = require('./database');
 const authentication = require('./authentication');
 const user = require('./models/user');
 const document = require('./models/document');
+const tag = require('./models/tags');
+const documentTag = require('./models/document-tag');
 
 import router from './router'
 
@@ -23,8 +25,11 @@ const server = http.createServer(function (request, response) {
   // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
 
-  // Register all routes with the server
-  router.registerRoutes(request, response);
+  // Register all web routes with the server.
+  webRouter.registerRoutes(request, response);
+
+  // Register all API routes with the server.
+  apiRouter.registerRoutes();
 }).listen(8080);
 
 // Register the socket with the server instance.

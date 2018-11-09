@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const slug = require('slug');
 const database = require('../database');
+const documentTag = require('./document-tag');
+const tag = require('./tags');
 
 /**
  * The model definition for Sequelize.
@@ -75,8 +77,8 @@ function create (userID, name, contents) {
           name: name,
           url: slug(name),
           contents: contents
-        }).then(function (user) {
-          resolve(user);
+        }).then(function (doc) {
+          resolve(doc);
         }).catch(function (error) {
           reject(error);
         });
@@ -232,6 +234,27 @@ function fetchAllForUserID (userID) {
   });
 }
 
+function fetchTagsForID (id) {
+  return new Promise(function (resolve, reject) {
+    documentTag.fetchAllByDocumentID(id).then(function (pivots) {
+      var tagFetchers = pivots.map(function (pivot) {
+        return tag.fetchByID(pivot.tagID);
+      });
+      return Promise.all(tagFetchers);
+    }).then(function (models) {
+      var tags = models.map(function (model) {
+        return model[0];
+      });
+      resolve({
+        documentID: id,
+        tags: tags
+      });
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
+}
+
 module.exports = {
   model: model,
   sync: sync,
@@ -243,5 +266,6 @@ module.exports = {
   updateNameForNameAndUserID: updateNameForNameAndUserID,
   delete: deleteByNameAndUserID,
   deleteWithID: deleteWithID,
-  fetchAllForUserID: fetchAllForUserID
+  fetchAllForUserID: fetchAllForUserID,
+  fetchTagsForID: fetchTagsForID
 };

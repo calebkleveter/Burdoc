@@ -10,6 +10,10 @@
             <a @click="rename(document)">Rename</a>
           </li>
           <li>
+            <a @click="manageTags(document)">Manage Tags</a>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li>
             <a @click="destroy(document)">Delete</a>
           </li>
         </ul>
@@ -33,6 +37,7 @@ export default {
      data: function () {
     return {
       documents: [],
+      documentTags: {},
       messageClass: '',
       noDocumentsMessage: 'You Don\'t Have Any Documents',
       shouldRedirect: true
@@ -53,6 +58,14 @@ export default {
       this.shouldRedirect = false;
       $('#rename-document').modal('show');
       Dispatch.$emit('rename-model-started', doc);
+    },
+    manageTags: function (doc) {
+      this.shouldRedirect = false;
+      $('#tag-manager-modal').modal('show');
+      Dispatch.$emit('tag-manager-started', {
+        documentID: doc.id,
+        tags: this.documentTags[doc.id]
+      });
     },
     destroy: function (doc) {
       this.shouldRedirect = false;
@@ -75,6 +88,9 @@ export default {
   created: function () {
     this.$http.post('/user-documents').then((response) => {
       this.documents = response.body;
+      return this.$http.post('/all-tags');
+    }).then((response) => {
+      this.documentTags = response.body;
     }).catch(function (error) {
       bootbox.alert(error.message);
     });
