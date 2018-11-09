@@ -13,11 +13,11 @@ import router from './router'
 // Connect to the PostgreSQL database used to store users.
 database.connect();
 
-// Create a user table in the database if one does not exist yet.
+// Create database tables if they don't exist yet.
 user.sync();
-
-// Create a document table in the database if one does not exist yet.
 document.sync();
+tag.sync();
+documentTag.sync();
 
 // Create and start the server on port 8080.
 const server = http.createServer(function (request, response) {
