@@ -52,6 +52,14 @@ var routeFound = false;
 module.exports = {
 
   /**
+   * Extracts the cookies from a request as an object.
+   * 
+   * @param {http.IncomingMessage} request: The request to get the cookies from
+   * @returns {Object}: An object where the key is the name of the cookie and the value is the value of the cookie.
+   */
+  parseCookies: parseCookies,
+
+  /**
    * An object containing all existing HTTP methods.
    */
   method: method,
