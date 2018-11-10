@@ -46,18 +46,22 @@ export default {
 
   /**
    * Verifies a JWT token from the current request.
-   * 
-   * @param {User} user: The user to verify the JWT token against
    */
-  verify: function (user) {
+  verify: function (redirect = '/login') {
     var token = builder.parseCookies(this.request)[this.cookie];
-    var payload = jwt.verify(token, this.public, {
-      algorithms: ['RS256']
-    });
-    if (user.id !== payload.id) {
-      this.fail('Failed to verify user. Please login', '/login')
+    if (!token) {
+      this.fail('You must authenticate to access this route', redirect);
+      return;
     }
-    return payload;
+
+    try {
+      var payload = jwt.verify(token, this.public, {
+        algorithms: ['RS256']
+      });
+      return payload;
+    } catch (error) {
+      this.fail(error, redirect);
+    }
   },
 
   /**
