@@ -1,6 +1,6 @@
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
-import builder from 'routeBuilder';
+import builder from './routeBuilder';
 
 export default {
 

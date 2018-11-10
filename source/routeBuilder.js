@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import authentication from 'authentication';
+import authentication from './authentication';
 
 function getBody (request, callback) {
   var body = '';
