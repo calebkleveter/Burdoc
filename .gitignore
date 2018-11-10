@@ -3,3 +3,5 @@ dist/
 node_modules/
 ssl.crt
 ssl.key
+rsa_private.pem
+rsa_public.pem
