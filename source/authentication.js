@@ -1,17 +1,23 @@
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
+import fs from 'fs';
+import jwt from 'jsonwebtoken';
+import builder from 'routeBuilder';
 
-var authentication = {
-
-  /**
-   * The name of the header that is used for authentication
-   */
-  headerName: '',
+export default {
 
   /**
-   * The key to use when varifying against a JWT.
+   * The RSA private key used to sign new JWT tokens when a user signs in.
    */
-  key: '',
+  private: fs.readFileSync('rsa_private.pem'),
+
+  /**
+   * The RSA public ket used to verify incoming JWT tokens.
+   */
+  public: fs.readFileSync('rsa_public.pem'),
+
+  /**
+   * The name of the cookie that the session JWT token is stored in.
+   */
+  cookie: 'burdoc-session',
 
   /**
    * Sets the request and response that the authentication middleware will connect to.
@@ -29,11 +35,29 @@ var authentication = {
    * 
    * @param {User} user: The user for the current session.
    */
-  setAuthHeader: function (user) {
-    this.headerName = crypto.randomBytes(16).toString('hex');
-    this.key = crypto.randomBytes(16).toString('hex');
-    var token = jwt.sign({id: user.id, email: user.email, name: user.name}, this.key);
-    this.response.setHeader('Set-Cookie', `${this.headerName}=${token}; Secure; HttpOnly;`);
+  authenticate: function (user) {
+    var token = jwt.sign(
+      {id: user.id, email: user.email, name: user.name}, 
+      this.private, 
+      {algorithm: 'RS256'}
+    );
+    this.response.setHeader('Set-Cookie', `${this.cookie}=${token}; Secure; HttpOnly;`);
+  },
+
+  /**
+   * Verifies a JWT token from the current request.
+   * 
+   * @param {User} user: The user to verify the JWT token against
+   */
+  verify: function (user) {
+    var token = builder.parseCookies(this.request)[this.cookie];
+    var payload = jwt.verify(token, this.public, {
+      algorithms: ['RS256']
+    });
+    if (user.id !== payload.id) {
+      this.fail('Failed to verify user. Please login', '/login')
+    }
+    return payload;
   },
 
   /**
@@ -68,5 +92,3 @@ var authentication = {
     this.response.end();
   }
 };
-
-module.exports = authentication;
