@@ -1,14 +1,12 @@
-const http = require('http');
-const fs = require('fs');
-const sockets = require('./sockets');
-const database = require('./database');
-const authentication = require('./authentication');
-const user = require('./models/user');
-const document = require('./models/document');
-const tag = require('./models/tags');
-const documentTag = require('./models/document-tag');
-
-import router from './router'
+import http from 'http';
+import sockets from './sockets';
+import database from './database';
+import authentication from './authentication';
+import user from './models/user';
+import document from './models/document';
+import tag from './models/tags';
+import documentTag from './models/document-tag';
+import router from './router';
 
 // Connect to the PostgreSQL database used to store users.
 database.connect();
@@ -21,7 +19,6 @@ documentTag.sync();
 
 // Create and start the server on port 8080.
 const server = http.createServer(function (request, response) {
-
   // Configure authentication with the server.
   authentication.setRequestAndResponse(request, response);
 
