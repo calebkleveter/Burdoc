@@ -1,6 +1,5 @@
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
-const authentication = require('./authentication');
+import jwt from 'jsonwebtoken';
+import authentication from 'authentication';
 
 function getBody (request, callback) {
   var body = '';
@@ -53,7 +52,7 @@ module.exports = {
 
   /**
    * Extracts the cookies from a request as an object.
-   * 
+   *
    * @param {http.IncomingMessage} request: The request to get the cookies from
    * @returns {Object}: An object where the key is the name of the cookie and the value is the value of the cookie.
    */
@@ -106,7 +105,7 @@ module.exports = {
 
   /**
    * Creates a route that is protected by a JWT.
-   * 
+   *
    * @param {method} method The HTTP method that the request must match.
    * @param {string} url The URL that the request must match.
    * @param {handler} handler A function that is called if the request matches the method and URL.
@@ -183,5 +182,19 @@ module.exports = {
         });
       });
     }
+  },
+
+  /**
+   * Verifies the incoming request. If authentication fails,
+   * redirect information is written to the response and the response is closed.
+   * If authentication succeeds, the next method in the call chain will be executed.
+   *
+   * @param {string} redirect: The path to redirect to if authentication fails.
+   * @returns {routeBuilder}: A route builder so route handlers can be chained to the authentication call.
+   */
+  guard: function (redirect) {
+    authentication.setRequestAndResponse(this.request, this.response);
+    authentication.verify(redirect);
+    return this;
   }
 };
