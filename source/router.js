@@ -103,9 +103,9 @@ export default {
    * The route for the /dashboard path, which sends the dashboard.html view to the reponse.
    */
   dashboard: function () {
-    route.protected(route.method.get, '/dashboard', function (args) {
-      args.finish(dashboard);
-    }, '/login');
+    route.guard().get('/dashboard', function () {
+      return dashboard;
+    });
   },
 
   /**
@@ -123,16 +123,16 @@ export default {
    * A route for any /document/.../... path.
    */
   editor: function () {
-    route.protected(route.method.get, /\/document\/[\w]+\/.+/, function (args) {
-      var user = args.request.url.split('/')[2];
-      if (args.user.name === user) {
-        args.finish(editor);
+    route.guard('/dashboard').get(/\/document\/[\w]+\/.+/, function () {
+      var user = this.request.url.split('/')[2];
+      if (this.request.payload.name === user) {
+        return editor;
       } else {
-        args.response.statusCode = 303;
-        args.response.setHeader('location', '/dashboard');
-        args.response.setHeader('Auth-Error', 'You need to be logged in as a collaborator for this document to view it.');
-        args.finish();
+        this.response.statusCode = 303;
+        this.response.setHeader('location', '/dashboard');
+        this.response.setHeader('Auth-Error', 'You need to be logged in as a collaborator for this document to view it.');
+        this.response.end();
       }
-    }, '/dashboard');
+    });
   }
 };
