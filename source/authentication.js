@@ -21,7 +21,7 @@ export default {
 
   /**
    * Sets the request and response that the authentication middleware will connect to.
-   * 
+   *
    * @param {http.IncomingMessage} request: The request sent by the client that the middleware will connect to.
    * @param {http.ServerResponse} response: The response from the server to the client that the middleware will connect to.
    */
@@ -32,13 +32,13 @@ export default {
 
   /**
    * Sets an authentication header to the response from a user..
-   * 
+   *
    * @param {User} user: The user for the current session.
    */
   authenticate: function (user) {
     var token = jwt.sign(
-      {id: user.id, email: user.email, name: user.name}, 
-      this.private, 
+      {id: user.id, email: user.email, name: user.name},
+      this.private,
       {algorithm: 'RS256'}
     );
     this.response.setHeader('Set-Cookie', `${this.cookie}=${token}; Secure; HttpOnly;`);
@@ -77,7 +77,7 @@ export default {
 
   /**
    * Fail an attempted authentication or accessing a protected route by redirecting or returning a message.
-   * 
+   *
    * @param {string} option The error message that will be returned in JSON or the route to redirect to.
    * @param {bool=} redirect If true, we redirect, otherwise we display an error. This value defaults to false.
    */
