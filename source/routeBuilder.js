@@ -194,7 +194,8 @@ module.exports = {
    */
   guard: function (redirect) {
     authentication.setRequestAndResponse(this.request, this.response);
-    authentication.verify(redirect);
+    var payload = authentication.verify(redirect);
+    this.request.payload = payload;
     return this;
   }
 };
