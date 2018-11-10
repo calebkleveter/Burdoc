@@ -1,12 +1,12 @@
-const route = require('./routeBuilder');
-const authentication = require('./authentication');
-const user = require('./models/user');
+import route from './routeBuilder';
+import authentication from './authentication';
+import user from './models/user';
 
 import home from './views/home.html';
 import about from './views/about.html';
 import login from './views/login.html';
 import signup from './views/signup.html';
-import dashboard from './views/dashboard.html'
+import dashboard from './views/dashboard.html';
 import editor from './views/editor.html';
 
 export default {
@@ -84,7 +84,7 @@ export default {
   },
 
   /**
-   * The route for the /signup path on a POST request. 
+   * The route for the /signup path on a POST request.
    * A user is created from the data from the request body and is then authenticated.
    */
   signupPost: function () {
